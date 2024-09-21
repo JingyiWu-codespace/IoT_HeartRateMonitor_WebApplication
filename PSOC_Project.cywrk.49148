@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+<v>PSOC_Project\PSOC_PPG\TopDesign</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\Pins</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\Analog</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\DMA</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\Clocks</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\Interrupts</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\System</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.cydwr\Directives</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\ARM GCC Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\ARM GCC Generic\cy8c6xx7_cm0plus.ld</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\ARM IAR Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\ARM IAR Generic\cy8c6xx7_cm0plus.icf</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\ARM MDK Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\ARM MDK Generic\cy8c6xx7_cm0plus.scat</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Header Files</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\ARM GCC Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\ARM GCC Generic\startup_psoc6_01_cm0plus.S</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\ARM IAR Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\ARM IAR Generic\startup_psoc6_01_cm0plus.s</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\ARM MDK Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\ARM MDK Generic\startup_psoc6_01_cm0plus.s</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\main_cm0p.c</v>
+<v>PSOC_Project\PSOC_PPG\CM0p (Core 0)\Source Files\system_psoc6_cm0plus.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\ARM GCC Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\ARM GCC Generic\cy8c6xx7_cm4_dual.ld</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\ARM IAR Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\ARM IAR Generic\cy8c6xx7_cm4_dual.icf</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\ARM MDK Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\ARM MDK Generic\cy8c6xx7_cm4_dual.scat</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Header Files</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\AD5273BRJZ1</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\AD5273BRJZ1\AD5273.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\AD5273BRJZ1\AD5273.h</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\ARM GCC Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\ARM GCC Generic\startup_psoc6_01_cm4.S</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\ARM IAR Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\ARM IAR Generic\startup_psoc6_01_cm4.s</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\ARM MDK Generic</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\ARM MDK Generic\startup_psoc6_01_cm4.s</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\HR_SPO2</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\HR_SPO2\heartRate.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\HR_SPO2\heartRate.h</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\HR_SPO2\spo2_algorithm.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\HR_SPO2\spo2_algorithm.h</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\MAX30105</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\MAX30105\MAX30105.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\MAX30105\MAX30105.h</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\MILLIS</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\MILLIS\milliseconds.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\MILLIS\milliseconds.h</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\utils</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\utils\utils.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\utils\utils.h</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\main_cm4.c</v>
+<v>PSOC_Project\PSOC_PPG\CM4 (Core 1)\Source Files\system_psoc6_cm4.c</v>
+<v>PSOC_Project\PSOC_PPG\Shared Files</v>
+<v>PSOC_Project\PSOC_PPG\Shared Files\cy_ble_config.h</v>
+<v>PSOC_Project\PSOC_PPG\Shared Files\cyapicallbacks.h</v>
+<v>PSOC_Project\PSOC_PPG\Shared Files\system_psoc6.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Pins and Interrupts</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Timer</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf_SCBCLK</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_Project\PSOC_PPG\Generated_Source</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\pdl</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE_bas_config.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE_config.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE_config.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE_custom_config.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE_dis_config.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\BLE\BLE_hrs_config.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Clock_1ms</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\I2C_BUS</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\I2C_BUS_SCBCLK</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Pins and Interrupts</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Pins and Interrupts\cyfitter_gpio.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Pins and Interrupts\cyfitter_sysint.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Pins and Interrupts\cyfitter_sysint_cfg.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Pins and Interrupts\cyfitter_sysint_cfg.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Timer</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Timer\Timer.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Timer\Timer.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf\Uart_Printf.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf\Uart_Printf.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf_SCBCLK</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\Uart_Printf_SCBCLK\Uart_Printf_SCBCLK.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cycodeshareexport.ld</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cycodeshareimport.ld</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cycodeshareimport.scat</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cydevice_trm.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cydevicegnu_trm.inc</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cydeviceiar_trm.inc</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cydevicerv_trm.inc</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cydisabledsheets.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cyfitter.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cyfitter_cfg.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cyfitter_cfg.h</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\cymetadata.c</v>
+<v>PSOC_Project\PSOC_PPG\Generated_Source\PSoC6\project.h</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+<v>PSOC_Project\PSOC_PPG\TopDesign</v>
+<v>PSOC_Project\PSOC_PPG\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+<v>PSOC_Project\PSOC_PPG\TopDesign</v>
+<v>PSOC_Project\PSOC_PPG\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_bas_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_custom_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_dis_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\BLE_hrs_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_aios.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ancs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ans.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bas.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bcs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bls.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bms.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_bts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cgms.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_clk.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cscs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_cts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_custom.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_dis.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ess.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_event_handler.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_gap.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_gatt.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_gls.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_hal_int.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_hal_pvt.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_hids.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_hps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_hrs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_hts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ias.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ips.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_lls.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_lns.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_ndcs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_pass.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_plxs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_rscs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_rtus.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_scps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_tps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_uds.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_wpts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ble_wss.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_device.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_efuse.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_flash.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_gpio.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ipc_drv.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ipc_pipe.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_ipc_sema.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_lvd.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_profile.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_prot.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_common.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_ezi2c.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_i2c.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_spi.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_scb_uart.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_sysanalog.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_sysclk.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_sysint.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_syslib.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_syslib_gcc.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_syspm.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_systick.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_tcpwm_counter.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_tcpwm_pwm.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_tcpwm_quaddec.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_trigmux.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_wdt.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cyfitter_sysint_cfg.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\I2C_BUS.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\main_cm0p.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\startup_psoc6_01_cm0plus.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\system_psoc6_cm0plus.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\Timer.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\Listing Files\Uart_Printf.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\PSOC_PPG.elf</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\PSOC_PPG.hex</v>
+<v>PSOC_Project\PSOC_PPG\CortexM0p\ARM_GCC_541\Debug\PSOC_PPG.map</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\AD5273.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\BLE.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\BLE_bas_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\BLE_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\BLE_custom_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\BLE_dis_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\BLE_hrs_config.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_aios.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_ancs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_ans.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_bas.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_bcs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_bls.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_bms.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_bts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_cgms.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_clk.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_cps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_cscs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_cts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_custom.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_dis.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_ess.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_event_handler.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_gap.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_gatt.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_gls.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_hal_int.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_hal_pvt.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_hids.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_hps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_hrs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_hts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_ias.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_ips.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_lls.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_lns.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_ndcs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_pass.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_plxs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_rscs.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_rtus.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_scps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_tps.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_uds.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_wpts.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ble_wss.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_device.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_efuse.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_flash.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_gpio.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ipc_drv.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ipc_pipe.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_ipc_sema.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_lvd.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_profile.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_prot.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_common.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_ezi2c.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_i2c.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_spi.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_scb_uart.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_sysanalog.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_sysclk.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_sysint.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_syslib.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_syslib_gcc.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_syspm.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_systick.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_tcpwm_counter.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_tcpwm_pwm.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_tcpwm_quaddec.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_trigmux.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cy_wdt.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cyfitter_sysint_cfg.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\heartRate.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\I2C_BUS.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\main_cm4.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\MAX30105.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\milliseconds.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\spo2_algorithm.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\startup_psoc6_01_cm4.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\system_psoc6_cm4.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\Timer.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\Uart_Printf.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\Listing Files\utils.lst</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\PSOC_PPG.elf</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\PSOC_PPG.hex</v>
+<v>PSOC_Project\PSOC_PPG\CortexM4\ARM_GCC_541\Debug\PSOC_PPG.map</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.gpdsc</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG.rpt</v>
+<v>PSOC_Project\PSOC_PPG\PSOC_PPG_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+<v>PSOC_Project\PSOC_PPG\PSoC 6 Architecture TRM</v>
+<v>PSOC_Project\PSOC_PPG\PSoC 63 Family Datasheet</v>
+<v>PSOC_Project\PSOC_PPG\Peripheral Driver Library</v>
+<v>PSOC_Project\PSOC_PPG\System Reference Guides</v>
+<v>PSOC_Project\PSOC_PPG\BLE_PDL_v2_20.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SCB_I2C_PDL_v2_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SCB_UART_PDL_v2_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SysClk_PDL_v1_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SysInt_PDL_v1_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\TCPWM_Counter_PDL_v1_0.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>PSOC_Project</v>
+<v>PSOC_Project\PSOC_PPG</v>
+<v>PSOC_Project\PSOC_PPG\PSoC 6 Architecture TRM</v>
+<v>PSOC_Project\PSOC_PPG\PSoC 63 Family Datasheet</v>
+<v>PSOC_Project\PSOC_PPG\Peripheral Driver Library</v>
+<v>PSOC_Project\PSOC_PPG\System Reference Guides</v>
+<v>PSOC_Project\PSOC_PPG\BLE_PDL_v2_20.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SCB_I2C_PDL_v2_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SCB_UART_PDL_v2_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SysClk_PDL_v1_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\SysInt_PDL_v1_0.pdf</v>
+<v>PSOC_Project\PSOC_PPG\TCPWM_Counter_PDL_v1_0.pdf</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\PSOC_PPG.cydsn\PSOC_PPG.cydwr" />
+<name v=".\PSOC_PPG.cydsn\TopDesign\TopDesign.cysch" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1228, 583" SelectedTabbedMdiWindow="b84fe160-9a10-49c5-baf0-320361e31575"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="623a79dc-e979-4ba4-8a46-d432f20ca945" /><DocumentWindow Key="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\PSOC_PPG.cydwr" Guid="c9f54a2f-b8dc-4cc6-b073-9b7f1ce17dd1" /><DocumentWindow Key="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\TopDesign\TopDesign.cysch" Guid="b84fe160-9a10-49c5-baf0-320361e31575" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

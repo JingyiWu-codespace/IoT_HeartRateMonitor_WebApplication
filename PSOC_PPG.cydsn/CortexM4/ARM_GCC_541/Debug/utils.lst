@@ -1,0 +1,643 @@
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"utils.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.section	.text.HandleError,"ax",%progbits
+  21              		.align	2
+  22              		.global	HandleError
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	HandleError, %function
+  26              	HandleError:
+  27              	.LFB102:
+  28              		.file 1 "utils.c"
+   1:utils.c       **** /**
+   2:utils.c       ****  *   @file    utils.c
+   3:utils.c       ****  *   @author  Vlad-Eusebiu Baciu
+   4:utils.c       ****  *   @brief   Utils library
+   5:utils.c       ****  *   @details Includes common functions, macros for all the
+   6:utils.c       ****  *            custom libraries.
+   7:utils.c       ****  *            
+   8:utils.c       ****  */
+   9:utils.c       **** 
+  10:utils.c       **** /*=================================================================================================
+  11:utils.c       ****  *
+  12:utils.c       ****  * Copyright Vrije Universiteit Brussel, 2021
+  13:utils.c       ****  * All Rights Reserved
+  14:utils.c       ****  * UNPUBLISHED, LICENSED SOFTWARE.
+  15:utils.c       ****  *
+  16:utils.c       ****  *  ==============================================================================================*
+  17:utils.c       **** 
+  18:utils.c       **** 
+  19:utils.c       **** /*=================================================================================================
+  20:utils.c       ****  *                                        INCLUDE FILES
+  21:utils.c       ****  * 1) system and project includes
+  22:utils.c       ****  * 2) needed interfaces from external units
+  23:utils.c       ****  * 3) internal and external interfaces from this unit
+  24:utils.c       ****  *  ==============================================================================================*
+  25:utils.c       **** 
+  26:utils.c       **** #include "utils.h"
+  27:utils.c       **** #include <cmsis_gcc.h>
+  28:utils.c       **** 
+  29:utils.c       **** /*=================================================================================================
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 2
+
+
+  30:utils.c       ****  *                          LOCAL TYPEDEFS (STRUCTURES, UNIONS, ENUMS)
+  31:utils.c       ****  *  ==============================================================================================*
+  32:utils.c       **** 
+  33:utils.c       **** 
+  34:utils.c       **** /*=================================================================================================
+  35:utils.c       ****  *                                       LOCAL MACROS
+  36:utils.c       ****  *  ==============================================================================================*
+  37:utils.c       **** 
+  38:utils.c       **** 
+  39:utils.c       **** /*=================================================================================================
+  40:utils.c       ****  *                                      LOCAL CONSTANTS
+  41:utils.c       ****  *  ==============================================================================================*
+  42:utils.c       **** 
+  43:utils.c       **** 
+  44:utils.c       **** /*=================================================================================================
+  45:utils.c       ****  *                                      LOCAL VARIABLES
+  46:utils.c       ****  *  ==============================================================================================*
+  47:utils.c       **** 
+  48:utils.c       **** 
+  49:utils.c       **** 
+  50:utils.c       **** /*=================================================================================================
+  51:utils.c       ****  *                                      GLOBAL CONSTANTS
+  52:utils.c       ****  *  ==============================================================================================*
+  53:utils.c       **** 
+  54:utils.c       **** 
+  55:utils.c       **** /*=================================================================================================
+  56:utils.c       ****  *                                      GLOBAL VARIABLES
+  57:utils.c       ****  *  ==============================================================================================*
+  58:utils.c       **** 
+  59:utils.c       **** /*=================================================================================================
+  60:utils.c       ****  *                                   LOCAL FUNCTION PROTOTYPES
+  61:utils.c       ****  *  ==============================================================================================*
+  62:utils.c       **** 
+  63:utils.c       **** /*=================================================================================================
+  64:utils.c       ****  *                                   GLOBAL FUNCTION PROTOTYPES
+  65:utils.c       ****  *  ==============================================================================================*
+  66:utils.c       **** 
+  67:utils.c       **** /*=================================================================================================
+  68:utils.c       ****  *                                       LOCAL FUNCTIONS
+  69:utils.c       ****  *  ==============================================================================================*
+  70:utils.c       **** 
+  71:utils.c       **** 
+  72:utils.c       **** /*=================================================================================================
+  73:utils.c       ****  *                                       GLOBAL FUNCTIONS
+  74:utils.c       ****  *  ==============================================================================================*
+  75:utils.c       **** 
+  76:utils.c       **** /***************************************************************************
+  77:utils.c       ****  * Function: HandleError    
+  78:utils.c       ****  *
+  79:utils.c       ****  * Description: Disable IRQ and enter an infinite loop.
+  80:utils.c       ****  **************************************************************************/
+  81:utils.c       **** void HandleError(void)
+  82:utils.c       **** {   
+  29              		.loc 1 82 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 3
+
+
+  33              		@ link register save eliminated.
+  34 0000 80B4     		push	{r7}
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 7, -4
+  37 0002 00AF     		add	r7, sp, #0
+  38              		.cfi_def_cfa_register 7
+  39              	.LBB4:
+  40              	.LBB5:
+  41              		.file 2 "Generated_Source\\PSoC6\\pdl\\cmsis/include/cmsis_gcc.h"
+   1:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /**************************************************************************//**
+   2:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * @version  V5.0.3
+   5:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * @date     16. January 2018
+   6:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  ******************************************************************************/
+   7:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /*
+   8:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * Copyright (c) 2009-2017 ARM Limited. All rights reserved.
+   9:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  *
+  10:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  *
+  12:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  *
+  16:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  *
+  18:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  * limitations under the License.
+  23:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  */
+  24:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+  25:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+  28:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+  34:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef __has_builtin
+  36:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  38:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+  39:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __ASM
+  41:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  43:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __INLINE
+  44:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __INLINE                               inline
+  45:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  46:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 4
+
+
+  49:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif                                           
+  52:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  55:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __USED
+  56:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  58:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __WEAK
+  59:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  61:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __PACKED
+  62:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  64:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  67:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  70:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  78:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  86:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+  94:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+ 102:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ 103:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 5
+
+
+ 106:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+ 110:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+ 113:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** #endif
+ 116:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+ 117:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+ 118:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   @{
+ 122:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  */
+ 123:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+ 124:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /**
+ 125:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  */
+ 129:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** {
+ 131:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** }
+ 133:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+ 134:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** 
+ 135:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** /**
+ 136:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****  */
+ 140:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 141:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h **** {
+ 142:Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+  42              		.loc 2 142 0
+  43              		.syntax unified
+  44              	@ 142 "Generated_Source\PSoC6\pdl\cmsis/include/cmsis_gcc.h" 1
+  45 0004 72B6     		cpsid i
+  46              	@ 0 "" 2
+  47              		.thumb
+  48              		.syntax unified
+  49              	.L2:
+  50              	.LBE5:
+  51              	.LBE4:
+  83:utils.c       ****      /* Disable all interrupts. */
+  84:utils.c       ****     __disable_irq();
+  85:utils.c       ****     
+  86:utils.c       ****     /* Infinite loop. */
+  87:utils.c       ****     while(1u) {}
+  52              		.loc 1 87 0 discriminator 1
+  53 0006 FEE7     		b	.L2
+  54              		.cfi_endproc
+  55              	.LFE102:
+  56              		.size	HandleError, .-HandleError
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 6
+
+
+  57              		.text
+  58              	.Letext0:
+  59              		.section	.debug_info,"",%progbits
+  60              	.Ldebug_info0:
+  61 0000 B4000000 		.4byte	0xb4
+  62 0004 0400     		.2byte	0x4
+  63 0006 00000000 		.4byte	.Ldebug_abbrev0
+  64 000a 04       		.byte	0x4
+  65 000b 01       		.uleb128 0x1
+  66 000c EA000000 		.4byte	.LASF14
+  67 0010 0C       		.byte	0xc
+  68 0011 1B000000 		.4byte	.LASF15
+  69 0015 23000000 		.4byte	.LASF16
+  70 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  71 001d 00000000 		.4byte	0
+  72 0021 00000000 		.4byte	.Ldebug_line0
+  73 0025 02       		.uleb128 0x2
+  74 0026 01       		.byte	0x1
+  75 0027 06       		.byte	0x6
+  76 0028 D2000000 		.4byte	.LASF0
+  77 002c 02       		.uleb128 0x2
+  78 002d 01       		.byte	0x1
+  79 002e 08       		.byte	0x8
+  80 002f 8E000000 		.4byte	.LASF1
+  81 0033 02       		.uleb128 0x2
+  82 0034 02       		.byte	0x2
+  83 0035 05       		.byte	0x5
+  84 0036 9D010000 		.4byte	.LASF2
+  85 003a 02       		.uleb128 0x2
+  86 003b 02       		.byte	0x2
+  87 003c 07       		.byte	0x7
+  88 003d BF000000 		.4byte	.LASF3
+  89 0041 02       		.uleb128 0x2
+  90 0042 04       		.byte	0x4
+  91 0043 05       		.byte	0x5
+  92 0044 AF000000 		.4byte	.LASF4
+  93 0048 02       		.uleb128 0x2
+  94 0049 04       		.byte	0x4
+  95 004a 07       		.byte	0x7
+  96 004b 5F000000 		.4byte	.LASF5
+  97 004f 02       		.uleb128 0x2
+  98 0050 08       		.byte	0x8
+  99 0051 05       		.byte	0x5
+ 100 0052 00000000 		.4byte	.LASF6
+ 101 0056 02       		.uleb128 0x2
+ 102 0057 08       		.byte	0x8
+ 103 0058 07       		.byte	0x7
+ 104 0059 71000000 		.4byte	.LASF7
+ 105 005d 03       		.uleb128 0x3
+ 106 005e 04       		.byte	0x4
+ 107 005f 05       		.byte	0x5
+ 108 0060 696E7400 		.ascii	"int\000"
+ 109 0064 02       		.uleb128 0x2
+ 110 0065 04       		.byte	0x4
+ 111 0066 07       		.byte	0x7
+ 112 0067 0E000000 		.4byte	.LASF8
+ 113 006b 02       		.uleb128 0x2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 7
+
+
+ 114 006c 08       		.byte	0x8
+ 115 006d 04       		.byte	0x4
+ 116 006e DE000000 		.4byte	.LASF9
+ 117 0072 02       		.uleb128 0x2
+ 118 0073 04       		.byte	0x4
+ 119 0074 07       		.byte	0x7
+ 120 0075 B3010000 		.4byte	.LASF10
+ 121 0079 02       		.uleb128 0x2
+ 122 007a 01       		.byte	0x1
+ 123 007b 08       		.byte	0x8
+ 124 007c 9C000000 		.4byte	.LASF11
+ 125 0080 02       		.uleb128 0x2
+ 126 0081 08       		.byte	0x8
+ 127 0082 04       		.byte	0x4
+ 128 0083 B8000000 		.4byte	.LASF12
+ 129 0087 02       		.uleb128 0x2
+ 130 0088 04       		.byte	0x4
+ 131 0089 04       		.byte	0x4
+ 132 008a 88000000 		.4byte	.LASF13
+ 133 008e 04       		.uleb128 0x4
+ 134 008f A1000000 		.4byte	.LASF17
+ 135 0093 02       		.byte	0x2
+ 136 0094 8C       		.byte	0x8c
+ 137 0095 03       		.byte	0x3
+ 138 0096 05       		.uleb128 0x5
+ 139 0097 A7010000 		.4byte	.LASF18
+ 140 009b 01       		.byte	0x1
+ 141 009c 51       		.byte	0x51
+ 142 009d 00000000 		.4byte	.LFB102
+ 143 00a1 08000000 		.4byte	.LFE102-.LFB102
+ 144 00a5 01       		.uleb128 0x1
+ 145 00a6 9C       		.byte	0x9c
+ 146 00a7 06       		.uleb128 0x6
+ 147 00a8 8E000000 		.4byte	0x8e
+ 148 00ac 04000000 		.4byte	.LBB4
+ 149 00b0 02000000 		.4byte	.LBE4-.LBB4
+ 150 00b4 01       		.byte	0x1
+ 151 00b5 54       		.byte	0x54
+ 152 00b6 00       		.byte	0
+ 153 00b7 00       		.byte	0
+ 154              		.section	.debug_abbrev,"",%progbits
+ 155              	.Ldebug_abbrev0:
+ 156 0000 01       		.uleb128 0x1
+ 157 0001 11       		.uleb128 0x11
+ 158 0002 01       		.byte	0x1
+ 159 0003 25       		.uleb128 0x25
+ 160 0004 0E       		.uleb128 0xe
+ 161 0005 13       		.uleb128 0x13
+ 162 0006 0B       		.uleb128 0xb
+ 163 0007 03       		.uleb128 0x3
+ 164 0008 0E       		.uleb128 0xe
+ 165 0009 1B       		.uleb128 0x1b
+ 166 000a 0E       		.uleb128 0xe
+ 167 000b 55       		.uleb128 0x55
+ 168 000c 17       		.uleb128 0x17
+ 169 000d 11       		.uleb128 0x11
+ 170 000e 01       		.uleb128 0x1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 8
+
+
+ 171 000f 10       		.uleb128 0x10
+ 172 0010 17       		.uleb128 0x17
+ 173 0011 00       		.byte	0
+ 174 0012 00       		.byte	0
+ 175 0013 02       		.uleb128 0x2
+ 176 0014 24       		.uleb128 0x24
+ 177 0015 00       		.byte	0
+ 178 0016 0B       		.uleb128 0xb
+ 179 0017 0B       		.uleb128 0xb
+ 180 0018 3E       		.uleb128 0x3e
+ 181 0019 0B       		.uleb128 0xb
+ 182 001a 03       		.uleb128 0x3
+ 183 001b 0E       		.uleb128 0xe
+ 184 001c 00       		.byte	0
+ 185 001d 00       		.byte	0
+ 186 001e 03       		.uleb128 0x3
+ 187 001f 24       		.uleb128 0x24
+ 188 0020 00       		.byte	0
+ 189 0021 0B       		.uleb128 0xb
+ 190 0022 0B       		.uleb128 0xb
+ 191 0023 3E       		.uleb128 0x3e
+ 192 0024 0B       		.uleb128 0xb
+ 193 0025 03       		.uleb128 0x3
+ 194 0026 08       		.uleb128 0x8
+ 195 0027 00       		.byte	0
+ 196 0028 00       		.byte	0
+ 197 0029 04       		.uleb128 0x4
+ 198 002a 2E       		.uleb128 0x2e
+ 199 002b 00       		.byte	0
+ 200 002c 03       		.uleb128 0x3
+ 201 002d 0E       		.uleb128 0xe
+ 202 002e 3A       		.uleb128 0x3a
+ 203 002f 0B       		.uleb128 0xb
+ 204 0030 3B       		.uleb128 0x3b
+ 205 0031 0B       		.uleb128 0xb
+ 206 0032 27       		.uleb128 0x27
+ 207 0033 19       		.uleb128 0x19
+ 208 0034 20       		.uleb128 0x20
+ 209 0035 0B       		.uleb128 0xb
+ 210 0036 00       		.byte	0
+ 211 0037 00       		.byte	0
+ 212 0038 05       		.uleb128 0x5
+ 213 0039 2E       		.uleb128 0x2e
+ 214 003a 01       		.byte	0x1
+ 215 003b 3F       		.uleb128 0x3f
+ 216 003c 19       		.uleb128 0x19
+ 217 003d 03       		.uleb128 0x3
+ 218 003e 0E       		.uleb128 0xe
+ 219 003f 3A       		.uleb128 0x3a
+ 220 0040 0B       		.uleb128 0xb
+ 221 0041 3B       		.uleb128 0x3b
+ 222 0042 0B       		.uleb128 0xb
+ 223 0043 27       		.uleb128 0x27
+ 224 0044 19       		.uleb128 0x19
+ 225 0045 11       		.uleb128 0x11
+ 226 0046 01       		.uleb128 0x1
+ 227 0047 12       		.uleb128 0x12
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 9
+
+
+ 228 0048 06       		.uleb128 0x6
+ 229 0049 40       		.uleb128 0x40
+ 230 004a 18       		.uleb128 0x18
+ 231 004b 9742     		.uleb128 0x2117
+ 232 004d 19       		.uleb128 0x19
+ 233 004e 00       		.byte	0
+ 234 004f 00       		.byte	0
+ 235 0050 06       		.uleb128 0x6
+ 236 0051 1D       		.uleb128 0x1d
+ 237 0052 00       		.byte	0
+ 238 0053 31       		.uleb128 0x31
+ 239 0054 13       		.uleb128 0x13
+ 240 0055 11       		.uleb128 0x11
+ 241 0056 01       		.uleb128 0x1
+ 242 0057 12       		.uleb128 0x12
+ 243 0058 06       		.uleb128 0x6
+ 244 0059 58       		.uleb128 0x58
+ 245 005a 0B       		.uleb128 0xb
+ 246 005b 59       		.uleb128 0x59
+ 247 005c 0B       		.uleb128 0xb
+ 248 005d 00       		.byte	0
+ 249 005e 00       		.byte	0
+ 250 005f 00       		.byte	0
+ 251              		.section	.debug_aranges,"",%progbits
+ 252 0000 1C000000 		.4byte	0x1c
+ 253 0004 0200     		.2byte	0x2
+ 254 0006 00000000 		.4byte	.Ldebug_info0
+ 255 000a 04       		.byte	0x4
+ 256 000b 00       		.byte	0
+ 257 000c 0000     		.2byte	0
+ 258 000e 0000     		.2byte	0
+ 259 0010 00000000 		.4byte	.LFB102
+ 260 0014 08000000 		.4byte	.LFE102-.LFB102
+ 261 0018 00000000 		.4byte	0
+ 262 001c 00000000 		.4byte	0
+ 263              		.section	.debug_ranges,"",%progbits
+ 264              	.Ldebug_ranges0:
+ 265 0000 00000000 		.4byte	.LFB102
+ 266 0004 08000000 		.4byte	.LFE102
+ 267 0008 00000000 		.4byte	0
+ 268 000c 00000000 		.4byte	0
+ 269              		.section	.debug_line,"",%progbits
+ 270              	.Ldebug_line0:
+ 271 0000 7A000000 		.section	.debug_str,"MS",%progbits,1
+ 271      02005600 
+ 271      00000201 
+ 271      FB0E0D00 
+ 271      01010101 
+ 272              	.LASF6:
+ 273 0000 6C6F6E67 		.ascii	"long long int\000"
+ 273      206C6F6E 
+ 273      6720696E 
+ 273      7400
+ 274              	.LASF8:
+ 275 000e 756E7369 		.ascii	"unsigned int\000"
+ 275      676E6564 
+ 275      20696E74 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 10
+
+
+ 275      00
+ 276              	.LASF15:
+ 277 001b 7574696C 		.ascii	"utils.c\000"
+ 277      732E6300 
+ 278              	.LASF16:
+ 279 0023 443A5C50 		.ascii	"D:\\PSOC_Jingyi\\HeartRateProject\\PSOC_Project\\PS"
+ 279      534F435F 
+ 279      4A696E67 
+ 279      79695C48 
+ 279      65617274 
+ 280 0052 4F435F50 		.ascii	"OC_PPG.cydsn\000"
+ 280      50472E63 
+ 280      7964736E 
+ 280      00
+ 281              	.LASF5:
+ 282 005f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 282      20756E73 
+ 282      69676E65 
+ 282      6420696E 
+ 282      7400
+ 283              	.LASF7:
+ 284 0071 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 284      206C6F6E 
+ 284      6720756E 
+ 284      7369676E 
+ 284      65642069 
+ 285              	.LASF13:
+ 286 0088 666C6F61 		.ascii	"float\000"
+ 286      7400
+ 287              	.LASF1:
+ 288 008e 756E7369 		.ascii	"unsigned char\000"
+ 288      676E6564 
+ 288      20636861 
+ 288      7200
+ 289              	.LASF11:
+ 290 009c 63686172 		.ascii	"char\000"
+ 290      00
+ 291              	.LASF17:
+ 292 00a1 5F5F6469 		.ascii	"__disable_irq\000"
+ 292      7361626C 
+ 292      655F6972 
+ 292      7100
+ 293              	.LASF4:
+ 294 00af 6C6F6E67 		.ascii	"long int\000"
+ 294      20696E74 
+ 294      00
+ 295              	.LASF12:
+ 296 00b8 646F7562 		.ascii	"double\000"
+ 296      6C6500
+ 297              	.LASF3:
+ 298 00bf 73686F72 		.ascii	"short unsigned int\000"
+ 298      7420756E 
+ 298      7369676E 
+ 298      65642069 
+ 298      6E7400
+ 299              	.LASF0:
+ 300 00d2 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccKe0x5G.s 			page 11
+
+
+ 300      65642063 
+ 300      68617200 
+ 301              	.LASF9:
+ 302 00de 6C6F6E67 		.ascii	"long double\000"
+ 302      20646F75 
+ 302      626C6500 
+ 303              	.LASF14:
+ 304 00ea 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 304      43313120 
+ 304      352E342E 
+ 304      31203230 
+ 304      31363036 
+ 305 011d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 305      20726576 
+ 305      6973696F 
+ 305      6E203233 
+ 305      37373135 
+ 306 0150 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -O0 -ffunction-s"
+ 306      70202D6D 
+ 306      6670753D 
+ 306      66707634 
+ 306      2D73702D 
+ 307 0183 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 307      6F6E7320 
+ 307      2D666661 
+ 307      742D6C74 
+ 307      6F2D6F62 
+ 308              	.LASF2:
+ 309 019d 73686F72 		.ascii	"short int\000"
+ 309      7420696E 
+ 309      7400
+ 310              	.LASF18:
+ 311 01a7 48616E64 		.ascii	"HandleError\000"
+ 311      6C654572 
+ 311      726F7200 
+ 312              	.LASF10:
+ 313 01b3 73697A65 		.ascii	"sizetype\000"
+ 313      74797065 
+ 313      00
+ 314              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,2776 @@
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"driver_max30102_fifo.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.bss
+  21              		.align	2
+  22              	gs_handle:
+  23 0000 00000000 		.space	228
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  24              		.section	.text.max30102_fifo_irq_handler,"ax",%progbits
+  25              		.align	2
+  26              		.global	max30102_fifo_irq_handler
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	max30102_fifo_irq_handler, %function
+  30              	max30102_fifo_irq_handler:
+  31              	.LFB1:
+  32              		.file 1 "..\\..\\..\\..\\PSoC6_101\\Sensor\\driver_max30102_fifo.c"
+   1:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** /**
+   2:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * Copyright (c) 2015 - present LibDriver All rights reserved
+   3:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * 
+   4:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * The MIT License (MIT)
+   5:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *
+   6:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   7:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * of this software and associated documentation files (the "Software"), to deal
+   8:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * in the Software without restriction, including without limitation the rights
+   9:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  10:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * copies of the Software, and to permit persons to whom the Software is
+  11:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * furnished to do so, subject to the following conditions:
+  12:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *
+  13:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * The above copyright notice and this permission notice shall be included in all
+  14:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * copies or substantial portions of the Software.
+  15:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *
+  16:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  17:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  18:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  19:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  20:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  21:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 2
+
+
+  22:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * SOFTWARE. 
+  23:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *
+  24:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @file      driver_max30102_fifo.c
+  25:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @brief     driver max30102 fifo source file
+  26:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @version   1.0.0
+  27:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @author    Shifeng Li
+  28:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @date      2021-11-13
+  29:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *
+  30:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * <h3>history</h3>
+  31:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * <table>
+  32:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * <tr><th>Date        <th>Version  <th>Author      <th>Description
+  33:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * <tr><td>2021/11/13  <td>1.0      <td>Shifeng Li  <td>first upload
+  34:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * </table>
+  35:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  */
+  36:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** 
+  37:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** #include "driver_max30102_fifo.h"
+  38:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** 
+  39:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** static max30102_handle_t gs_handle;        /**< max30102 handle */
+  40:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** 
+  41:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** /**
+  42:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @brief  fifo example irq handler
+  43:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @return status code
+  44:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *         - 0 success
+  45:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *         - 1 run failed
+  46:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @note   none
+  47:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  */
+  48:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** uint8_t max30102_fifo_irq_handler(void)
+  49:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** {
+  33              		.loc 1 49 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 00AF     		add	r7, sp, #0
+  42              		.cfi_def_cfa_register 7
+  50:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* run irq handler */
+  51:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (max30102_irq_handler(&gs_handle) != 0)
+  43              		.loc 1 51 0
+  44 0004 0548     		ldr	r0, .L4
+  45 0006 FFF7FEFF 		bl	max30102_irq_handler
+  46 000a 0346     		mov	r3, r0
+  47 000c 002B     		cmp	r3, #0
+  48 000e 01D0     		beq	.L2
+  52:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+  53:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+  49              		.loc 1 53 0
+  50 0010 0123     		movs	r3, #1
+  51 0012 00E0     		b	.L3
+  52              	.L2:
+  54:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+  55:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     else
+  56:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+  57:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 0;
+  53              		.loc 1 57 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 3
+
+
+  54 0014 0023     		movs	r3, #0
+  55              	.L3:
+  58:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+  59:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** }
+  56              		.loc 1 59 0
+  57 0016 1846     		mov	r0, r3
+  58 0018 80BD     		pop	{r7, pc}
+  59              	.L5:
+  60 001a 00BF     		.align	2
+  61              	.L4:
+  62 001c 00000000 		.word	gs_handle
+  63              		.cfi_endproc
+  64              	.LFE1:
+  65              		.size	max30102_fifo_irq_handler, .-max30102_fifo_irq_handler
+  66              		.section	.rodata
+  67              		.align	2
+  68              	.LC0:
+  69 0000 6D617833 		.ascii	"max30102: init failed.\012\000"
+  69      30313032 
+  69      3A20696E 
+  69      69742066 
+  69      61696C65 
+  70              		.align	2
+  71              	.LC1:
+  72 0018 6D617833 		.ascii	"max30102: set shutdown failed.\012\000"
+  72      30313032 
+  72      3A207365 
+  72      74207368 
+  72      7574646F 
+  73              		.align	2
+  74              	.LC2:
+  75 0038 6D617833 		.ascii	"max30102: set fifo sample averaging failed.\012\000"
+  75      30313032 
+  75      3A207365 
+  75      74206669 
+  75      666F2073 
+  76 0065 000000   		.align	2
+  77              	.LC3:
+  78 0068 6D617833 		.ascii	"max30102: set fifo roll failed.\012\000"
+  78      30313032 
+  78      3A207365 
+  78      74206669 
+  78      666F2072 
+  79 0089 000000   		.align	2
+  80              	.LC4:
+  81 008c 6D617833 		.ascii	"max30102: set fifo almost full failed.\012\000"
+  81      30313032 
+  81      3A207365 
+  81      74206669 
+  81      666F2061 
+  82              		.align	2
+  83              	.LC5:
+  84 00b4 6D617833 		.ascii	"max30102: set mode failed.\012\000"
+  84      30313032 
+  84      3A207365 
+  84      74206D6F 
+  84      64652066 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 4
+
+
+  85              		.align	2
+  86              	.LC6:
+  87 00d0 6D617833 		.ascii	"max30102: set spo2 adc range failed.\012\000"
+  87      30313032 
+  87      3A207365 
+  87      74207370 
+  87      6F322061 
+  88 00f6 0000     		.align	2
+  89              	.LC7:
+  90 00f8 6D617833 		.ascii	"max30102: set spo2 sample rate failed.\012\000"
+  90      30313032 
+  90      3A207365 
+  90      74207370 
+  90      6F322073 
+  91              		.align	2
+  92              	.LC8:
+  93 0120 6D617833 		.ascii	"max30102: set adc resolution failed.\012\000"
+  93      30313032 
+  93      3A207365 
+  93      74206164 
+  93      63207265 
+  94 0146 0000     		.align	2
+  95              	.LC9:
+  96 0148 6D617833 		.ascii	"max30102: set led red pulse amplitude failed.\012\000"
+  96      30313032 
+  96      3A207365 
+  96      74206C65 
+  96      64207265 
+  97 0177 00       		.align	2
+  98              	.LC10:
+  99 0178 6D617833 		.ascii	"max30102: set led ir pulse amplitude failed.\012\000"
+  99      30313032 
+  99      3A207365 
+  99      74206C65 
+  99      64206972 
+ 100 01a6 0000     		.align	2
+ 101              	.LC11:
+ 102 01a8 6D617833 		.ascii	"max30102: set slot failed.\012\000"
+ 102      30313032 
+ 102      3A207365 
+ 102      7420736C 
+ 102      6F742066 
+ 103              		.align	2
+ 104              	.LC12:
+ 105 01c4 6D617833 		.ascii	"max30102: set die temperature failed.\012\000"
+ 105      30313032 
+ 105      3A207365 
+ 105      74206469 
+ 105      65207465 
+ 106 01eb 00       		.align	2
+ 107              	.LC13:
+ 108 01ec 6D617833 		.ascii	"max30102: set interrupt failed.\012\000"
+ 108      30313032 
+ 108      3A207365 
+ 108      7420696E 
+ 108      74657272 
+ 109 020d 000000   		.align	2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 5
+
+
+ 110              	.LC14:
+ 111 0210 6D617833 		.ascii	"max30102: get interrupt status failed.\012\000"
+ 111      30313032 
+ 111      3A206765 
+ 111      7420696E 
+ 111      74657272 
+ 112              		.section	.text.max30102_fifo_init,"ax",%progbits
+ 113              		.align	2
+ 114              		.global	max30102_fifo_init
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.type	max30102_fifo_init, %function
+ 118              	max30102_fifo_init:
+ 119              	.LFB2:
+  60:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** 
+  61:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** /**
+  62:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @brief     fifo example init
+  63:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @param[in] *fifo_receive_callback points to a fifo receive callback
+  64:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @return    status code
+  65:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *            - 0 success
+  66:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *            - 1 init failed
+  67:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @note      none
+  68:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  */
+  69:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** uint8_t max30102_fifo_init(void (*fifo_receive_callback)(uint8_t type))
+  70:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** {
+ 120              		.loc 1 70 0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 16
+ 123              		@ frame_needed = 1, uses_anonymous_args = 0
+ 124 0000 80B5     		push	{r7, lr}
+ 125              		.cfi_def_cfa_offset 8
+ 126              		.cfi_offset 7, -8
+ 127              		.cfi_offset 14, -4
+ 128 0002 84B0     		sub	sp, sp, #16
+ 129              		.cfi_def_cfa_offset 24
+ 130 0004 00AF     		add	r7, sp, #0
+ 131              		.cfi_def_cfa_register 7
+ 132 0006 7860     		str	r0, [r7, #4]
+  71:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     uint8_t res;
+  72:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     max30102_bool_t enable;
+  73:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+  74:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* link interface function */
+  75:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_INIT(&gs_handle, max30102_handle_t);
+ 133              		.loc 1 75 0
+ 134 0008 E422     		movs	r2, #228
+ 135 000a 0021     		movs	r1, #0
+ 136 000c AE48     		ldr	r0, .L31
+ 137 000e FFF7FEFF 		bl	memset
+  76:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_IIC_INIT(&gs_handle, max30102_interface_iic_init);
+ 138              		.loc 1 76 0
+ 139 0012 AD4B     		ldr	r3, .L31
+ 140 0014 AD4A     		ldr	r2, .L31+4
+ 141 0016 1A60     		str	r2, [r3]
+  77:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_IIC_DEINIT(&gs_handle, max30102_interface_iic_deinit);
+ 142              		.loc 1 77 0
+ 143 0018 AB4B     		ldr	r3, .L31
+ 144 001a AD4A     		ldr	r2, .L31+8
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 6
+
+
+ 145 001c 5A60     		str	r2, [r3, #4]
+  78:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_IIC_READ(&gs_handle, max30102_interface_iic_read);
+ 146              		.loc 1 78 0
+ 147 001e AA4B     		ldr	r3, .L31
+ 148 0020 AC4A     		ldr	r2, .L31+12
+ 149 0022 9A60     		str	r2, [r3, #8]
+  79:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_IIC_WRITE(&gs_handle, max30102_interface_iic_write);
+ 150              		.loc 1 79 0
+ 151 0024 A84B     		ldr	r3, .L31
+ 152 0026 AC4A     		ldr	r2, .L31+16
+ 153 0028 DA60     		str	r2, [r3, #12]
+  80:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_DELAY_MS(&gs_handle, max30102_interface_delay_ms);
+ 154              		.loc 1 80 0
+ 155 002a A74B     		ldr	r3, .L31
+ 156 002c AB4A     		ldr	r2, .L31+20
+ 157 002e 5A61     		str	r2, [r3, #20]
+  81:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_DEBUG_PRINT(&gs_handle, max30102_interface_debug_print);
+ 158              		.loc 1 81 0
+ 159 0030 A54B     		ldr	r3, .L31
+ 160 0032 AB4A     		ldr	r2, .L31+24
+ 161 0034 9A61     		str	r2, [r3, #24]
+  82:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     DRIVER_MAX30102_LINK_RECEIVE_CALLBACK(&gs_handle, fifo_receive_callback);
+ 162              		.loc 1 82 0
+ 163 0036 A44A     		ldr	r2, .L31
+ 164 0038 7B68     		ldr	r3, [r7, #4]
+ 165 003a 1361     		str	r3, [r2, #16]
+  83:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+  84:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* init the max30102 */
+  85:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_init(&gs_handle);
+ 166              		.loc 1 85 0
+ 167 003c A248     		ldr	r0, .L31
+ 168 003e FFF7FEFF 		bl	max30102_init
+ 169 0042 0346     		mov	r3, r0
+ 170 0044 FB73     		strb	r3, [r7, #15]
+  86:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 171              		.loc 1 86 0
+ 172 0046 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 173 0048 002B     		cmp	r3, #0
+ 174 004a 04D0     		beq	.L7
+  87:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+  88:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: init failed.\n");
+ 175              		.loc 1 88 0
+ 176 004c A548     		ldr	r0, .L31+28
+ 177 004e FFF7FEFF 		bl	max30102_interface_debug_print
+  89:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+  90:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 178              		.loc 1 90 0
+ 179 0052 0123     		movs	r3, #1
+ 180 0054 9AE1     		b	.L30
+ 181              	.L7:
+  91:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+  92:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+  93:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* enable shutdown */
+  94:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_shutdown(&gs_handle, MAX30102_BOOL_TRUE);
+ 182              		.loc 1 94 0
+ 183 0056 0121     		movs	r1, #1
+ 184 0058 9B48     		ldr	r0, .L31
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 7
+
+
+ 185 005a FFF7FEFF 		bl	max30102_set_shutdown
+ 186 005e 0346     		mov	r3, r0
+ 187 0060 FB73     		strb	r3, [r7, #15]
+  95:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 188              		.loc 1 95 0
+ 189 0062 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 190 0064 002B     		cmp	r3, #0
+ 191 0066 07D0     		beq	.L9
+  96:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+  97:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set shutdown failed.\n");
+ 192              		.loc 1 97 0
+ 193 0068 9F48     		ldr	r0, .L31+32
+ 194 006a FFF7FEFF 		bl	max30102_interface_debug_print
+  98:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 195              		.loc 1 98 0
+ 196 006e 9648     		ldr	r0, .L31
+ 197 0070 FFF7FEFF 		bl	max30102_deinit
+  99:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 100:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 198              		.loc 1 100 0
+ 199 0074 0123     		movs	r3, #1
+ 200 0076 89E1     		b	.L30
+ 201              	.L9:
+ 101:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 102:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 103:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set fifo sample averaging */
+ 104:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_fifo_sample_averaging(&gs_handle, MAX30102_FIFO_DEFAULT_SAMPLE_AVERAGING);
+ 202              		.loc 1 104 0
+ 203 0078 0321     		movs	r1, #3
+ 204 007a 9348     		ldr	r0, .L31
+ 205 007c FFF7FEFF 		bl	max30102_set_fifo_sample_averaging
+ 206 0080 0346     		mov	r3, r0
+ 207 0082 FB73     		strb	r3, [r7, #15]
+ 105:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 208              		.loc 1 105 0
+ 209 0084 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 210 0086 002B     		cmp	r3, #0
+ 211 0088 07D0     		beq	.L10
+ 106:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 107:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set fifo sample averaging failed.\n");
+ 212              		.loc 1 107 0
+ 213 008a 9848     		ldr	r0, .L31+36
+ 214 008c FFF7FEFF 		bl	max30102_interface_debug_print
+ 108:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 215              		.loc 1 108 0
+ 216 0090 8D48     		ldr	r0, .L31
+ 217 0092 FFF7FEFF 		bl	max30102_deinit
+ 109:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 110:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 218              		.loc 1 110 0
+ 219 0096 0123     		movs	r3, #1
+ 220 0098 78E1     		b	.L30
+ 221              	.L10:
+ 111:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 112:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 113:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set fifo roll */
+ 114:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_fifo_roll(&gs_handle, MAX30102_FIFO_DEFAULT_FIFO_ROLL);
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 8
+
+
+ 222              		.loc 1 114 0
+ 223 009a 0121     		movs	r1, #1
+ 224 009c 8A48     		ldr	r0, .L31
+ 225 009e FFF7FEFF 		bl	max30102_set_fifo_roll
+ 226 00a2 0346     		mov	r3, r0
+ 227 00a4 FB73     		strb	r3, [r7, #15]
+ 115:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 228              		.loc 1 115 0
+ 229 00a6 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 230 00a8 002B     		cmp	r3, #0
+ 231 00aa 07D0     		beq	.L11
+ 116:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 117:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set fifo roll failed.\n");
+ 232              		.loc 1 117 0
+ 233 00ac 9048     		ldr	r0, .L31+40
+ 234 00ae FFF7FEFF 		bl	max30102_interface_debug_print
+ 118:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 235              		.loc 1 118 0
+ 236 00b2 8548     		ldr	r0, .L31
+ 237 00b4 FFF7FEFF 		bl	max30102_deinit
+ 119:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 120:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 238              		.loc 1 120 0
+ 239 00b8 0123     		movs	r3, #1
+ 240 00ba 67E1     		b	.L30
+ 241              	.L11:
+ 121:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 122:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 123:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set fifo almost full */
+ 124:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_fifo_almost_full(&gs_handle, MAX30102_FIFO_DEFAULT_FIFO_ALMOST_FULL);
+ 242              		.loc 1 124 0
+ 243 00bc 0F21     		movs	r1, #15
+ 244 00be 8248     		ldr	r0, .L31
+ 245 00c0 FFF7FEFF 		bl	max30102_set_fifo_almost_full
+ 246 00c4 0346     		mov	r3, r0
+ 247 00c6 FB73     		strb	r3, [r7, #15]
+ 125:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 248              		.loc 1 125 0
+ 249 00c8 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 250 00ca 002B     		cmp	r3, #0
+ 251 00cc 07D0     		beq	.L12
+ 126:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 127:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set fifo almost full failed.\n");
+ 252              		.loc 1 127 0
+ 253 00ce 8948     		ldr	r0, .L31+44
+ 254 00d0 FFF7FEFF 		bl	max30102_interface_debug_print
+ 128:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 255              		.loc 1 128 0
+ 256 00d4 7C48     		ldr	r0, .L31
+ 257 00d6 FFF7FEFF 		bl	max30102_deinit
+ 129:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 130:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 258              		.loc 1 130 0
+ 259 00da 0123     		movs	r3, #1
+ 260 00dc 56E1     		b	.L30
+ 261              	.L12:
+ 131:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 9
+
+
+ 132:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 133:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set mode */
+ 134:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_mode(&gs_handle, MAX30102_FIFO_DEFAULT_MODE);
+ 262              		.loc 1 134 0
+ 263 00de 0321     		movs	r1, #3
+ 264 00e0 7948     		ldr	r0, .L31
+ 265 00e2 FFF7FEFF 		bl	max30102_set_mode
+ 266 00e6 0346     		mov	r3, r0
+ 267 00e8 FB73     		strb	r3, [r7, #15]
+ 135:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 268              		.loc 1 135 0
+ 269 00ea FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 270 00ec 002B     		cmp	r3, #0
+ 271 00ee 07D0     		beq	.L13
+ 136:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 137:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set mode failed.\n");
+ 272              		.loc 1 137 0
+ 273 00f0 8148     		ldr	r0, .L31+48
+ 274 00f2 FFF7FEFF 		bl	max30102_interface_debug_print
+ 138:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 275              		.loc 1 138 0
+ 276 00f6 7448     		ldr	r0, .L31
+ 277 00f8 FFF7FEFF 		bl	max30102_deinit
+ 139:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 140:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 278              		.loc 1 140 0
+ 279 00fc 0123     		movs	r3, #1
+ 280 00fe 45E1     		b	.L30
+ 281              	.L13:
+ 141:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 142:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 143:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set spo2 adc range */
+ 144:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_spo2_adc_range(&gs_handle, MAX30102_FIFO_DEFAULT_SPO2_ADC_RANGE);
+ 282              		.loc 1 144 0
+ 283 0100 0121     		movs	r1, #1
+ 284 0102 7148     		ldr	r0, .L31
+ 285 0104 FFF7FEFF 		bl	max30102_set_spo2_adc_range
+ 286 0108 0346     		mov	r3, r0
+ 287 010a FB73     		strb	r3, [r7, #15]
+ 145:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 288              		.loc 1 145 0
+ 289 010c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 290 010e 002B     		cmp	r3, #0
+ 291 0110 07D0     		beq	.L14
+ 146:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 147:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set spo2 adc range failed.\n");
+ 292              		.loc 1 147 0
+ 293 0112 7A48     		ldr	r0, .L31+52
+ 294 0114 FFF7FEFF 		bl	max30102_interface_debug_print
+ 148:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 295              		.loc 1 148 0
+ 296 0118 6B48     		ldr	r0, .L31
+ 297 011a FFF7FEFF 		bl	max30102_deinit
+ 149:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 150:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 298              		.loc 1 150 0
+ 299 011e 0123     		movs	r3, #1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 10
+
+
+ 300 0120 34E1     		b	.L30
+ 301              	.L14:
+ 151:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 152:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 153:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set spo2 sample rate */
+ 154:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_spo2_sample_rate(&gs_handle, MAX30102_FIFO_DEFAULT_SPO2_SAMPLE_RATE);
+ 302              		.loc 1 154 0
+ 303 0122 0121     		movs	r1, #1
+ 304 0124 6848     		ldr	r0, .L31
+ 305 0126 FFF7FEFF 		bl	max30102_set_spo2_sample_rate
+ 306 012a 0346     		mov	r3, r0
+ 307 012c FB73     		strb	r3, [r7, #15]
+ 155:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 308              		.loc 1 155 0
+ 309 012e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 310 0130 002B     		cmp	r3, #0
+ 311 0132 07D0     		beq	.L15
+ 156:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 157:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set spo2 sample rate failed.\n");
+ 312              		.loc 1 157 0
+ 313 0134 7248     		ldr	r0, .L31+56
+ 314 0136 FFF7FEFF 		bl	max30102_interface_debug_print
+ 158:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 315              		.loc 1 158 0
+ 316 013a 6348     		ldr	r0, .L31
+ 317 013c FFF7FEFF 		bl	max30102_deinit
+ 159:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 160:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 318              		.loc 1 160 0
+ 319 0140 0123     		movs	r3, #1
+ 320 0142 23E1     		b	.L30
+ 321              	.L15:
+ 161:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 162:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 163:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set adc resolution */
+ 164:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_adc_resolution(&gs_handle, MAX30102_FIFO_DEFAULT_ADC_RESOLUTION);
+ 322              		.loc 1 164 0
+ 323 0144 0321     		movs	r1, #3
+ 324 0146 6048     		ldr	r0, .L31
+ 325 0148 FFF7FEFF 		bl	max30102_set_adc_resolution
+ 326 014c 0346     		mov	r3, r0
+ 327 014e FB73     		strb	r3, [r7, #15]
+ 165:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 328              		.loc 1 165 0
+ 329 0150 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 330 0152 002B     		cmp	r3, #0
+ 331 0154 07D0     		beq	.L16
+ 166:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 167:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set adc resolution failed.\n");
+ 332              		.loc 1 167 0
+ 333 0156 6B48     		ldr	r0, .L31+60
+ 334 0158 FFF7FEFF 		bl	max30102_interface_debug_print
+ 168:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 335              		.loc 1 168 0
+ 336 015c 5A48     		ldr	r0, .L31
+ 337 015e FFF7FEFF 		bl	max30102_deinit
+ 169:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 11
+
+
+ 170:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 338              		.loc 1 170 0
+ 339 0162 0123     		movs	r3, #1
+ 340 0164 12E1     		b	.L30
+ 341              	.L16:
+ 171:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 172:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 173:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set led red pulse amplitude */
+ 174:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_led_red_pulse_amplitude(&gs_handle, MAX30102_FIFO_DEFAULT_LED_RED_PULSE_AMPL
+ 342              		.loc 1 174 0
+ 343 0166 7F21     		movs	r1, #127
+ 344 0168 5748     		ldr	r0, .L31
+ 345 016a FFF7FEFF 		bl	max30102_set_led_red_pulse_amplitude
+ 346 016e 0346     		mov	r3, r0
+ 347 0170 FB73     		strb	r3, [r7, #15]
+ 175:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 348              		.loc 1 175 0
+ 349 0172 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 350 0174 002B     		cmp	r3, #0
+ 351 0176 07D0     		beq	.L17
+ 176:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 177:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set led red pulse amplitude failed.\n");
+ 352              		.loc 1 177 0
+ 353 0178 6348     		ldr	r0, .L31+64
+ 354 017a FFF7FEFF 		bl	max30102_interface_debug_print
+ 178:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 355              		.loc 1 178 0
+ 356 017e 5248     		ldr	r0, .L31
+ 357 0180 FFF7FEFF 		bl	max30102_deinit
+ 179:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 180:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 358              		.loc 1 180 0
+ 359 0184 0123     		movs	r3, #1
+ 360 0186 01E1     		b	.L30
+ 361              	.L17:
+ 181:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 182:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 183:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set led ir pulse amplitude */
+ 184:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_led_ir_pulse_amplitude(&gs_handle, MAX30102_FIFO_DEFAULT_LED_IR_PULSE_AMPLIT
+ 362              		.loc 1 184 0
+ 363 0188 7F21     		movs	r1, #127
+ 364 018a 4F48     		ldr	r0, .L31
+ 365 018c FFF7FEFF 		bl	max30102_set_led_ir_pulse_amplitude
+ 366 0190 0346     		mov	r3, r0
+ 367 0192 FB73     		strb	r3, [r7, #15]
+ 185:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 368              		.loc 1 185 0
+ 369 0194 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 370 0196 002B     		cmp	r3, #0
+ 371 0198 07D0     		beq	.L18
+ 186:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 187:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set led ir pulse amplitude failed.\n");
+ 372              		.loc 1 187 0
+ 373 019a 5C48     		ldr	r0, .L31+68
+ 374 019c FFF7FEFF 		bl	max30102_interface_debug_print
+ 188:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 375              		.loc 1 188 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 12
+
+
+ 376 01a0 4948     		ldr	r0, .L31
+ 377 01a2 FFF7FEFF 		bl	max30102_deinit
+ 189:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 190:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 378              		.loc 1 190 0
+ 379 01a6 0123     		movs	r3, #1
+ 380 01a8 F0E0     		b	.L30
+ 381              	.L18:
+ 191:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 192:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 193:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set slot */
+ 194:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_slot(&gs_handle, MAX30102_SLOT_1, MAX30102_FIFO_DEFAULT_SLOT1);
+ 382              		.loc 1 194 0
+ 383 01aa 0122     		movs	r2, #1
+ 384 01ac 0021     		movs	r1, #0
+ 385 01ae 4648     		ldr	r0, .L31
+ 386 01b0 FFF7FEFF 		bl	max30102_set_slot
+ 387 01b4 0346     		mov	r3, r0
+ 388 01b6 FB73     		strb	r3, [r7, #15]
+ 195:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 389              		.loc 1 195 0
+ 390 01b8 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 391 01ba 002B     		cmp	r3, #0
+ 392 01bc 07D0     		beq	.L19
+ 196:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 197:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set slot failed.\n");
+ 393              		.loc 1 197 0
+ 394 01be 5448     		ldr	r0, .L31+72
+ 395 01c0 FFF7FEFF 		bl	max30102_interface_debug_print
+ 198:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 396              		.loc 1 198 0
+ 397 01c4 4048     		ldr	r0, .L31
+ 398 01c6 FFF7FEFF 		bl	max30102_deinit
+ 199:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 200:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 399              		.loc 1 200 0
+ 400 01ca 0123     		movs	r3, #1
+ 401 01cc DEE0     		b	.L30
+ 402              	.L19:
+ 201:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 202:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 203:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set slot */
+ 204:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_slot(&gs_handle, MAX30102_SLOT_2, MAX30102_FIFO_DEFAULT_SLOT2);
+ 403              		.loc 1 204 0
+ 404 01ce 0222     		movs	r2, #2
+ 405 01d0 0121     		movs	r1, #1
+ 406 01d2 3D48     		ldr	r0, .L31
+ 407 01d4 FFF7FEFF 		bl	max30102_set_slot
+ 408 01d8 0346     		mov	r3, r0
+ 409 01da FB73     		strb	r3, [r7, #15]
+ 205:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 410              		.loc 1 205 0
+ 411 01dc FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 412 01de 002B     		cmp	r3, #0
+ 413 01e0 07D0     		beq	.L20
+ 206:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 207:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set slot failed.\n");
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 13
+
+
+ 414              		.loc 1 207 0
+ 415 01e2 4B48     		ldr	r0, .L31+72
+ 416 01e4 FFF7FEFF 		bl	max30102_interface_debug_print
+ 208:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 417              		.loc 1 208 0
+ 418 01e8 3748     		ldr	r0, .L31
+ 419 01ea FFF7FEFF 		bl	max30102_deinit
+ 209:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 210:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 420              		.loc 1 210 0
+ 421 01ee 0123     		movs	r3, #1
+ 422 01f0 CCE0     		b	.L30
+ 423              	.L20:
+ 211:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 212:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 213:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set slot */
+ 214:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_slot(&gs_handle, MAX30102_SLOT_3, MAX30102_FIFO_DEFAULT_SLOT3);
+ 424              		.loc 1 214 0
+ 425 01f2 0022     		movs	r2, #0
+ 426 01f4 0221     		movs	r1, #2
+ 427 01f6 3448     		ldr	r0, .L31
+ 428 01f8 FFF7FEFF 		bl	max30102_set_slot
+ 429 01fc 0346     		mov	r3, r0
+ 430 01fe FB73     		strb	r3, [r7, #15]
+ 215:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 431              		.loc 1 215 0
+ 432 0200 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 433 0202 002B     		cmp	r3, #0
+ 434 0204 07D0     		beq	.L21
+ 216:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 217:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set slot failed.\n");
+ 435              		.loc 1 217 0
+ 436 0206 4248     		ldr	r0, .L31+72
+ 437 0208 FFF7FEFF 		bl	max30102_interface_debug_print
+ 218:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 438              		.loc 1 218 0
+ 439 020c 2E48     		ldr	r0, .L31
+ 440 020e FFF7FEFF 		bl	max30102_deinit
+ 219:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 220:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 441              		.loc 1 220 0
+ 442 0212 0123     		movs	r3, #1
+ 443 0214 BAE0     		b	.L30
+ 444              	.L21:
+ 221:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 222:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 223:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set slot */
+ 224:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_slot(&gs_handle, MAX30102_SLOT_4, MAX30102_FIFO_DEFAULT_SLOT4);
+ 445              		.loc 1 224 0
+ 446 0216 0022     		movs	r2, #0
+ 447 0218 0321     		movs	r1, #3
+ 448 021a 2B48     		ldr	r0, .L31
+ 449 021c FFF7FEFF 		bl	max30102_set_slot
+ 450 0220 0346     		mov	r3, r0
+ 451 0222 FB73     		strb	r3, [r7, #15]
+ 225:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 452              		.loc 1 225 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 14
+
+
+ 453 0224 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 454 0226 002B     		cmp	r3, #0
+ 455 0228 07D0     		beq	.L22
+ 226:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 227:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set slot failed.\n");
+ 456              		.loc 1 227 0
+ 457 022a 3948     		ldr	r0, .L31+72
+ 458 022c FFF7FEFF 		bl	max30102_interface_debug_print
+ 228:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 459              		.loc 1 228 0
+ 460 0230 2548     		ldr	r0, .L31
+ 461 0232 FFF7FEFF 		bl	max30102_deinit
+ 229:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 230:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 462              		.loc 1 230 0
+ 463 0236 0123     		movs	r3, #1
+ 464 0238 A8E0     		b	.L30
+ 465              	.L22:
+ 231:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 232:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 233:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set die temperature */
+ 234:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_die_temperature(&gs_handle, MAX30102_FIFO_DEFAULT_DIE_TEMPERATURE);
+ 466              		.loc 1 234 0
+ 467 023a 0021     		movs	r1, #0
+ 468 023c 2248     		ldr	r0, .L31
+ 469 023e FFF7FEFF 		bl	max30102_set_die_temperature
+ 470 0242 0346     		mov	r3, r0
+ 471 0244 FB73     		strb	r3, [r7, #15]
+ 235:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 472              		.loc 1 235 0
+ 473 0246 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 474 0248 002B     		cmp	r3, #0
+ 475 024a 07D0     		beq	.L23
+ 236:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 237:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set die temperature failed.\n");
+ 476              		.loc 1 237 0
+ 477 024c 3148     		ldr	r0, .L31+76
+ 478 024e FFF7FEFF 		bl	max30102_interface_debug_print
+ 238:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 479              		.loc 1 238 0
+ 480 0252 1D48     		ldr	r0, .L31
+ 481 0254 FFF7FEFF 		bl	max30102_deinit
+ 239:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 240:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 482              		.loc 1 240 0
+ 483 0258 0123     		movs	r3, #1
+ 484 025a 97E0     		b	.L30
+ 485              	.L23:
+ 241:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 242:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 243:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set interrupt */
+ 244:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_interrupt(&gs_handle, MAX30102_INTERRUPT_FIFO_FULL_EN, MAX30102_BOOL_TRUE);
+ 486              		.loc 1 244 0
+ 487 025c 0122     		movs	r2, #1
+ 488 025e 0721     		movs	r1, #7
+ 489 0260 1948     		ldr	r0, .L31
+ 490 0262 FFF7FEFF 		bl	max30102_set_interrupt
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 15
+
+
+ 491 0266 0346     		mov	r3, r0
+ 492 0268 FB73     		strb	r3, [r7, #15]
+ 245:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 493              		.loc 1 245 0
+ 494 026a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 495 026c 002B     		cmp	r3, #0
+ 496 026e 07D0     		beq	.L24
+ 246:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 247:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set interrupt failed.\n");
+ 497              		.loc 1 247 0
+ 498 0270 2948     		ldr	r0, .L31+80
+ 499 0272 FFF7FEFF 		bl	max30102_interface_debug_print
+ 248:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 500              		.loc 1 248 0
+ 501 0276 1448     		ldr	r0, .L31
+ 502 0278 FFF7FEFF 		bl	max30102_deinit
+ 249:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 250:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 503              		.loc 1 250 0
+ 504 027c 0123     		movs	r3, #1
+ 505 027e 85E0     		b	.L30
+ 506              	.L24:
+ 251:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 252:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 253:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set interrupt */
+ 254:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_interrupt(&gs_handle, MAX30102_INTERRUPT_PPG_RDY_EN, MAX30102_FIFO_DEFAULT_I
+ 507              		.loc 1 254 0
+ 508 0280 0022     		movs	r2, #0
+ 509 0282 0621     		movs	r1, #6
+ 510 0284 1048     		ldr	r0, .L31
+ 511 0286 FFF7FEFF 		bl	max30102_set_interrupt
+ 512 028a 0346     		mov	r3, r0
+ 513 028c FB73     		strb	r3, [r7, #15]
+ 255:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 514              		.loc 1 255 0
+ 515 028e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 516 0290 002B     		cmp	r3, #0
+ 517 0292 07D0     		beq	.L25
+ 256:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 257:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set interrupt failed.\n");
+ 518              		.loc 1 257 0
+ 519 0294 2048     		ldr	r0, .L31+80
+ 520 0296 FFF7FEFF 		bl	max30102_interface_debug_print
+ 258:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 521              		.loc 1 258 0
+ 522 029a 0B48     		ldr	r0, .L31
+ 523 029c FFF7FEFF 		bl	max30102_deinit
+ 259:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 260:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 524              		.loc 1 260 0
+ 525 02a0 0123     		movs	r3, #1
+ 526 02a2 73E0     		b	.L30
+ 527              	.L25:
+ 261:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 262:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 263:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set interrupt */
+ 264:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_interrupt(&gs_handle, MAX30102_INTERRUPT_ALC_OVF_EN, MAX30102_FIFO_DEFAULT_I
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 16
+
+
+ 528              		.loc 1 264 0
+ 529 02a4 0122     		movs	r2, #1
+ 530 02a6 0521     		movs	r1, #5
+ 531 02a8 0748     		ldr	r0, .L31
+ 532 02aa FFF7FEFF 		bl	max30102_set_interrupt
+ 533 02ae 0346     		mov	r3, r0
+ 534 02b0 FB73     		strb	r3, [r7, #15]
+ 265:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 535              		.loc 1 265 0
+ 536 02b2 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 537 02b4 002B     		cmp	r3, #0
+ 538 02b6 31D0     		beq	.L26
+ 266:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 267:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set interrupt failed.\n");
+ 539              		.loc 1 267 0
+ 540 02b8 1748     		ldr	r0, .L31+80
+ 541 02ba FFF7FEFF 		bl	max30102_interface_debug_print
+ 268:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 542              		.loc 1 268 0
+ 543 02be 0248     		ldr	r0, .L31
+ 544 02c0 FFF7FEFF 		bl	max30102_deinit
+ 269:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 270:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 545              		.loc 1 270 0
+ 546 02c4 0123     		movs	r3, #1
+ 547 02c6 61E0     		b	.L30
+ 548              	.L32:
+ 549              		.align	2
+ 550              	.L31:
+ 551 02c8 00000000 		.word	gs_handle
+ 552 02cc 00000000 		.word	max30102_interface_iic_init
+ 553 02d0 00000000 		.word	max30102_interface_iic_deinit
+ 554 02d4 00000000 		.word	max30102_interface_iic_read
+ 555 02d8 00000000 		.word	max30102_interface_iic_write
+ 556 02dc 00000000 		.word	max30102_interface_delay_ms
+ 557 02e0 00000000 		.word	max30102_interface_debug_print
+ 558 02e4 00000000 		.word	.LC0
+ 559 02e8 18000000 		.word	.LC1
+ 560 02ec 38000000 		.word	.LC2
+ 561 02f0 68000000 		.word	.LC3
+ 562 02f4 8C000000 		.word	.LC4
+ 563 02f8 B4000000 		.word	.LC5
+ 564 02fc D0000000 		.word	.LC6
+ 565 0300 F8000000 		.word	.LC7
+ 566 0304 20010000 		.word	.LC8
+ 567 0308 48010000 		.word	.LC9
+ 568 030c 78010000 		.word	.LC10
+ 569 0310 A8010000 		.word	.LC11
+ 570 0314 C4010000 		.word	.LC12
+ 571 0318 EC010000 		.word	.LC13
+ 572              	.L26:
+ 271:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 272:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 273:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* set interrupt */
+ 274:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_interrupt(&gs_handle, MAX30102_INTERRUPT_DIE_TEMP_RDY_EN, MAX30102_FIFO_DEFA
+ 573              		.loc 1 274 0
+ 574 031c 0122     		movs	r2, #1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 17
+
+
+ 575 031e 0121     		movs	r1, #1
+ 576 0320 1C48     		ldr	r0, .L33
+ 577 0322 FFF7FEFF 		bl	max30102_set_interrupt
+ 578 0326 0346     		mov	r3, r0
+ 579 0328 FB73     		strb	r3, [r7, #15]
+ 275:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 580              		.loc 1 275 0
+ 581 032a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 582 032c 002B     		cmp	r3, #0
+ 583 032e 07D0     		beq	.L27
+ 276:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 277:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set interrupt failed.\n");
+ 584              		.loc 1 277 0
+ 585 0330 1948     		ldr	r0, .L33+4
+ 586 0332 FFF7FEFF 		bl	max30102_interface_debug_print
+ 278:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 587              		.loc 1 278 0
+ 588 0336 1748     		ldr	r0, .L33
+ 589 0338 FFF7FEFF 		bl	max30102_deinit
+ 279:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 280:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 590              		.loc 1 280 0
+ 591 033c 0123     		movs	r3, #1
+ 592 033e 25E0     		b	.L30
+ 593              	.L27:
+ 281:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 282:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 283:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* disable shutdown */
+ 284:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_set_shutdown(&gs_handle, MAX30102_BOOL_FALSE);
+ 594              		.loc 1 284 0
+ 595 0340 0021     		movs	r1, #0
+ 596 0342 1448     		ldr	r0, .L33
+ 597 0344 FFF7FEFF 		bl	max30102_set_shutdown
+ 598 0348 0346     		mov	r3, r0
+ 599 034a FB73     		strb	r3, [r7, #15]
+ 285:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 600              		.loc 1 285 0
+ 601 034c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 602 034e 002B     		cmp	r3, #0
+ 603 0350 07D0     		beq	.L28
+ 286:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 287:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: set shutdown failed.\n");
+ 604              		.loc 1 287 0
+ 605 0352 1248     		ldr	r0, .L33+8
+ 606 0354 FFF7FEFF 		bl	max30102_interface_debug_print
+ 288:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 607              		.loc 1 288 0
+ 608 0358 0E48     		ldr	r0, .L33
+ 609 035a FFF7FEFF 		bl	max30102_deinit
+ 289:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 290:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 610              		.loc 1 290 0
+ 611 035e 0123     		movs	r3, #1
+ 612 0360 14E0     		b	.L30
+ 613              	.L28:
+ 291:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 292:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 18
+
+
+ 293:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     /* get status */
+ 294:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_get_interrupt_status(&gs_handle, MAX30102_INTERRUPT_STATUS_FIFO_FULL, &enable);
+ 614              		.loc 1 294 0
+ 615 0362 07F10E03 		add	r3, r7, #14
+ 616 0366 1A46     		mov	r2, r3
+ 617 0368 0721     		movs	r1, #7
+ 618 036a 0A48     		ldr	r0, .L33
+ 619 036c FFF7FEFF 		bl	max30102_get_interrupt_status
+ 620 0370 0346     		mov	r3, r0
+ 621 0372 FB73     		strb	r3, [r7, #15]
+ 295:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 622              		.loc 1 295 0
+ 623 0374 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 624 0376 002B     		cmp	r3, #0
+ 625 0378 07D0     		beq	.L29
+ 296:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 297:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         max30102_interface_debug_print("max30102: get interrupt status failed.\n");
+ 626              		.loc 1 297 0
+ 627 037a 0948     		ldr	r0, .L33+12
+ 628 037c FFF7FEFF 		bl	max30102_interface_debug_print
+ 298:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         (void)max30102_deinit(&gs_handle);
+ 629              		.loc 1 298 0
+ 630 0380 0448     		ldr	r0, .L33
+ 631 0382 FFF7FEFF 		bl	max30102_deinit
+ 299:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****        
+ 300:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 632              		.loc 1 300 0
+ 633 0386 0123     		movs	r3, #1
+ 634 0388 00E0     		b	.L30
+ 635              	.L29:
+ 301:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 302:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 303:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     return 0;
+ 636              		.loc 1 303 0
+ 637 038a 0023     		movs	r3, #0
+ 638              	.L30:
+ 304:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** }
+ 639              		.loc 1 304 0 discriminator 1
+ 640 038c 1846     		mov	r0, r3
+ 641 038e 1037     		adds	r7, r7, #16
+ 642              		.cfi_def_cfa_offset 8
+ 643 0390 BD46     		mov	sp, r7
+ 644              		.cfi_def_cfa_register 13
+ 645              		@ sp needed
+ 646 0392 80BD     		pop	{r7, pc}
+ 647              	.L34:
+ 648              		.align	2
+ 649              	.L33:
+ 650 0394 00000000 		.word	gs_handle
+ 651 0398 EC010000 		.word	.LC13
+ 652 039c 18000000 		.word	.LC1
+ 653 03a0 10020000 		.word	.LC14
+ 654              		.cfi_endproc
+ 655              	.LFE2:
+ 656              		.size	max30102_fifo_init, .-max30102_fifo_init
+ 657              		.section	.text.max30102_fifo_deinit,"ax",%progbits
+ 658              		.align	2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 19
+
+
+ 659              		.global	max30102_fifo_deinit
+ 660              		.thumb
+ 661              		.thumb_func
+ 662              		.type	max30102_fifo_deinit, %function
+ 663              	max30102_fifo_deinit:
+ 664              	.LFB3:
+ 305:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** 
+ 306:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** /**
+ 307:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @brief  fifo example deinit
+ 308:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @return status code
+ 309:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *         - 0 success
+ 310:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *         - 1 deinit failed
+ 311:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @note   none
+ 312:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  */
+ 313:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** uint8_t max30102_fifo_deinit(void)
+ 314:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** {
+ 665              		.loc 1 314 0
+ 666              		.cfi_startproc
+ 667              		@ args = 0, pretend = 0, frame = 8
+ 668              		@ frame_needed = 1, uses_anonymous_args = 0
+ 669 0000 80B5     		push	{r7, lr}
+ 670              		.cfi_def_cfa_offset 8
+ 671              		.cfi_offset 7, -8
+ 672              		.cfi_offset 14, -4
+ 673 0002 82B0     		sub	sp, sp, #8
+ 674              		.cfi_def_cfa_offset 16
+ 675 0004 00AF     		add	r7, sp, #0
+ 676              		.cfi_def_cfa_register 7
+ 315:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     uint8_t res;
+ 316:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 317:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_deinit(&gs_handle);
+ 677              		.loc 1 317 0
+ 678 0006 0748     		ldr	r0, .L38
+ 679 0008 FFF7FEFF 		bl	max30102_deinit
+ 680 000c 0346     		mov	r3, r0
+ 681 000e FB71     		strb	r3, [r7, #7]
+ 318:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 682              		.loc 1 318 0
+ 683 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 684 0012 002B     		cmp	r3, #0
+ 685 0014 01D0     		beq	.L36
+ 319:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 320:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 686              		.loc 1 320 0
+ 687 0016 0123     		movs	r3, #1
+ 688 0018 00E0     		b	.L37
+ 689              	.L36:
+ 321:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 322:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     else
+ 323:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 324:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 0;
+ 690              		.loc 1 324 0
+ 691 001a 0023     		movs	r3, #0
+ 692              	.L37:
+ 325:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 326:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** }
+ 693              		.loc 1 326 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 20
+
+
+ 694 001c 1846     		mov	r0, r3
+ 695 001e 0837     		adds	r7, r7, #8
+ 696              		.cfi_def_cfa_offset 8
+ 697 0020 BD46     		mov	sp, r7
+ 698              		.cfi_def_cfa_register 13
+ 699              		@ sp needed
+ 700 0022 80BD     		pop	{r7, pc}
+ 701              	.L39:
+ 702              		.align	2
+ 703              	.L38:
+ 704 0024 00000000 		.word	gs_handle
+ 705              		.cfi_endproc
+ 706              	.LFE3:
+ 707              		.size	max30102_fifo_deinit, .-max30102_fifo_deinit
+ 708              		.section	.text.max30102_fifo_read,"ax",%progbits
+ 709              		.align	2
+ 710              		.global	max30102_fifo_read
+ 711              		.thumb
+ 712              		.thumb_func
+ 713              		.type	max30102_fifo_read, %function
+ 714              	max30102_fifo_read:
+ 715              	.LFB4:
+ 327:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** 
+ 328:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** /**
+ 329:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @brief         read the data
+ 330:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @param[out]    *raw_red points to a read raw data buffer
+ 331:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @param[out]    *raw_ir points to a ir raw data buffer
+ 332:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @param[in,out] *len points to a length buffer
+ 333:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @return        status code
+ 334:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *                - 0 success
+ 335:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  *                - 1 read failed
+ 336:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  * @note          none
+ 337:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****  */
+ 338:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** uint8_t max30102_fifo_read(uint32_t *raw_red, uint32_t *raw_ir, uint8_t *len)
+ 339:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** {
+ 716              		.loc 1 339 0
+ 717              		.cfi_startproc
+ 718              		@ args = 0, pretend = 0, frame = 24
+ 719              		@ frame_needed = 1, uses_anonymous_args = 0
+ 720 0000 80B5     		push	{r7, lr}
+ 721              		.cfi_def_cfa_offset 8
+ 722              		.cfi_offset 7, -8
+ 723              		.cfi_offset 14, -4
+ 724 0002 86B0     		sub	sp, sp, #24
+ 725              		.cfi_def_cfa_offset 32
+ 726 0004 00AF     		add	r7, sp, #0
+ 727              		.cfi_def_cfa_register 7
+ 728 0006 F860     		str	r0, [r7, #12]
+ 729 0008 B960     		str	r1, [r7, #8]
+ 730 000a 7A60     		str	r2, [r7, #4]
+ 340:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     uint8_t res;
+ 341:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     
+ 342:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     res = max30102_read(&gs_handle, raw_red, raw_ir, len);
+ 731              		.loc 1 342 0
+ 732 000c 7B68     		ldr	r3, [r7, #4]
+ 733 000e BA68     		ldr	r2, [r7, #8]
+ 734 0010 F968     		ldr	r1, [r7, #12]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 21
+
+
+ 735 0012 0748     		ldr	r0, .L43
+ 736 0014 FFF7FEFF 		bl	max30102_read
+ 737 0018 0346     		mov	r3, r0
+ 738 001a FB75     		strb	r3, [r7, #23]
+ 343:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     if (res != 0)
+ 739              		.loc 1 343 0
+ 740 001c FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 741 001e 002B     		cmp	r3, #0
+ 742 0020 01D0     		beq	.L41
+ 344:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 345:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 1;
+ 743              		.loc 1 345 0
+ 744 0022 0123     		movs	r3, #1
+ 745 0024 00E0     		b	.L42
+ 746              	.L41:
+ 346:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 347:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     else
+ 348:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     {
+ 349:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****         return 0;
+ 747              		.loc 1 349 0
+ 748 0026 0023     		movs	r3, #0
+ 749              	.L42:
+ 350:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c ****     }
+ 351:..\..\..\..\PSoC6_101\Sensor/driver_max30102_fifo.c **** }
+ 750              		.loc 1 351 0
+ 751 0028 1846     		mov	r0, r3
+ 752 002a 1837     		adds	r7, r7, #24
+ 753              		.cfi_def_cfa_offset 8
+ 754 002c BD46     		mov	sp, r7
+ 755              		.cfi_def_cfa_register 13
+ 756              		@ sp needed
+ 757 002e 80BD     		pop	{r7, pc}
+ 758              	.L44:
+ 759              		.align	2
+ 760              	.L43:
+ 761 0030 00000000 		.word	gs_handle
+ 762              		.cfi_endproc
+ 763              	.LFE4:
+ 764              		.size	max30102_fifo_read, .-max30102_fifo_read
+ 765              		.text
+ 766              	.Letext0:
+ 767              		.file 2 "d:\\psoc_jingyi\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-none-eabi\
+ 768              		.file 3 "d:\\psoc_jingyi\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-none-eabi\
+ 769              		.file 4 "..\\..\\..\\..\\PSoC6_101\\Sensor\\driver_max30102.h"
+ 770              		.section	.debug_info,"",%progbits
+ 771              	.Ldebug_info0:
+ 772 0000 77040000 		.4byte	0x477
+ 773 0004 0400     		.2byte	0x4
+ 774 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 775 000a 04       		.byte	0x4
+ 776 000b 01       		.uleb128 0x1
+ 777 000c D4060000 		.4byte	.LASF82
+ 778 0010 0C       		.byte	0xc
+ 779 0011 49000000 		.4byte	.LASF83
+ 780 0015 B6030000 		.4byte	.LASF84
+ 781 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 782 001d 00000000 		.4byte	0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 22
+
+
+ 783 0021 00000000 		.4byte	.Ldebug_line0
+ 784 0025 02       		.uleb128 0x2
+ 785 0026 01       		.byte	0x1
+ 786 0027 06       		.byte	0x6
+ 787 0028 AC000000 		.4byte	.LASF0
+ 788 002c 03       		.uleb128 0x3
+ 789 002d 7D000000 		.4byte	.LASF3
+ 790 0031 02       		.byte	0x2
+ 791 0032 1D       		.byte	0x1d
+ 792 0033 37000000 		.4byte	0x37
+ 793 0037 02       		.uleb128 0x2
+ 794 0038 01       		.byte	0x1
+ 795 0039 08       		.byte	0x8
+ 796 003a D5040000 		.4byte	.LASF1
+ 797 003e 02       		.uleb128 0x2
+ 798 003f 02       		.byte	0x2
+ 799 0040 05       		.byte	0x5
+ 800 0041 E3040000 		.4byte	.LASF2
+ 801 0045 03       		.uleb128 0x3
+ 802 0046 3B050000 		.4byte	.LASF4
+ 803 004a 02       		.byte	0x2
+ 804 004b 2B       		.byte	0x2b
+ 805 004c 50000000 		.4byte	0x50
+ 806 0050 02       		.uleb128 0x2
+ 807 0051 02       		.byte	0x2
+ 808 0052 07       		.byte	0x7
+ 809 0053 E7020000 		.4byte	.LASF5
+ 810 0057 02       		.uleb128 0x2
+ 811 0058 04       		.byte	0x4
+ 812 0059 05       		.byte	0x5
+ 813 005a 1E010000 		.4byte	.LASF6
+ 814 005e 03       		.uleb128 0x3
+ 815 005f A2010000 		.4byte	.LASF7
+ 816 0063 02       		.byte	0x2
+ 817 0064 41       		.byte	0x41
+ 818 0065 69000000 		.4byte	0x69
+ 819 0069 02       		.uleb128 0x2
+ 820 006a 04       		.byte	0x4
+ 821 006b 07       		.byte	0x7
+ 822 006c 3B020000 		.4byte	.LASF8
+ 823 0070 02       		.uleb128 0x2
+ 824 0071 08       		.byte	0x8
+ 825 0072 05       		.byte	0x5
+ 826 0073 9E000000 		.4byte	.LASF9
+ 827 0077 02       		.uleb128 0x2
+ 828 0078 08       		.byte	0x8
+ 829 0079 07       		.byte	0x7
+ 830 007a 87000000 		.4byte	.LASF10
+ 831 007e 04       		.uleb128 0x4
+ 832 007f 04       		.byte	0x4
+ 833 0080 05       		.byte	0x5
+ 834 0081 696E7400 		.ascii	"int\000"
+ 835 0085 02       		.uleb128 0x2
+ 836 0086 04       		.byte	0x4
+ 837 0087 07       		.byte	0x7
+ 838 0088 1E020000 		.4byte	.LASF11
+ 839 008c 02       		.uleb128 0x2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 23
+
+
+ 840 008d 08       		.byte	0x8
+ 841 008e 04       		.byte	0x4
+ 842 008f ED030000 		.4byte	.LASF12
+ 843 0093 02       		.uleb128 0x2
+ 844 0094 04       		.byte	0x4
+ 845 0095 07       		.byte	0x7
+ 846 0096 AD030000 		.4byte	.LASF13
+ 847 009a 02       		.uleb128 0x2
+ 848 009b 01       		.byte	0x1
+ 849 009c 08       		.byte	0x8
+ 850 009d 36050000 		.4byte	.LASF14
+ 851 00a1 05       		.uleb128 0x5
+ 852 00a2 04       		.byte	0x4
+ 853 00a3 A7000000 		.4byte	0xa7
+ 854 00a7 06       		.uleb128 0x6
+ 855 00a8 9A000000 		.4byte	0x9a
+ 856 00ac 03       		.uleb128 0x3
+ 857 00ad 27060000 		.4byte	.LASF15
+ 858 00b1 03       		.byte	0x3
+ 859 00b2 18       		.byte	0x18
+ 860 00b3 2C000000 		.4byte	0x2c
+ 861 00b7 03       		.uleb128 0x3
+ 862 00b8 47010000 		.4byte	.LASF16
+ 863 00bc 03       		.byte	0x3
+ 864 00bd 24       		.byte	0x24
+ 865 00be 45000000 		.4byte	0x45
+ 866 00c2 03       		.uleb128 0x3
+ 867 00c3 2D050000 		.4byte	.LASF17
+ 868 00c7 03       		.byte	0x3
+ 869 00c8 30       		.byte	0x30
+ 870 00c9 5E000000 		.4byte	0x5e
+ 871 00cd 07       		.uleb128 0x7
+ 872 00ce 01       		.byte	0x1
+ 873 00cf 37000000 		.4byte	0x37
+ 874 00d3 04       		.byte	0x4
+ 875 00d4 3F       		.byte	0x3f
+ 876 00d5 E6000000 		.4byte	0xe6
+ 877 00d9 08       		.uleb128 0x8
+ 878 00da 7E060000 		.4byte	.LASF18
+ 879 00de 00       		.byte	0
+ 880 00df 08       		.uleb128 0x8
+ 881 00e0 A3060000 		.4byte	.LASF19
+ 882 00e4 01       		.byte	0x1
+ 883 00e5 00       		.byte	0
+ 884 00e6 03       		.uleb128 0x3
+ 885 00e7 CA010000 		.4byte	.LASF20
+ 886 00eb 04       		.byte	0x4
+ 887 00ec 42       		.byte	0x42
+ 888 00ed CD000000 		.4byte	0xcd
+ 889 00f1 07       		.uleb128 0x7
+ 890 00f2 01       		.byte	0x1
+ 891 00f3 37000000 		.4byte	0x37
+ 892 00f7 04       		.byte	0x4
+ 893 00f8 48       		.byte	0x48
+ 894 00f9 22010000 		.4byte	0x122
+ 895 00fd 08       		.uleb128 0x8
+ 896 00fe 66020000 		.4byte	.LASF21
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 24
+
+
+ 897 0102 00       		.byte	0
+ 898 0103 08       		.uleb128 0x8
+ 899 0104 82020000 		.4byte	.LASF22
+ 900 0108 01       		.byte	0x1
+ 901 0109 08       		.uleb128 0x8
+ 902 010a 9E020000 		.4byte	.LASF23
+ 903 010e 02       		.byte	0x2
+ 904 010f 08       		.uleb128 0x8
+ 905 0110 BA020000 		.4byte	.LASF24
+ 906 0114 03       		.byte	0x3
+ 907 0115 08       		.uleb128 0x8
+ 908 0116 A0070000 		.4byte	.LASF25
+ 909 011a 04       		.byte	0x4
+ 910 011b 08       		.uleb128 0x8
+ 911 011c 5C010000 		.4byte	.LASF26
+ 912 0120 05       		.byte	0x5
+ 913 0121 00       		.byte	0
+ 914 0122 07       		.uleb128 0x7
+ 915 0123 01       		.byte	0x1
+ 916 0124 37000000 		.4byte	0x37
+ 917 0128 04       		.byte	0x4
+ 918 0129 55       		.byte	0x55
+ 919 012a 41010000 		.4byte	0x141
+ 920 012e 08       		.uleb128 0x8
+ 921 012f 4D020000 		.4byte	.LASF27
+ 922 0133 02       		.byte	0x2
+ 923 0134 08       		.uleb128 0x8
+ 924 0135 64050000 		.4byte	.LASF28
+ 925 0139 03       		.byte	0x3
+ 926 013a 08       		.uleb128 0x8
+ 927 013b BD040000 		.4byte	.LASF29
+ 928 013f 07       		.byte	0x7
+ 929 0140 00       		.byte	0
+ 930 0141 07       		.uleb128 0x7
+ 931 0142 01       		.byte	0x1
+ 932 0143 37000000 		.4byte	0x37
+ 933 0147 04       		.byte	0x4
+ 934 0148 5F       		.byte	0x5f
+ 935 0149 6C010000 		.4byte	0x16c
+ 936 014d 08       		.uleb128 0x8
+ 937 014e DA010000 		.4byte	.LASF30
+ 938 0152 07       		.byte	0x7
+ 939 0153 08       		.uleb128 0x8
+ 940 0154 31040000 		.4byte	.LASF31
+ 941 0158 06       		.byte	0x6
+ 942 0159 08       		.uleb128 0x8
+ 943 015a 77050000 		.4byte	.LASF32
+ 944 015e 05       		.byte	0x5
+ 945 015f 08       		.uleb128 0x8
+ 946 0160 2F060000 		.4byte	.LASF33
+ 947 0164 00       		.byte	0
+ 948 0165 08       		.uleb128 0x8
+ 949 0166 03030000 		.4byte	.LASF34
+ 950 016a 01       		.byte	0x1
+ 951 016b 00       		.byte	0
+ 952 016c 07       		.uleb128 0x7
+ 953 016d 01       		.byte	0x1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 25
+
+
+ 954 016e 37000000 		.4byte	0x37
+ 955 0172 04       		.byte	0x4
+ 956 0173 6B       		.byte	0x6b
+ 957 0174 91010000 		.4byte	0x191
+ 958 0178 08       		.uleb128 0x8
+ 959 0179 27010000 		.4byte	.LASF35
+ 960 017d 07       		.byte	0x7
+ 961 017e 08       		.uleb128 0x8
+ 962 017f B6060000 		.4byte	.LASF36
+ 963 0183 06       		.byte	0x6
+ 964 0184 08       		.uleb128 0x8
+ 965 0185 13040000 		.4byte	.LASF37
+ 966 0189 05       		.byte	0x5
+ 967 018a 08       		.uleb128 0x8
+ 968 018b 4C030000 		.4byte	.LASF38
+ 969 018f 01       		.byte	0x1
+ 970 0190 00       		.byte	0
+ 971 0191 07       		.uleb128 0x7
+ 972 0192 01       		.byte	0x1
+ 973 0193 37000000 		.4byte	0x37
+ 974 0197 04       		.byte	0x4
+ 975 0198 76       		.byte	0x76
+ 976 0199 B6010000 		.4byte	0x1b6
+ 977 019d 08       		.uleb128 0x8
+ 978 019e 6F030000 		.4byte	.LASF39
+ 979 01a2 00       		.byte	0
+ 980 01a3 08       		.uleb128 0x8
+ 981 01a4 61060000 		.4byte	.LASF40
+ 982 01a8 01       		.byte	0x1
+ 983 01a9 08       		.uleb128 0x8
+ 984 01aa AD010000 		.4byte	.LASF41
+ 985 01ae 02       		.byte	0x2
+ 986 01af 08       		.uleb128 0x8
+ 987 01b0 46050000 		.4byte	.LASF42
+ 988 01b4 03       		.byte	0x3
+ 989 01b5 00       		.byte	0
+ 990 01b6 07       		.uleb128 0x7
+ 991 01b7 01       		.byte	0x1
+ 992 01b8 37000000 		.4byte	0x37
+ 993 01bc 04       		.byte	0x4
+ 994 01bd 81       		.byte	0x81
+ 995 01be F3010000 		.4byte	0x1f3
+ 996 01c2 08       		.uleb128 0x8
+ 997 01c3 29000000 		.4byte	.LASF43
+ 998 01c7 00       		.byte	0
+ 999 01c8 08       		.uleb128 0x8
+ 1000 01c9 08000000 		.4byte	.LASF44
+ 1001 01cd 01       		.byte	0x1
+ 1002 01ce 08       		.uleb128 0x8
+ 1003 01cf B8000000 		.4byte	.LASF45
+ 1004 01d3 02       		.byte	0x2
+ 1005 01d4 08       		.uleb128 0x8
+ 1006 01d5 03050000 		.4byte	.LASF46
+ 1007 01d9 03       		.byte	0x3
+ 1008 01da 08       		.uleb128 0x8
+ 1009 01db 8C030000 		.4byte	.LASF47
+ 1010 01df 04       		.byte	0x4
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 26
+
+
+ 1011 01e0 08       		.uleb128 0x8
+ 1012 01e1 D4050000 		.4byte	.LASF48
+ 1013 01e5 05       		.byte	0x5
+ 1014 01e6 08       		.uleb128 0x8
+ 1015 01e7 EE000000 		.4byte	.LASF49
+ 1016 01eb 06       		.byte	0x6
+ 1017 01ec 08       		.uleb128 0x8
+ 1018 01ed 2A030000 		.4byte	.LASF50
+ 1019 01f1 07       		.byte	0x7
+ 1020 01f2 00       		.byte	0
+ 1021 01f3 07       		.uleb128 0x7
+ 1022 01f4 01       		.byte	0x1
+ 1023 01f5 37000000 		.4byte	0x37
+ 1024 01f9 04       		.byte	0x4
+ 1025 01fa 90       		.byte	0x90
+ 1026 01fb 18020000 		.4byte	0x218
+ 1027 01ff 08       		.uleb128 0x8
+ 1028 0200 AC050000 		.4byte	.LASF51
+ 1029 0204 00       		.byte	0
+ 1030 0205 08       		.uleb128 0x8
+ 1031 0206 BD070000 		.4byte	.LASF52
+ 1032 020a 01       		.byte	0x1
+ 1033 020b 08       		.uleb128 0x8
+ 1034 020c 84040000 		.4byte	.LASF53
+ 1035 0210 02       		.byte	0x2
+ 1036 0211 08       		.uleb128 0x8
+ 1037 0212 79010000 		.4byte	.LASF54
+ 1038 0216 03       		.byte	0x3
+ 1039 0217 00       		.byte	0
+ 1040 0218 07       		.uleb128 0x7
+ 1041 0219 01       		.byte	0x1
+ 1042 021a 37000000 		.4byte	0x37
+ 1043 021e 04       		.byte	0x4
+ 1044 021f 9B       		.byte	0x9b
+ 1045 0220 37020000 		.4byte	0x237
+ 1046 0224 08       		.uleb128 0x8
+ 1047 0225 8E070000 		.4byte	.LASF55
+ 1048 0229 00       		.byte	0
+ 1049 022a 08       		.uleb128 0x8
+ 1050 022b 92060000 		.4byte	.LASF56
+ 1051 022f 01       		.byte	0x1
+ 1052 0230 08       		.uleb128 0x8
+ 1053 0231 F6050000 		.4byte	.LASF57
+ 1054 0235 02       		.byte	0x2
+ 1055 0236 00       		.byte	0
+ 1056 0237 07       		.uleb128 0x7
+ 1057 0238 01       		.byte	0x1
+ 1058 0239 37000000 		.4byte	0x37
+ 1059 023d 04       		.byte	0x4
+ 1060 023e A5       		.byte	0xa5
+ 1061 023f 5C020000 		.4byte	0x25c
+ 1062 0243 08       		.uleb128 0x8
+ 1063 0244 FE010000 		.4byte	.LASF58
+ 1064 0248 00       		.byte	0
+ 1065 0249 08       		.uleb128 0x8
+ 1066 024a 0E020000 		.4byte	.LASF59
+ 1067 024e 01       		.byte	0x1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 27
+
+
+ 1068 024f 08       		.uleb128 0x8
+ 1069 0250 51060000 		.4byte	.LASF60
+ 1070 0254 02       		.byte	0x2
+ 1071 0255 08       		.uleb128 0x8
+ 1072 0256 2B020000 		.4byte	.LASF61
+ 1073 025a 03       		.byte	0x3
+ 1074 025b 00       		.byte	0
+ 1075 025c 09       		.uleb128 0x9
+ 1076 025d 53040000 		.4byte	.LASF85
+ 1077 0261 E4       		.byte	0xe4
+ 1078 0262 04       		.byte	0x4
+ 1079 0263 AF       		.byte	0xaf
+ 1080 0264 F9020000 		.4byte	0x2f9
+ 1081 0268 0A       		.uleb128 0xa
+ 1082 0269 CB050000 		.4byte	.LASF62
+ 1083 026d 04       		.byte	0x4
+ 1084 026e B1       		.byte	0xb1
+ 1085 026f FE020000 		.4byte	0x2fe
+ 1086 0273 00       		.byte	0
+ 1087 0274 0A       		.uleb128 0xa
+ 1088 0275 12060000 		.4byte	.LASF63
+ 1089 0279 04       		.byte	0x4
+ 1090 027a B2       		.byte	0xb2
+ 1091 027b FE020000 		.4byte	0x2fe
+ 1092 027f 04       		.byte	0x4
+ 1093 0280 0A       		.uleb128 0xa
+ 1094 0281 FA020000 		.4byte	.LASF64
+ 1095 0285 04       		.byte	0x4
+ 1096 0286 B3       		.byte	0xb3
+ 1097 0287 28030000 		.4byte	0x328
+ 1098 028b 08       		.byte	0x8
+ 1099 028c 0A       		.uleb128 0xa
+ 1100 028d 1D060000 		.4byte	.LASF65
+ 1101 0291 04       		.byte	0x4
+ 1102 0292 B4       		.byte	0xb4
+ 1103 0293 28030000 		.4byte	0x328
+ 1104 0297 0C       		.byte	0xc
+ 1105 0298 0A       		.uleb128 0xa
+ 1106 0299 D6020000 		.4byte	.LASF66
+ 1107 029d 04       		.byte	0x4
+ 1108 029e B5       		.byte	0xb5
+ 1109 029f 39030000 		.4byte	0x339
+ 1110 02a3 10       		.byte	0x10
+ 1111 02a4 0A       		.uleb128 0xa
+ 1112 02a5 24050000 		.4byte	.LASF67
+ 1113 02a9 04       		.byte	0x4
+ 1114 02aa B6       		.byte	0xb6
+ 1115 02ab 4A030000 		.4byte	0x34a
+ 1116 02af 14       		.byte	0x14
+ 1117 02b0 0A       		.uleb128 0xa
+ 1118 02b1 06060000 		.4byte	.LASF68
+ 1119 02b5 04       		.byte	0x4
+ 1120 02b6 B7       		.byte	0xb7
+ 1121 02b7 61030000 		.4byte	0x361
+ 1122 02bb 18       		.byte	0x18
+ 1123 02bc 0A       		.uleb128 0xa
+ 1124 02bd 87070000 		.4byte	.LASF69
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 28
+
+
+ 1125 02c1 04       		.byte	0x4
+ 1126 02c2 B8       		.byte	0xb8
+ 1127 02c3 AC000000 		.4byte	0xac
+ 1128 02c7 1C       		.byte	0x1c
+ 1129 02c8 0A       		.uleb128 0xa
+ 1130 02c9 10010000 		.4byte	.LASF70
+ 1131 02cd 04       		.byte	0x4
+ 1132 02ce B9       		.byte	0xb9
+ 1133 02cf AC000000 		.4byte	0xac
+ 1134 02d3 1D       		.byte	0x1d
+ 1135 02d4 0B       		.uleb128 0xb
+ 1136 02d5 72617700 		.ascii	"raw\000"
+ 1137 02d9 04       		.byte	0x4
+ 1138 02da BA       		.byte	0xba
+ 1139 02db B7000000 		.4byte	0xb7
+ 1140 02df 1E       		.byte	0x1e
+ 1141 02e0 0A       		.uleb128 0xa
+ 1142 02e1 50010000 		.4byte	.LASF71
+ 1143 02e5 04       		.byte	0x4
+ 1144 02e6 BB       		.byte	0xbb
+ 1145 02e7 67030000 		.4byte	0x367
+ 1146 02eb 20       		.byte	0x20
+ 1147 02ec 0B       		.uleb128 0xb
+ 1148 02ed 62756600 		.ascii	"buf\000"
+ 1149 02f1 04       		.byte	0x4
+ 1150 02f2 BC       		.byte	0xbc
+ 1151 02f3 6E030000 		.4byte	0x36e
+ 1152 02f7 24       		.byte	0x24
+ 1153 02f8 00       		.byte	0
+ 1154 02f9 0C       		.uleb128 0xc
+ 1155 02fa AC000000 		.4byte	0xac
+ 1156 02fe 05       		.uleb128 0x5
+ 1157 02ff 04       		.byte	0x4
+ 1158 0300 F9020000 		.4byte	0x2f9
+ 1159 0304 0D       		.uleb128 0xd
+ 1160 0305 AC000000 		.4byte	0xac
+ 1161 0309 22030000 		.4byte	0x322
+ 1162 030d 0E       		.uleb128 0xe
+ 1163 030e AC000000 		.4byte	0xac
+ 1164 0312 0E       		.uleb128 0xe
+ 1165 0313 AC000000 		.4byte	0xac
+ 1166 0317 0E       		.uleb128 0xe
+ 1167 0318 22030000 		.4byte	0x322
+ 1168 031c 0E       		.uleb128 0xe
+ 1169 031d B7000000 		.4byte	0xb7
+ 1170 0321 00       		.byte	0
+ 1171 0322 05       		.uleb128 0x5
+ 1172 0323 04       		.byte	0x4
+ 1173 0324 AC000000 		.4byte	0xac
+ 1174 0328 05       		.uleb128 0x5
+ 1175 0329 04       		.byte	0x4
+ 1176 032a 04030000 		.4byte	0x304
+ 1177 032e 0F       		.uleb128 0xf
+ 1178 032f 39030000 		.4byte	0x339
+ 1179 0333 0E       		.uleb128 0xe
+ 1180 0334 AC000000 		.4byte	0xac
+ 1181 0338 00       		.byte	0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 29
+
+
+ 1182 0339 05       		.uleb128 0x5
+ 1183 033a 04       		.byte	0x4
+ 1184 033b 2E030000 		.4byte	0x32e
+ 1185 033f 0F       		.uleb128 0xf
+ 1186 0340 4A030000 		.4byte	0x34a
+ 1187 0344 0E       		.uleb128 0xe
+ 1188 0345 C2000000 		.4byte	0xc2
+ 1189 0349 00       		.byte	0
+ 1190 034a 05       		.uleb128 0x5
+ 1191 034b 04       		.byte	0x4
+ 1192 034c 3F030000 		.4byte	0x33f
+ 1193 0350 0F       		.uleb128 0xf
+ 1194 0351 5C030000 		.4byte	0x35c
+ 1195 0355 0E       		.uleb128 0xe
+ 1196 0356 5C030000 		.4byte	0x35c
+ 1197 035a 10       		.uleb128 0x10
+ 1198 035b 00       		.byte	0
+ 1199 035c 06       		.uleb128 0x6
+ 1200 035d A1000000 		.4byte	0xa1
+ 1201 0361 05       		.uleb128 0x5
+ 1202 0362 04       		.byte	0x4
+ 1203 0363 50030000 		.4byte	0x350
+ 1204 0367 02       		.uleb128 0x2
+ 1205 0368 04       		.byte	0x4
+ 1206 0369 04       		.byte	0x4
+ 1207 036a 77040000 		.4byte	.LASF72
+ 1208 036e 11       		.uleb128 0x11
+ 1209 036f AC000000 		.4byte	0xac
+ 1210 0373 7E030000 		.4byte	0x37e
+ 1211 0377 12       		.uleb128 0x12
+ 1212 0378 93000000 		.4byte	0x93
+ 1213 037c BF       		.byte	0xbf
+ 1214 037d 00       		.byte	0
+ 1215 037e 03       		.uleb128 0x3
+ 1216 037f 65040000 		.4byte	.LASF73
+ 1217 0383 04       		.byte	0x4
+ 1218 0384 BD       		.byte	0xbd
+ 1219 0385 5C020000 		.4byte	0x25c
+ 1220 0389 13       		.uleb128 0x13
+ 1221 038a A3040000 		.4byte	.LASF86
+ 1222 038e 01       		.byte	0x1
+ 1223 038f 30       		.byte	0x30
+ 1224 0390 AC000000 		.4byte	0xac
+ 1225 0394 00000000 		.4byte	.LFB1
+ 1226 0398 20000000 		.4byte	.LFE1-.LFB1
+ 1227 039c 01       		.uleb128 0x1
+ 1228 039d 9C       		.byte	0x9c
+ 1229 039e 14       		.uleb128 0x14
+ 1230 039f 99050000 		.4byte	.LASF75
+ 1231 03a3 01       		.byte	0x1
+ 1232 03a4 45       		.byte	0x45
+ 1233 03a5 AC000000 		.4byte	0xac
+ 1234 03a9 00000000 		.4byte	.LFB2
+ 1235 03ad A4030000 		.4byte	.LFE2-.LFB2
+ 1236 03b1 01       		.uleb128 0x1
+ 1237 03b2 9C       		.byte	0x9c
+ 1238 03b3 E2030000 		.4byte	0x3e2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 30
+
+
+ 1239 03b7 15       		.uleb128 0x15
+ 1240 03b8 ED040000 		.4byte	.LASF78
+ 1241 03bc 01       		.byte	0x1
+ 1242 03bd 45       		.byte	0x45
+ 1243 03be 39030000 		.4byte	0x339
+ 1244 03c2 02       		.uleb128 0x2
+ 1245 03c3 91       		.byte	0x91
+ 1246 03c4 6C       		.sleb128 -20
+ 1247 03c5 16       		.uleb128 0x16
+ 1248 03c6 72657300 		.ascii	"res\000"
+ 1249 03ca 01       		.byte	0x1
+ 1250 03cb 47       		.byte	0x47
+ 1251 03cc AC000000 		.4byte	0xac
+ 1252 03d0 02       		.uleb128 0x2
+ 1253 03d1 91       		.byte	0x91
+ 1254 03d2 77       		.sleb128 -9
+ 1255 03d3 17       		.uleb128 0x17
+ 1256 03d4 F9030000 		.4byte	.LASF74
+ 1257 03d8 01       		.byte	0x1
+ 1258 03d9 48       		.byte	0x48
+ 1259 03da E6000000 		.4byte	0xe6
+ 1260 03de 02       		.uleb128 0x2
+ 1261 03df 91       		.byte	0x91
+ 1262 03e0 76       		.sleb128 -10
+ 1263 03e1 00       		.byte	0
+ 1264 03e2 18       		.uleb128 0x18
+ 1265 03e3 D9000000 		.4byte	.LASF76
+ 1266 03e7 01       		.byte	0x1
+ 1267 03e8 3901     		.2byte	0x139
+ 1268 03ea AC000000 		.4byte	0xac
+ 1269 03ee 00000000 		.4byte	.LFB3
+ 1270 03f2 28000000 		.4byte	.LFE3-.LFB3
+ 1271 03f6 01       		.uleb128 0x1
+ 1272 03f7 9C       		.byte	0x9c
+ 1273 03f8 0C040000 		.4byte	0x40c
+ 1274 03fc 19       		.uleb128 0x19
+ 1275 03fd 72657300 		.ascii	"res\000"
+ 1276 0401 01       		.byte	0x1
+ 1277 0402 3B01     		.2byte	0x13b
+ 1278 0404 AC000000 		.4byte	0xac
+ 1279 0408 02       		.uleb128 0x2
+ 1280 0409 91       		.byte	0x91
+ 1281 040a 77       		.sleb128 -9
+ 1282 040b 00       		.byte	0
+ 1283 040c 18       		.uleb128 0x18
+ 1284 040d 00040000 		.4byte	.LASF77
+ 1285 0411 01       		.byte	0x1
+ 1286 0412 5201     		.2byte	0x152
+ 1287 0414 AC000000 		.4byte	0xac
+ 1288 0418 00000000 		.4byte	.LFB4
+ 1289 041c 34000000 		.4byte	.LFE4-.LFB4
+ 1290 0420 01       		.uleb128 0x1
+ 1291 0421 9C       		.byte	0x9c
+ 1292 0422 63040000 		.4byte	0x463
+ 1293 0426 1A       		.uleb128 0x1a
+ 1294 0427 00000000 		.4byte	.LASF79
+ 1295 042b 01       		.byte	0x1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 31
+
+
+ 1296 042c 5201     		.2byte	0x152
+ 1297 042e 63040000 		.4byte	0x463
+ 1298 0432 02       		.uleb128 0x2
+ 1299 0433 91       		.byte	0x91
+ 1300 0434 6C       		.sleb128 -20
+ 1301 0435 1A       		.uleb128 0x1a
+ 1302 0436 7D040000 		.4byte	.LASF80
+ 1303 043a 01       		.byte	0x1
+ 1304 043b 5201     		.2byte	0x152
+ 1305 043d 63040000 		.4byte	0x463
+ 1306 0441 02       		.uleb128 0x2
+ 1307 0442 91       		.byte	0x91
+ 1308 0443 68       		.sleb128 -24
+ 1309 0444 1B       		.uleb128 0x1b
+ 1310 0445 6C656E00 		.ascii	"len\000"
+ 1311 0449 01       		.byte	0x1
+ 1312 044a 5201     		.2byte	0x152
+ 1313 044c 22030000 		.4byte	0x322
+ 1314 0450 02       		.uleb128 0x2
+ 1315 0451 91       		.byte	0x91
+ 1316 0452 64       		.sleb128 -28
+ 1317 0453 19       		.uleb128 0x19
+ 1318 0454 72657300 		.ascii	"res\000"
+ 1319 0458 01       		.byte	0x1
+ 1320 0459 5401     		.2byte	0x154
+ 1321 045b AC000000 		.4byte	0xac
+ 1322 045f 02       		.uleb128 0x2
+ 1323 0460 91       		.byte	0x91
+ 1324 0461 77       		.sleb128 -9
+ 1325 0462 00       		.byte	0
+ 1326 0463 05       		.uleb128 0x5
+ 1327 0464 04       		.byte	0x4
+ 1328 0465 C2000000 		.4byte	0xc2
+ 1329 0469 17       		.uleb128 0x17
+ 1330 046a 98010000 		.4byte	.LASF81
+ 1331 046e 01       		.byte	0x1
+ 1332 046f 27       		.byte	0x27
+ 1333 0470 7E030000 		.4byte	0x37e
+ 1334 0474 05       		.uleb128 0x5
+ 1335 0475 03       		.byte	0x3
+ 1336 0476 00000000 		.4byte	gs_handle
+ 1337 047a 00       		.byte	0
+ 1338              		.section	.debug_abbrev,"",%progbits
+ 1339              	.Ldebug_abbrev0:
+ 1340 0000 01       		.uleb128 0x1
+ 1341 0001 11       		.uleb128 0x11
+ 1342 0002 01       		.byte	0x1
+ 1343 0003 25       		.uleb128 0x25
+ 1344 0004 0E       		.uleb128 0xe
+ 1345 0005 13       		.uleb128 0x13
+ 1346 0006 0B       		.uleb128 0xb
+ 1347 0007 03       		.uleb128 0x3
+ 1348 0008 0E       		.uleb128 0xe
+ 1349 0009 1B       		.uleb128 0x1b
+ 1350 000a 0E       		.uleb128 0xe
+ 1351 000b 55       		.uleb128 0x55
+ 1352 000c 17       		.uleb128 0x17
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 32
+
+
+ 1353 000d 11       		.uleb128 0x11
+ 1354 000e 01       		.uleb128 0x1
+ 1355 000f 10       		.uleb128 0x10
+ 1356 0010 17       		.uleb128 0x17
+ 1357 0011 00       		.byte	0
+ 1358 0012 00       		.byte	0
+ 1359 0013 02       		.uleb128 0x2
+ 1360 0014 24       		.uleb128 0x24
+ 1361 0015 00       		.byte	0
+ 1362 0016 0B       		.uleb128 0xb
+ 1363 0017 0B       		.uleb128 0xb
+ 1364 0018 3E       		.uleb128 0x3e
+ 1365 0019 0B       		.uleb128 0xb
+ 1366 001a 03       		.uleb128 0x3
+ 1367 001b 0E       		.uleb128 0xe
+ 1368 001c 00       		.byte	0
+ 1369 001d 00       		.byte	0
+ 1370 001e 03       		.uleb128 0x3
+ 1371 001f 16       		.uleb128 0x16
+ 1372 0020 00       		.byte	0
+ 1373 0021 03       		.uleb128 0x3
+ 1374 0022 0E       		.uleb128 0xe
+ 1375 0023 3A       		.uleb128 0x3a
+ 1376 0024 0B       		.uleb128 0xb
+ 1377 0025 3B       		.uleb128 0x3b
+ 1378 0026 0B       		.uleb128 0xb
+ 1379 0027 49       		.uleb128 0x49
+ 1380 0028 13       		.uleb128 0x13
+ 1381 0029 00       		.byte	0
+ 1382 002a 00       		.byte	0
+ 1383 002b 04       		.uleb128 0x4
+ 1384 002c 24       		.uleb128 0x24
+ 1385 002d 00       		.byte	0
+ 1386 002e 0B       		.uleb128 0xb
+ 1387 002f 0B       		.uleb128 0xb
+ 1388 0030 3E       		.uleb128 0x3e
+ 1389 0031 0B       		.uleb128 0xb
+ 1390 0032 03       		.uleb128 0x3
+ 1391 0033 08       		.uleb128 0x8
+ 1392 0034 00       		.byte	0
+ 1393 0035 00       		.byte	0
+ 1394 0036 05       		.uleb128 0x5
+ 1395 0037 0F       		.uleb128 0xf
+ 1396 0038 00       		.byte	0
+ 1397 0039 0B       		.uleb128 0xb
+ 1398 003a 0B       		.uleb128 0xb
+ 1399 003b 49       		.uleb128 0x49
+ 1400 003c 13       		.uleb128 0x13
+ 1401 003d 00       		.byte	0
+ 1402 003e 00       		.byte	0
+ 1403 003f 06       		.uleb128 0x6
+ 1404 0040 26       		.uleb128 0x26
+ 1405 0041 00       		.byte	0
+ 1406 0042 49       		.uleb128 0x49
+ 1407 0043 13       		.uleb128 0x13
+ 1408 0044 00       		.byte	0
+ 1409 0045 00       		.byte	0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 33
+
+
+ 1410 0046 07       		.uleb128 0x7
+ 1411 0047 04       		.uleb128 0x4
+ 1412 0048 01       		.byte	0x1
+ 1413 0049 0B       		.uleb128 0xb
+ 1414 004a 0B       		.uleb128 0xb
+ 1415 004b 49       		.uleb128 0x49
+ 1416 004c 13       		.uleb128 0x13
+ 1417 004d 3A       		.uleb128 0x3a
+ 1418 004e 0B       		.uleb128 0xb
+ 1419 004f 3B       		.uleb128 0x3b
+ 1420 0050 0B       		.uleb128 0xb
+ 1421 0051 01       		.uleb128 0x1
+ 1422 0052 13       		.uleb128 0x13
+ 1423 0053 00       		.byte	0
+ 1424 0054 00       		.byte	0
+ 1425 0055 08       		.uleb128 0x8
+ 1426 0056 28       		.uleb128 0x28
+ 1427 0057 00       		.byte	0
+ 1428 0058 03       		.uleb128 0x3
+ 1429 0059 0E       		.uleb128 0xe
+ 1430 005a 1C       		.uleb128 0x1c
+ 1431 005b 0B       		.uleb128 0xb
+ 1432 005c 00       		.byte	0
+ 1433 005d 00       		.byte	0
+ 1434 005e 09       		.uleb128 0x9
+ 1435 005f 13       		.uleb128 0x13
+ 1436 0060 01       		.byte	0x1
+ 1437 0061 03       		.uleb128 0x3
+ 1438 0062 0E       		.uleb128 0xe
+ 1439 0063 0B       		.uleb128 0xb
+ 1440 0064 0B       		.uleb128 0xb
+ 1441 0065 3A       		.uleb128 0x3a
+ 1442 0066 0B       		.uleb128 0xb
+ 1443 0067 3B       		.uleb128 0x3b
+ 1444 0068 0B       		.uleb128 0xb
+ 1445 0069 01       		.uleb128 0x1
+ 1446 006a 13       		.uleb128 0x13
+ 1447 006b 00       		.byte	0
+ 1448 006c 00       		.byte	0
+ 1449 006d 0A       		.uleb128 0xa
+ 1450 006e 0D       		.uleb128 0xd
+ 1451 006f 00       		.byte	0
+ 1452 0070 03       		.uleb128 0x3
+ 1453 0071 0E       		.uleb128 0xe
+ 1454 0072 3A       		.uleb128 0x3a
+ 1455 0073 0B       		.uleb128 0xb
+ 1456 0074 3B       		.uleb128 0x3b
+ 1457 0075 0B       		.uleb128 0xb
+ 1458 0076 49       		.uleb128 0x49
+ 1459 0077 13       		.uleb128 0x13
+ 1460 0078 38       		.uleb128 0x38
+ 1461 0079 0B       		.uleb128 0xb
+ 1462 007a 00       		.byte	0
+ 1463 007b 00       		.byte	0
+ 1464 007c 0B       		.uleb128 0xb
+ 1465 007d 0D       		.uleb128 0xd
+ 1466 007e 00       		.byte	0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 34
+
+
+ 1467 007f 03       		.uleb128 0x3
+ 1468 0080 08       		.uleb128 0x8
+ 1469 0081 3A       		.uleb128 0x3a
+ 1470 0082 0B       		.uleb128 0xb
+ 1471 0083 3B       		.uleb128 0x3b
+ 1472 0084 0B       		.uleb128 0xb
+ 1473 0085 49       		.uleb128 0x49
+ 1474 0086 13       		.uleb128 0x13
+ 1475 0087 38       		.uleb128 0x38
+ 1476 0088 0B       		.uleb128 0xb
+ 1477 0089 00       		.byte	0
+ 1478 008a 00       		.byte	0
+ 1479 008b 0C       		.uleb128 0xc
+ 1480 008c 15       		.uleb128 0x15
+ 1481 008d 00       		.byte	0
+ 1482 008e 27       		.uleb128 0x27
+ 1483 008f 19       		.uleb128 0x19
+ 1484 0090 49       		.uleb128 0x49
+ 1485 0091 13       		.uleb128 0x13
+ 1486 0092 00       		.byte	0
+ 1487 0093 00       		.byte	0
+ 1488 0094 0D       		.uleb128 0xd
+ 1489 0095 15       		.uleb128 0x15
+ 1490 0096 01       		.byte	0x1
+ 1491 0097 27       		.uleb128 0x27
+ 1492 0098 19       		.uleb128 0x19
+ 1493 0099 49       		.uleb128 0x49
+ 1494 009a 13       		.uleb128 0x13
+ 1495 009b 01       		.uleb128 0x1
+ 1496 009c 13       		.uleb128 0x13
+ 1497 009d 00       		.byte	0
+ 1498 009e 00       		.byte	0
+ 1499 009f 0E       		.uleb128 0xe
+ 1500 00a0 05       		.uleb128 0x5
+ 1501 00a1 00       		.byte	0
+ 1502 00a2 49       		.uleb128 0x49
+ 1503 00a3 13       		.uleb128 0x13
+ 1504 00a4 00       		.byte	0
+ 1505 00a5 00       		.byte	0
+ 1506 00a6 0F       		.uleb128 0xf
+ 1507 00a7 15       		.uleb128 0x15
+ 1508 00a8 01       		.byte	0x1
+ 1509 00a9 27       		.uleb128 0x27
+ 1510 00aa 19       		.uleb128 0x19
+ 1511 00ab 01       		.uleb128 0x1
+ 1512 00ac 13       		.uleb128 0x13
+ 1513 00ad 00       		.byte	0
+ 1514 00ae 00       		.byte	0
+ 1515 00af 10       		.uleb128 0x10
+ 1516 00b0 18       		.uleb128 0x18
+ 1517 00b1 00       		.byte	0
+ 1518 00b2 00       		.byte	0
+ 1519 00b3 00       		.byte	0
+ 1520 00b4 11       		.uleb128 0x11
+ 1521 00b5 01       		.uleb128 0x1
+ 1522 00b6 01       		.byte	0x1
+ 1523 00b7 49       		.uleb128 0x49
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 35
+
+
+ 1524 00b8 13       		.uleb128 0x13
+ 1525 00b9 01       		.uleb128 0x1
+ 1526 00ba 13       		.uleb128 0x13
+ 1527 00bb 00       		.byte	0
+ 1528 00bc 00       		.byte	0
+ 1529 00bd 12       		.uleb128 0x12
+ 1530 00be 21       		.uleb128 0x21
+ 1531 00bf 00       		.byte	0
+ 1532 00c0 49       		.uleb128 0x49
+ 1533 00c1 13       		.uleb128 0x13
+ 1534 00c2 2F       		.uleb128 0x2f
+ 1535 00c3 0B       		.uleb128 0xb
+ 1536 00c4 00       		.byte	0
+ 1537 00c5 00       		.byte	0
+ 1538 00c6 13       		.uleb128 0x13
+ 1539 00c7 2E       		.uleb128 0x2e
+ 1540 00c8 00       		.byte	0
+ 1541 00c9 3F       		.uleb128 0x3f
+ 1542 00ca 19       		.uleb128 0x19
+ 1543 00cb 03       		.uleb128 0x3
+ 1544 00cc 0E       		.uleb128 0xe
+ 1545 00cd 3A       		.uleb128 0x3a
+ 1546 00ce 0B       		.uleb128 0xb
+ 1547 00cf 3B       		.uleb128 0x3b
+ 1548 00d0 0B       		.uleb128 0xb
+ 1549 00d1 27       		.uleb128 0x27
+ 1550 00d2 19       		.uleb128 0x19
+ 1551 00d3 49       		.uleb128 0x49
+ 1552 00d4 13       		.uleb128 0x13
+ 1553 00d5 11       		.uleb128 0x11
+ 1554 00d6 01       		.uleb128 0x1
+ 1555 00d7 12       		.uleb128 0x12
+ 1556 00d8 06       		.uleb128 0x6
+ 1557 00d9 40       		.uleb128 0x40
+ 1558 00da 18       		.uleb128 0x18
+ 1559 00db 9642     		.uleb128 0x2116
+ 1560 00dd 19       		.uleb128 0x19
+ 1561 00de 00       		.byte	0
+ 1562 00df 00       		.byte	0
+ 1563 00e0 14       		.uleb128 0x14
+ 1564 00e1 2E       		.uleb128 0x2e
+ 1565 00e2 01       		.byte	0x1
+ 1566 00e3 3F       		.uleb128 0x3f
+ 1567 00e4 19       		.uleb128 0x19
+ 1568 00e5 03       		.uleb128 0x3
+ 1569 00e6 0E       		.uleb128 0xe
+ 1570 00e7 3A       		.uleb128 0x3a
+ 1571 00e8 0B       		.uleb128 0xb
+ 1572 00e9 3B       		.uleb128 0x3b
+ 1573 00ea 0B       		.uleb128 0xb
+ 1574 00eb 27       		.uleb128 0x27
+ 1575 00ec 19       		.uleb128 0x19
+ 1576 00ed 49       		.uleb128 0x49
+ 1577 00ee 13       		.uleb128 0x13
+ 1578 00ef 11       		.uleb128 0x11
+ 1579 00f0 01       		.uleb128 0x1
+ 1580 00f1 12       		.uleb128 0x12
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 36
+
+
+ 1581 00f2 06       		.uleb128 0x6
+ 1582 00f3 40       		.uleb128 0x40
+ 1583 00f4 18       		.uleb128 0x18
+ 1584 00f5 9642     		.uleb128 0x2116
+ 1585 00f7 19       		.uleb128 0x19
+ 1586 00f8 01       		.uleb128 0x1
+ 1587 00f9 13       		.uleb128 0x13
+ 1588 00fa 00       		.byte	0
+ 1589 00fb 00       		.byte	0
+ 1590 00fc 15       		.uleb128 0x15
+ 1591 00fd 05       		.uleb128 0x5
+ 1592 00fe 00       		.byte	0
+ 1593 00ff 03       		.uleb128 0x3
+ 1594 0100 0E       		.uleb128 0xe
+ 1595 0101 3A       		.uleb128 0x3a
+ 1596 0102 0B       		.uleb128 0xb
+ 1597 0103 3B       		.uleb128 0x3b
+ 1598 0104 0B       		.uleb128 0xb
+ 1599 0105 49       		.uleb128 0x49
+ 1600 0106 13       		.uleb128 0x13
+ 1601 0107 02       		.uleb128 0x2
+ 1602 0108 18       		.uleb128 0x18
+ 1603 0109 00       		.byte	0
+ 1604 010a 00       		.byte	0
+ 1605 010b 16       		.uleb128 0x16
+ 1606 010c 34       		.uleb128 0x34
+ 1607 010d 00       		.byte	0
+ 1608 010e 03       		.uleb128 0x3
+ 1609 010f 08       		.uleb128 0x8
+ 1610 0110 3A       		.uleb128 0x3a
+ 1611 0111 0B       		.uleb128 0xb
+ 1612 0112 3B       		.uleb128 0x3b
+ 1613 0113 0B       		.uleb128 0xb
+ 1614 0114 49       		.uleb128 0x49
+ 1615 0115 13       		.uleb128 0x13
+ 1616 0116 02       		.uleb128 0x2
+ 1617 0117 18       		.uleb128 0x18
+ 1618 0118 00       		.byte	0
+ 1619 0119 00       		.byte	0
+ 1620 011a 17       		.uleb128 0x17
+ 1621 011b 34       		.uleb128 0x34
+ 1622 011c 00       		.byte	0
+ 1623 011d 03       		.uleb128 0x3
+ 1624 011e 0E       		.uleb128 0xe
+ 1625 011f 3A       		.uleb128 0x3a
+ 1626 0120 0B       		.uleb128 0xb
+ 1627 0121 3B       		.uleb128 0x3b
+ 1628 0122 0B       		.uleb128 0xb
+ 1629 0123 49       		.uleb128 0x49
+ 1630 0124 13       		.uleb128 0x13
+ 1631 0125 02       		.uleb128 0x2
+ 1632 0126 18       		.uleb128 0x18
+ 1633 0127 00       		.byte	0
+ 1634 0128 00       		.byte	0
+ 1635 0129 18       		.uleb128 0x18
+ 1636 012a 2E       		.uleb128 0x2e
+ 1637 012b 01       		.byte	0x1
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 37
+
+
+ 1638 012c 3F       		.uleb128 0x3f
+ 1639 012d 19       		.uleb128 0x19
+ 1640 012e 03       		.uleb128 0x3
+ 1641 012f 0E       		.uleb128 0xe
+ 1642 0130 3A       		.uleb128 0x3a
+ 1643 0131 0B       		.uleb128 0xb
+ 1644 0132 3B       		.uleb128 0x3b
+ 1645 0133 05       		.uleb128 0x5
+ 1646 0134 27       		.uleb128 0x27
+ 1647 0135 19       		.uleb128 0x19
+ 1648 0136 49       		.uleb128 0x49
+ 1649 0137 13       		.uleb128 0x13
+ 1650 0138 11       		.uleb128 0x11
+ 1651 0139 01       		.uleb128 0x1
+ 1652 013a 12       		.uleb128 0x12
+ 1653 013b 06       		.uleb128 0x6
+ 1654 013c 40       		.uleb128 0x40
+ 1655 013d 18       		.uleb128 0x18
+ 1656 013e 9642     		.uleb128 0x2116
+ 1657 0140 19       		.uleb128 0x19
+ 1658 0141 01       		.uleb128 0x1
+ 1659 0142 13       		.uleb128 0x13
+ 1660 0143 00       		.byte	0
+ 1661 0144 00       		.byte	0
+ 1662 0145 19       		.uleb128 0x19
+ 1663 0146 34       		.uleb128 0x34
+ 1664 0147 00       		.byte	0
+ 1665 0148 03       		.uleb128 0x3
+ 1666 0149 08       		.uleb128 0x8
+ 1667 014a 3A       		.uleb128 0x3a
+ 1668 014b 0B       		.uleb128 0xb
+ 1669 014c 3B       		.uleb128 0x3b
+ 1670 014d 05       		.uleb128 0x5
+ 1671 014e 49       		.uleb128 0x49
+ 1672 014f 13       		.uleb128 0x13
+ 1673 0150 02       		.uleb128 0x2
+ 1674 0151 18       		.uleb128 0x18
+ 1675 0152 00       		.byte	0
+ 1676 0153 00       		.byte	0
+ 1677 0154 1A       		.uleb128 0x1a
+ 1678 0155 05       		.uleb128 0x5
+ 1679 0156 00       		.byte	0
+ 1680 0157 03       		.uleb128 0x3
+ 1681 0158 0E       		.uleb128 0xe
+ 1682 0159 3A       		.uleb128 0x3a
+ 1683 015a 0B       		.uleb128 0xb
+ 1684 015b 3B       		.uleb128 0x3b
+ 1685 015c 05       		.uleb128 0x5
+ 1686 015d 49       		.uleb128 0x49
+ 1687 015e 13       		.uleb128 0x13
+ 1688 015f 02       		.uleb128 0x2
+ 1689 0160 18       		.uleb128 0x18
+ 1690 0161 00       		.byte	0
+ 1691 0162 00       		.byte	0
+ 1692 0163 1B       		.uleb128 0x1b
+ 1693 0164 05       		.uleb128 0x5
+ 1694 0165 00       		.byte	0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 38
+
+
+ 1695 0166 03       		.uleb128 0x3
+ 1696 0167 08       		.uleb128 0x8
+ 1697 0168 3A       		.uleb128 0x3a
+ 1698 0169 0B       		.uleb128 0xb
+ 1699 016a 3B       		.uleb128 0x3b
+ 1700 016b 05       		.uleb128 0x5
+ 1701 016c 49       		.uleb128 0x49
+ 1702 016d 13       		.uleb128 0x13
+ 1703 016e 02       		.uleb128 0x2
+ 1704 016f 18       		.uleb128 0x18
+ 1705 0170 00       		.byte	0
+ 1706 0171 00       		.byte	0
+ 1707 0172 00       		.byte	0
+ 1708              		.section	.debug_aranges,"",%progbits
+ 1709 0000 34000000 		.4byte	0x34
+ 1710 0004 0200     		.2byte	0x2
+ 1711 0006 00000000 		.4byte	.Ldebug_info0
+ 1712 000a 04       		.byte	0x4
+ 1713 000b 00       		.byte	0
+ 1714 000c 0000     		.2byte	0
+ 1715 000e 0000     		.2byte	0
+ 1716 0010 00000000 		.4byte	.LFB1
+ 1717 0014 20000000 		.4byte	.LFE1-.LFB1
+ 1718 0018 00000000 		.4byte	.LFB2
+ 1719 001c A4030000 		.4byte	.LFE2-.LFB2
+ 1720 0020 00000000 		.4byte	.LFB3
+ 1721 0024 28000000 		.4byte	.LFE3-.LFB3
+ 1722 0028 00000000 		.4byte	.LFB4
+ 1723 002c 34000000 		.4byte	.LFE4-.LFB4
+ 1724 0030 00000000 		.4byte	0
+ 1725 0034 00000000 		.4byte	0
+ 1726              		.section	.debug_ranges,"",%progbits
+ 1727              	.Ldebug_ranges0:
+ 1728 0000 00000000 		.4byte	.LFB1
+ 1729 0004 20000000 		.4byte	.LFE1
+ 1730 0008 00000000 		.4byte	.LFB2
+ 1731 000c A4030000 		.4byte	.LFE2
+ 1732 0010 00000000 		.4byte	.LFB3
+ 1733 0014 28000000 		.4byte	.LFE3
+ 1734 0018 00000000 		.4byte	.LFB4
+ 1735 001c 34000000 		.4byte	.LFE4
+ 1736 0020 00000000 		.4byte	0
+ 1737 0024 00000000 		.4byte	0
+ 1738              		.section	.debug_line,"",%progbits
+ 1739              	.Ldebug_line0:
+ 1740 0000 0C020000 		.section	.debug_str,"MS",%progbits,1
+ 1740      02003C01 
+ 1740      00000201 
+ 1740      FB0E0D00 
+ 1740      01010101 
+ 1741              	.LASF79:
+ 1742 0000 7261775F 		.ascii	"raw_red\000"
+ 1742      72656400 
+ 1743              	.LASF44:
+ 1744 0008 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_100_HZ\000"
+ 1744      30313032 
+ 1744      5F53504F 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 39
+
+
+ 1744      325F5341 
+ 1744      4D504C45 
+ 1745              	.LASF43:
+ 1746 0029 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_50_HZ\000"
+ 1746      30313032 
+ 1746      5F53504F 
+ 1746      325F5341 
+ 1746      4D504C45 
+ 1747              	.LASF83:
+ 1748 0049 2E2E5C2E 		.ascii	"..\\..\\..\\..\\PSoC6_101\\Sensor\\driver_max30102_"
+ 1748      2E5C2E2E 
+ 1748      5C2E2E5C 
+ 1748      50536F43 
+ 1748      365F3130 
+ 1749 0076 6669666F 		.ascii	"fifo.c\000"
+ 1749      2E6300
+ 1750              	.LASF3:
+ 1751 007d 5F5F7569 		.ascii	"__uint8_t\000"
+ 1751      6E74385F 
+ 1751      7400
+ 1752              	.LASF10:
+ 1753 0087 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1753      206C6F6E 
+ 1753      6720756E 
+ 1753      7369676E 
+ 1753      65642069 
+ 1754              	.LASF9:
+ 1755 009e 6C6F6E67 		.ascii	"long long int\000"
+ 1755      206C6F6E 
+ 1755      6720696E 
+ 1755      7400
+ 1756              	.LASF0:
+ 1757 00ac 7369676E 		.ascii	"signed char\000"
+ 1757      65642063 
+ 1757      68617200 
+ 1758              	.LASF45:
+ 1759 00b8 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_200_HZ\000"
+ 1759      30313032 
+ 1759      5F53504F 
+ 1759      325F5341 
+ 1759      4D504C45 
+ 1760              	.LASF76:
+ 1761 00d9 6D617833 		.ascii	"max30102_fifo_deinit\000"
+ 1761      30313032 
+ 1761      5F666966 
+ 1761      6F5F6465 
+ 1761      696E6974 
+ 1762              	.LASF49:
+ 1763 00ee 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_1600_HZ\000"
+ 1763      30313032 
+ 1763      5F53504F 
+ 1763      325F5341 
+ 1763      4D504C45 
+ 1764              	.LASF70:
+ 1765 0110 66696E69 		.ascii	"finished_flag\000"
+ 1765      73686564 
+ 1765      5F666C61 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 40
+
+
+ 1765      6700
+ 1766              	.LASF6:
+ 1767 011e 6C6F6E67 		.ascii	"long int\000"
+ 1767      20696E74 
+ 1767      00
+ 1768              	.LASF35:
+ 1769 0127 4D415833 		.ascii	"MAX30102_INTERRUPT_FIFO_FULL_EN\000"
+ 1769      30313032 
+ 1769      5F494E54 
+ 1769      45525255 
+ 1769      50545F46 
+ 1770              	.LASF16:
+ 1771 0147 75696E74 		.ascii	"uint16_t\000"
+ 1771      31365F74 
+ 1771      00
+ 1772              	.LASF71:
+ 1773 0150 74656D70 		.ascii	"temperature\000"
+ 1773      65726174 
+ 1773      75726500 
+ 1774              	.LASF26:
+ 1775 015c 4D415833 		.ascii	"MAX30102_SAMPLE_AVERAGING_32\000"
+ 1775      30313032 
+ 1775      5F53414D 
+ 1775      504C455F 
+ 1775      41564552 
+ 1776              	.LASF54:
+ 1777 0179 4D415833 		.ascii	"MAX30102_ADC_RESOLUTION_18_BIT\000"
+ 1777      30313032 
+ 1777      5F414443 
+ 1777      5F524553 
+ 1777      4F4C5554 
+ 1778              	.LASF81:
+ 1779 0198 67735F68 		.ascii	"gs_handle\000"
+ 1779      616E646C 
+ 1779      6500
+ 1780              	.LASF7:
+ 1781 01a2 5F5F7569 		.ascii	"__uint32_t\000"
+ 1781      6E743332 
+ 1781      5F7400
+ 1782              	.LASF41:
+ 1783 01ad 4D415833 		.ascii	"MAX30102_SPO2_ADC_RANGE_8192\000"
+ 1783      30313032 
+ 1783      5F53504F 
+ 1783      325F4144 
+ 1783      435F5241 
+ 1784              	.LASF20:
+ 1785 01ca 6D617833 		.ascii	"max30102_bool_t\000"
+ 1785      30313032 
+ 1785      5F626F6F 
+ 1785      6C5F7400 
+ 1786              	.LASF30:
+ 1787 01da 4D415833 		.ascii	"MAX30102_INTERRUPT_STATUS_FIFO_FULL\000"
+ 1787      30313032 
+ 1787      5F494E54 
+ 1787      45525255 
+ 1787      50545F53 
+ 1788              	.LASF58:
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 41
+
+
+ 1789 01fe 4D415833 		.ascii	"MAX30102_SLOT_1\000"
+ 1789      30313032 
+ 1789      5F534C4F 
+ 1789      545F3100 
+ 1790              	.LASF59:
+ 1791 020e 4D415833 		.ascii	"MAX30102_SLOT_2\000"
+ 1791      30313032 
+ 1791      5F534C4F 
+ 1791      545F3200 
+ 1792              	.LASF11:
+ 1793 021e 756E7369 		.ascii	"unsigned int\000"
+ 1793      676E6564 
+ 1793      20696E74 
+ 1793      00
+ 1794              	.LASF61:
+ 1795 022b 4D415833 		.ascii	"MAX30102_SLOT_4\000"
+ 1795      30313032 
+ 1795      5F534C4F 
+ 1795      545F3400 
+ 1796              	.LASF8:
+ 1797 023b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1797      20756E73 
+ 1797      69676E65 
+ 1797      6420696E 
+ 1797      7400
+ 1798              	.LASF27:
+ 1799 024d 4D415833 		.ascii	"MAX30102_MODE_HEART_RATE\000"
+ 1799      30313032 
+ 1799      5F4D4F44 
+ 1799      455F4845 
+ 1799      4152545F 
+ 1800              	.LASF21:
+ 1801 0266 4D415833 		.ascii	"MAX30102_SAMPLE_AVERAGING_1\000"
+ 1801      30313032 
+ 1801      5F53414D 
+ 1801      504C455F 
+ 1801      41564552 
+ 1802              	.LASF22:
+ 1803 0282 4D415833 		.ascii	"MAX30102_SAMPLE_AVERAGING_2\000"
+ 1803      30313032 
+ 1803      5F53414D 
+ 1803      504C455F 
+ 1803      41564552 
+ 1804              	.LASF23:
+ 1805 029e 4D415833 		.ascii	"MAX30102_SAMPLE_AVERAGING_4\000"
+ 1805      30313032 
+ 1805      5F53414D 
+ 1805      504C455F 
+ 1805      41564552 
+ 1806              	.LASF24:
+ 1807 02ba 4D415833 		.ascii	"MAX30102_SAMPLE_AVERAGING_8\000"
+ 1807      30313032 
+ 1807      5F53414D 
+ 1807      504C455F 
+ 1807      41564552 
+ 1808              	.LASF66:
+ 1809 02d6 72656365 		.ascii	"receive_callback\000"
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 42
+
+
+ 1809      6976655F 
+ 1809      63616C6C 
+ 1809      6261636B 
+ 1809      00
+ 1810              	.LASF5:
+ 1811 02e7 73686F72 		.ascii	"short unsigned int\000"
+ 1811      7420756E 
+ 1811      7369676E 
+ 1811      65642069 
+ 1811      6E7400
+ 1812              	.LASF64:
+ 1813 02fa 6969635F 		.ascii	"iic_read\000"
+ 1813      72656164 
+ 1813      00
+ 1814              	.LASF34:
+ 1815 0303 4D415833 		.ascii	"MAX30102_INTERRUPT_STATUS_DIE_TEMP_RDY\000"
+ 1815      30313032 
+ 1815      5F494E54 
+ 1815      45525255 
+ 1815      50545F53 
+ 1816              	.LASF50:
+ 1817 032a 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_3200_HZ\000"
+ 1817      30313032 
+ 1817      5F53504F 
+ 1817      325F5341 
+ 1817      4D504C45 
+ 1818              	.LASF38:
+ 1819 034c 4D415833 		.ascii	"MAX30102_INTERRUPT_DIE_TEMP_RDY_EN\000"
+ 1819      30313032 
+ 1819      5F494E54 
+ 1819      45525255 
+ 1819      50545F44 
+ 1820              	.LASF39:
+ 1821 036f 4D415833 		.ascii	"MAX30102_SPO2_ADC_RANGE_2048\000"
+ 1821      30313032 
+ 1821      5F53504F 
+ 1821      325F4144 
+ 1821      435F5241 
+ 1822              	.LASF47:
+ 1823 038c 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_800_HZ\000"
+ 1823      30313032 
+ 1823      5F53504F 
+ 1823      325F5341 
+ 1823      4D504C45 
+ 1824              	.LASF13:
+ 1825 03ad 73697A65 		.ascii	"sizetype\000"
+ 1825      74797065 
+ 1825      00
+ 1826              	.LASF84:
+ 1827 03b6 443A5C50 		.ascii	"D:\\PSOC_Jingyi\\LAB6_2\\Lab6\\PSOC_Project\\PSOC_P"
+ 1827      534F435F 
+ 1827      4A696E67 
+ 1827      79695C4C 
+ 1827      4142365F 
+ 1828 03e4 50472E63 		.ascii	"PG.cydsn\000"
+ 1828      7964736E 
+ 1828      00
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 43
+
+
+ 1829              	.LASF12:
+ 1830 03ed 6C6F6E67 		.ascii	"long double\000"
+ 1830      20646F75 
+ 1830      626C6500 
+ 1831              	.LASF74:
+ 1832 03f9 656E6162 		.ascii	"enable\000"
+ 1832      6C6500
+ 1833              	.LASF77:
+ 1834 0400 6D617833 		.ascii	"max30102_fifo_read\000"
+ 1834      30313032 
+ 1834      5F666966 
+ 1834      6F5F7265 
+ 1834      616400
+ 1835              	.LASF37:
+ 1836 0413 4D415833 		.ascii	"MAX30102_INTERRUPT_ALC_OVF_EN\000"
+ 1836      30313032 
+ 1836      5F494E54 
+ 1836      45525255 
+ 1836      50545F41 
+ 1837              	.LASF31:
+ 1838 0431 4D415833 		.ascii	"MAX30102_INTERRUPT_STATUS_PPG_RDY\000"
+ 1838      30313032 
+ 1838      5F494E54 
+ 1838      45525255 
+ 1838      50545F53 
+ 1839              	.LASF85:
+ 1840 0453 6D617833 		.ascii	"max30102_handle_s\000"
+ 1840      30313032 
+ 1840      5F68616E 
+ 1840      646C655F 
+ 1840      7300
+ 1841              	.LASF73:
+ 1842 0465 6D617833 		.ascii	"max30102_handle_t\000"
+ 1842      30313032 
+ 1842      5F68616E 
+ 1842      646C655F 
+ 1842      7400
+ 1843              	.LASF72:
+ 1844 0477 666C6F61 		.ascii	"float\000"
+ 1844      7400
+ 1845              	.LASF80:
+ 1846 047d 7261775F 		.ascii	"raw_ir\000"
+ 1846      697200
+ 1847              	.LASF53:
+ 1848 0484 4D415833 		.ascii	"MAX30102_ADC_RESOLUTION_17_BIT\000"
+ 1848      30313032 
+ 1848      5F414443 
+ 1848      5F524553 
+ 1848      4F4C5554 
+ 1849              	.LASF86:
+ 1850 04a3 6D617833 		.ascii	"max30102_fifo_irq_handler\000"
+ 1850      30313032 
+ 1850      5F666966 
+ 1850      6F5F6972 
+ 1850      715F6861 
+ 1851              	.LASF29:
+ 1852 04bd 4D415833 		.ascii	"MAX30102_MODE_MULTI_LED\000"
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 44
+
+
+ 1852      30313032 
+ 1852      5F4D4F44 
+ 1852      455F4D55 
+ 1852      4C54495F 
+ 1853              	.LASF1:
+ 1854 04d5 756E7369 		.ascii	"unsigned char\000"
+ 1854      676E6564 
+ 1854      20636861 
+ 1854      7200
+ 1855              	.LASF2:
+ 1856 04e3 73686F72 		.ascii	"short int\000"
+ 1856      7420696E 
+ 1856      7400
+ 1857              	.LASF78:
+ 1858 04ed 6669666F 		.ascii	"fifo_receive_callback\000"
+ 1858      5F726563 
+ 1858      65697665 
+ 1858      5F63616C 
+ 1858      6C626163 
+ 1859              	.LASF46:
+ 1860 0503 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_400_HZ\000"
+ 1860      30313032 
+ 1860      5F53504F 
+ 1860      325F5341 
+ 1860      4D504C45 
+ 1861              	.LASF67:
+ 1862 0524 64656C61 		.ascii	"delay_ms\000"
+ 1862      795F6D73 
+ 1862      00
+ 1863              	.LASF17:
+ 1864 052d 75696E74 		.ascii	"uint32_t\000"
+ 1864      33325F74 
+ 1864      00
+ 1865              	.LASF14:
+ 1866 0536 63686172 		.ascii	"char\000"
+ 1866      00
+ 1867              	.LASF4:
+ 1868 053b 5F5F7569 		.ascii	"__uint16_t\000"
+ 1868      6E743136 
+ 1868      5F7400
+ 1869              	.LASF42:
+ 1870 0546 4D415833 		.ascii	"MAX30102_SPO2_ADC_RANGE_16384\000"
+ 1870      30313032 
+ 1870      5F53504F 
+ 1870      325F4144 
+ 1870      435F5241 
+ 1871              	.LASF28:
+ 1872 0564 4D415833 		.ascii	"MAX30102_MODE_SPO2\000"
+ 1872      30313032 
+ 1872      5F4D4F44 
+ 1872      455F5350 
+ 1872      4F3200
+ 1873              	.LASF32:
+ 1874 0577 4D415833 		.ascii	"MAX30102_INTERRUPT_STATUS_ALC_OVF\000"
+ 1874      30313032 
+ 1874      5F494E54 
+ 1874      45525255 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 45
+
+
+ 1874      50545F53 
+ 1875              	.LASF75:
+ 1876 0599 6D617833 		.ascii	"max30102_fifo_init\000"
+ 1876      30313032 
+ 1876      5F666966 
+ 1876      6F5F696E 
+ 1876      697400
+ 1877              	.LASF51:
+ 1878 05ac 4D415833 		.ascii	"MAX30102_ADC_RESOLUTION_15_BIT\000"
+ 1878      30313032 
+ 1878      5F414443 
+ 1878      5F524553 
+ 1878      4F4C5554 
+ 1879              	.LASF62:
+ 1880 05cb 6969635F 		.ascii	"iic_init\000"
+ 1880      696E6974 
+ 1880      00
+ 1881              	.LASF48:
+ 1882 05d4 4D415833 		.ascii	"MAX30102_SPO2_SAMPLE_RATE_1000_HZ\000"
+ 1882      30313032 
+ 1882      5F53504F 
+ 1882      325F5341 
+ 1882      4D504C45 
+ 1883              	.LASF57:
+ 1884 05f6 4D415833 		.ascii	"MAX30102_LED_IR\000"
+ 1884      30313032 
+ 1884      5F4C4544 
+ 1884      5F495200 
+ 1885              	.LASF68:
+ 1886 0606 64656275 		.ascii	"debug_print\000"
+ 1886      675F7072 
+ 1886      696E7400 
+ 1887              	.LASF63:
+ 1888 0612 6969635F 		.ascii	"iic_deinit\000"
+ 1888      6465696E 
+ 1888      697400
+ 1889              	.LASF65:
+ 1890 061d 6969635F 		.ascii	"iic_write\000"
+ 1890      77726974 
+ 1890      6500
+ 1891              	.LASF15:
+ 1892 0627 75696E74 		.ascii	"uint8_t\000"
+ 1892      385F7400 
+ 1893              	.LASF33:
+ 1894 062f 4D415833 		.ascii	"MAX30102_INTERRUPT_STATUS_PWR_RDY\000"
+ 1894      30313032 
+ 1894      5F494E54 
+ 1894      45525255 
+ 1894      50545F53 
+ 1895              	.LASF60:
+ 1896 0651 4D415833 		.ascii	"MAX30102_SLOT_3\000"
+ 1896      30313032 
+ 1896      5F534C4F 
+ 1896      545F3300 
+ 1897              	.LASF40:
+ 1898 0661 4D415833 		.ascii	"MAX30102_SPO2_ADC_RANGE_4096\000"
+ 1898      30313032 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 46
+
+
+ 1898      5F53504F 
+ 1898      325F4144 
+ 1898      435F5241 
+ 1899              	.LASF18:
+ 1900 067e 4D415833 		.ascii	"MAX30102_BOOL_FALSE\000"
+ 1900      30313032 
+ 1900      5F424F4F 
+ 1900      4C5F4641 
+ 1900      4C534500 
+ 1901              	.LASF56:
+ 1902 0692 4D415833 		.ascii	"MAX30102_LED_RED\000"
+ 1902      30313032 
+ 1902      5F4C4544 
+ 1902      5F524544 
+ 1902      00
+ 1903              	.LASF19:
+ 1904 06a3 4D415833 		.ascii	"MAX30102_BOOL_TRUE\000"
+ 1904      30313032 
+ 1904      5F424F4F 
+ 1904      4C5F5452 
+ 1904      554500
+ 1905              	.LASF36:
+ 1906 06b6 4D415833 		.ascii	"MAX30102_INTERRUPT_PPG_RDY_EN\000"
+ 1906      30313032 
+ 1906      5F494E54 
+ 1906      45525255 
+ 1906      50545F50 
+ 1907              	.LASF82:
+ 1908 06d4 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1908      43313120 
+ 1908      352E342E 
+ 1908      31203230 
+ 1908      31363036 
+ 1909 0707 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 1909      20726576 
+ 1909      6973696F 
+ 1909      6E203233 
+ 1909      37373135 
+ 1910 073a 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -O0 -ffunction-s"
+ 1910      70202D6D 
+ 1910      6670753D 
+ 1910      66707634 
+ 1910      2D73702D 
+ 1911 076d 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 1911      6F6E7320 
+ 1911      2D666661 
+ 1911      742D6C74 
+ 1911      6F2D6F62 
+ 1912              	.LASF69:
+ 1913 0787 696E6974 		.ascii	"inited\000"
+ 1913      656400
+ 1914              	.LASF55:
+ 1915 078e 4D415833 		.ascii	"MAX30102_LED_NONE\000"
+ 1915      30313032 
+ 1915      5F4C4544 
+ 1915      5F4E4F4E 
+ 1915      4500
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccskRr3K.s 			page 47
+
+
+ 1916              	.LASF25:
+ 1917 07a0 4D415833 		.ascii	"MAX30102_SAMPLE_AVERAGING_16\000"
+ 1917      30313032 
+ 1917      5F53414D 
+ 1917      504C455F 
+ 1917      41564552 
+ 1918              	.LASF52:
+ 1919 07bd 4D415833 		.ascii	"MAX30102_ADC_RESOLUTION_16_BIT\000"
+ 1919      30313032 
+ 1919      5F414443 
+ 1919      5F524553 
+ 1919      4F4C5554 
+ 1920              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

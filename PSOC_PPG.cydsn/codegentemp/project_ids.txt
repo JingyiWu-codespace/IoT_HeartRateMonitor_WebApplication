@@ -1,0 +1,6 @@
+D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\PSOC_PPG.cyprj|256b889b-5f16-44da-bc52-382af8102dca
+D:\PSOC_Jingyi\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|97d3a34e-c1d2-4a79-b0bd-287ab25e5497
+C:\Users\49148\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|4b56a6d1-7c52-4b12-9216-3a5cd0952707
+D:\PSOC_Jingyi\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|d1f31965-6070-4815-9503-131809b78875
+D:\PSOC_Jingyi\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|52c8fe59-a1ca-4f6c-b19f-8a8d8e796d65
+D:\PSOC_Jingyi\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|e6408e3b-b4d0-4edf-9974-955e581ba65e

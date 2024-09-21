@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="us-ascii"?>
+
+<fileSet version="1" anchorPath="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp" xsi:schemaLocation="http://cypress.com/xsd/cypathdictionary cypathdictionary.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cypathdictionary">
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter_cfg.h" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter_sysint_cfg.h" value="HEADER;;;;;Pins and Interrupts" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter_sysint_cfg.c" value="SOURCE_C;CortexM0p,CortexM4;;;;Pins and Interrupts" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter_cfg.c" value="SOURCE_C;CortexM0p;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cymetadata.c" value="SOURCE_C;CortexM0p,CortexM4;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cydevice_trm.h" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cydevicegnu_trm.inc" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cydevicerv_trm.inc" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cydeviceiar_trm.inc" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter.h" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter_gpio.h" value="HEADER;;;;;Pins and Interrupts" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cyfitter_sysint.h" value="HEADER;;;;;Pins and Interrupts" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cydisabledsheets.h" value="HEADER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\I2C_BUS.c" value="SOURCE_C;CortexM0p,CortexM4;;;;I2C_BUS" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\I2C_BUS.h" value="HEADER;;;;;I2C_BUS" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\Clock_1ms.h" value="HEADER;;;;;Clock_1ms" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\Timer.c" value="SOURCE_C;CortexM0p,CortexM4;;;;Timer" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\Timer.h" value="HEADER;;;;;Timer" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\Uart_Printf.c" value="SOURCE_C;CortexM0p,CortexM4;;;;Uart_Printf" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\Uart_Printf.h" value="HEADER;;;;;Uart_Printf" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE.h" value="HEADER;;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE_config.h" value="HEADER;;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE_bas_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE_dis_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE_custom_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\BLE_hrs_config.c" value="SOURCE_C;CortexM0p,CortexM4;;;;BLE" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\I2C_BUS_SCBCLK.h" value="HEADER;;;;;I2C_BUS_SCBCLK" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\Uart_Printf_SCBCLK.h" value="HEADER;;;;;Uart_Printf_SCBCLK" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\project.h" value="OTHER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cycodeshareimport.ld" value="OTHER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cycodeshareexport.ld" value="OTHER;;;;;" />
+  <file name="D:\PSOC_Jingyi\Ver1_HeartRateProject_Final\PSOC_Project\PSOC_PPG.cydsn\codegentemp\cycodeshareimport.scat" value="OTHER;;;;;" />
+</fileSet>

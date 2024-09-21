@@ -1,0 +1,3525 @@
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"spo2_algorithm.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.bss
+  21              		.align	2
+  22              	an_x:
+  23 0000 00000000 		.space	2400
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  23      00000000 
+  24              		.align	2
+  25              	an_y:
+  26 0960 00000000 		.space	2400
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  27              		.global	uch_spo2_table
+  28              		.section	.rodata
+  29              		.align	2
+  30              		.type	uch_spo2_table, %object
+  31              		.size	uch_spo2_table, 184
+  32              	uch_spo2_table:
+  33 0000 5F       		.byte	95
+  34 0001 5F       		.byte	95
+  35 0002 5F       		.byte	95
+  36 0003 60       		.byte	96
+  37 0004 60       		.byte	96
+  38 0005 60       		.byte	96
+  39 0006 61       		.byte	97
+  40 0007 61       		.byte	97
+  41 0008 61       		.byte	97
+  42 0009 61       		.byte	97
+  43 000a 61       		.byte	97
+  44 000b 62       		.byte	98
+  45 000c 62       		.byte	98
+  46 000d 62       		.byte	98
+  47 000e 62       		.byte	98
+  48 000f 62       		.byte	98
+  49 0010 63       		.byte	99
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 2
+
+
+  50 0011 63       		.byte	99
+  51 0012 63       		.byte	99
+  52 0013 63       		.byte	99
+  53 0014 63       		.byte	99
+  54 0015 63       		.byte	99
+  55 0016 63       		.byte	99
+  56 0017 63       		.byte	99
+  57 0018 64       		.byte	100
+  58 0019 64       		.byte	100
+  59 001a 64       		.byte	100
+  60 001b 64       		.byte	100
+  61 001c 64       		.byte	100
+  62 001d 64       		.byte	100
+  63 001e 64       		.byte	100
+  64 001f 64       		.byte	100
+  65 0020 64       		.byte	100
+  66 0021 64       		.byte	100
+  67 0022 64       		.byte	100
+  68 0023 64       		.byte	100
+  69 0024 64       		.byte	100
+  70 0025 64       		.byte	100
+  71 0026 64       		.byte	100
+  72 0027 64       		.byte	100
+  73 0028 64       		.byte	100
+  74 0029 64       		.byte	100
+  75 002a 64       		.byte	100
+  76 002b 64       		.byte	100
+  77 002c 63       		.byte	99
+  78 002d 63       		.byte	99
+  79 002e 63       		.byte	99
+  80 002f 63       		.byte	99
+  81 0030 63       		.byte	99
+  82 0031 63       		.byte	99
+  83 0032 63       		.byte	99
+  84 0033 63       		.byte	99
+  85 0034 62       		.byte	98
+  86 0035 62       		.byte	98
+  87 0036 62       		.byte	98
+  88 0037 62       		.byte	98
+  89 0038 62       		.byte	98
+  90 0039 62       		.byte	98
+  91 003a 61       		.byte	97
+  92 003b 61       		.byte	97
+  93 003c 61       		.byte	97
+  94 003d 61       		.byte	97
+  95 003e 60       		.byte	96
+  96 003f 60       		.byte	96
+  97 0040 60       		.byte	96
+  98 0041 60       		.byte	96
+  99 0042 5F       		.byte	95
+ 100 0043 5F       		.byte	95
+ 101 0044 5F       		.byte	95
+ 102 0045 5E       		.byte	94
+ 103 0046 5E       		.byte	94
+ 104 0047 5E       		.byte	94
+ 105 0048 5D       		.byte	93
+ 106 0049 5D       		.byte	93
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 3
+
+
+ 107 004a 5D       		.byte	93
+ 108 004b 5C       		.byte	92
+ 109 004c 5C       		.byte	92
+ 110 004d 5C       		.byte	92
+ 111 004e 5B       		.byte	91
+ 112 004f 5B       		.byte	91
+ 113 0050 5A       		.byte	90
+ 114 0051 5A       		.byte	90
+ 115 0052 59       		.byte	89
+ 116 0053 59       		.byte	89
+ 117 0054 59       		.byte	89
+ 118 0055 58       		.byte	88
+ 119 0056 58       		.byte	88
+ 120 0057 57       		.byte	87
+ 121 0058 57       		.byte	87
+ 122 0059 56       		.byte	86
+ 123 005a 56       		.byte	86
+ 124 005b 55       		.byte	85
+ 125 005c 55       		.byte	85
+ 126 005d 54       		.byte	84
+ 127 005e 54       		.byte	84
+ 128 005f 53       		.byte	83
+ 129 0060 52       		.byte	82
+ 130 0061 52       		.byte	82
+ 131 0062 51       		.byte	81
+ 132 0063 51       		.byte	81
+ 133 0064 50       		.byte	80
+ 134 0065 50       		.byte	80
+ 135 0066 4F       		.byte	79
+ 136 0067 4E       		.byte	78
+ 137 0068 4E       		.byte	78
+ 138 0069 4D       		.byte	77
+ 139 006a 4C       		.byte	76
+ 140 006b 4C       		.byte	76
+ 141 006c 4B       		.byte	75
+ 142 006d 4A       		.byte	74
+ 143 006e 4A       		.byte	74
+ 144 006f 49       		.byte	73
+ 145 0070 48       		.byte	72
+ 146 0071 48       		.byte	72
+ 147 0072 47       		.byte	71
+ 148 0073 46       		.byte	70
+ 149 0074 45       		.byte	69
+ 150 0075 45       		.byte	69
+ 151 0076 44       		.byte	68
+ 152 0077 43       		.byte	67
+ 153 0078 42       		.byte	66
+ 154 0079 42       		.byte	66
+ 155 007a 41       		.byte	65
+ 156 007b 40       		.byte	64
+ 157 007c 3F       		.byte	63
+ 158 007d 3E       		.byte	62
+ 159 007e 3E       		.byte	62
+ 160 007f 3D       		.byte	61
+ 161 0080 3C       		.byte	60
+ 162 0081 3B       		.byte	59
+ 163 0082 3A       		.byte	58
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 4
+
+
+ 164 0083 39       		.byte	57
+ 165 0084 38       		.byte	56
+ 166 0085 38       		.byte	56
+ 167 0086 37       		.byte	55
+ 168 0087 36       		.byte	54
+ 169 0088 35       		.byte	53
+ 170 0089 34       		.byte	52
+ 171 008a 33       		.byte	51
+ 172 008b 32       		.byte	50
+ 173 008c 31       		.byte	49
+ 174 008d 30       		.byte	48
+ 175 008e 2F       		.byte	47
+ 176 008f 2E       		.byte	46
+ 177 0090 2D       		.byte	45
+ 178 0091 2C       		.byte	44
+ 179 0092 2B       		.byte	43
+ 180 0093 2A       		.byte	42
+ 181 0094 29       		.byte	41
+ 182 0095 28       		.byte	40
+ 183 0096 27       		.byte	39
+ 184 0097 26       		.byte	38
+ 185 0098 25       		.byte	37
+ 186 0099 24       		.byte	36
+ 187 009a 23       		.byte	35
+ 188 009b 22       		.byte	34
+ 189 009c 21       		.byte	33
+ 190 009d 1F       		.byte	31
+ 191 009e 1E       		.byte	30
+ 192 009f 1D       		.byte	29
+ 193 00a0 1C       		.byte	28
+ 194 00a1 1B       		.byte	27
+ 195 00a2 1A       		.byte	26
+ 196 00a3 19       		.byte	25
+ 197 00a4 17       		.byte	23
+ 198 00a5 16       		.byte	22
+ 199 00a6 15       		.byte	21
+ 200 00a7 14       		.byte	20
+ 201 00a8 13       		.byte	19
+ 202 00a9 11       		.byte	17
+ 203 00aa 10       		.byte	16
+ 204 00ab 0F       		.byte	15
+ 205 00ac 0E       		.byte	14
+ 206 00ad 0C       		.byte	12
+ 207 00ae 0B       		.byte	11
+ 208 00af 0A       		.byte	10
+ 209 00b0 09       		.byte	9
+ 210 00b1 07       		.byte	7
+ 211 00b2 06       		.byte	6
+ 212 00b3 05       		.byte	5
+ 213 00b4 03       		.byte	3
+ 214 00b5 02       		.byte	2
+ 215 00b6 01       		.byte	1
+ 216 00b7 00       		.space	1
+ 217              		.section	.text.maxim_heart_rate_and_oxygen_saturation,"ax",%progbits
+ 218              		.align	2
+ 219              		.global	maxim_heart_rate_and_oxygen_saturation
+ 220              		.thumb
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 5
+
+
+ 221              		.thumb_func
+ 222              		.type	maxim_heart_rate_and_oxygen_saturation, %function
+ 223              	maxim_heart_rate_and_oxygen_saturation:
+ 224              	.LFB0:
+ 225              		.file 1 "spo2_algorithm.c"
+   1:spo2_algorithm.c **** /**
+   2:spo2_algorithm.c ****  *   @file    spo2_algorithm.c
+   3:spo2_algorithm.c ****  *   @author  Vlad-Eusebiu Baciu
+   4:spo2_algorithm.c ****  *   @brief   MAX30105 library for HR and SpO2 computation
+   5:spo2_algorithm.c ****  *   @details MAX30105 library for HR and SpO2 computation ported to C and PSOC6 project.
+   6:spo2_algorithm.c ****  *            
+   7:spo2_algorithm.c ****  */
+   8:spo2_algorithm.c **** 
+   9:spo2_algorithm.c **** /*=================================================================================================
+  10:spo2_algorithm.c ****  *
+  11:spo2_algorithm.c ****  *   Copyright (c) 2016 SparkFun Electronics
+  12:spo2_algorithm.c ****  *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+  13:spo2_algorithm.c ****  *   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+  14:spo2_algorithm.c ****  *   PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR 
+  15:spo2_algorithm.c ****  *   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  16:spo2_algorithm.c ****  *   IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  17:spo2_algorithm.c ****  *  ==============================================================================================*
+  18:spo2_algorithm.c **** 
+  19:spo2_algorithm.c **** /*=================================================================================================
+  20:spo2_algorithm.c ****  *                                        INCLUDE FILES
+  21:spo2_algorithm.c ****  * 1) system and project includes
+  22:spo2_algorithm.c ****  * 2) needed interfaces from external units
+  23:spo2_algorithm.c ****  * 3) internal and external interfaces from this unit
+  24:spo2_algorithm.c ****  *  ==============================================================================================*
+  25:spo2_algorithm.c **** 
+  26:spo2_algorithm.c **** #include "spo2_algorithm.h"
+  27:spo2_algorithm.c **** 
+  28:spo2_algorithm.c **** 
+  29:spo2_algorithm.c **** /*=================================================================================================
+  30:spo2_algorithm.c ****  *                          LOCAL TYPEDEFS (STRUCTURES, UNIONS, ENUMS)
+  31:spo2_algorithm.c ****  *  ==============================================================================================*
+  32:spo2_algorithm.c **** 
+  33:spo2_algorithm.c **** 
+  34:spo2_algorithm.c **** /*=================================================================================================
+  35:spo2_algorithm.c ****  *                                       LOCAL MACROS
+  36:spo2_algorithm.c ****  *  ==============================================================================================*
+  37:spo2_algorithm.c **** 
+  38:spo2_algorithm.c **** #define MAX_BUFFER_SIZE (600) 
+  39:spo2_algorithm.c **** 
+  40:spo2_algorithm.c **** /*=================================================================================================
+  41:spo2_algorithm.c ****  *                                      LOCAL CONSTANTS
+  42:spo2_algorithm.c ****  *  ==============================================================================================*
+  43:spo2_algorithm.c **** 
+  44:spo2_algorithm.c **** 
+  45:spo2_algorithm.c **** /*=================================================================================================
+  46:spo2_algorithm.c ****  *                                      LOCAL VARIABLES
+  47:spo2_algorithm.c ****  *  ==============================================================================================*
+  48:spo2_algorithm.c **** 
+  49:spo2_algorithm.c **** static  int32_t an_x[MAX_BUFFER_SIZE]; //ir
+  50:spo2_algorithm.c **** static  int32_t an_y[MAX_BUFFER_SIZE]; //red
+  51:spo2_algorithm.c **** 
+  52:spo2_algorithm.c **** /*=================================================================================================
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 6
+
+
+  53:spo2_algorithm.c ****  *                                      GLOBAL CONSTANTS
+  54:spo2_algorithm.c ****  *  ==============================================================================================*
+  55:spo2_algorithm.c **** 
+  56:spo2_algorithm.c **** const uint8_t uch_spo2_table[184]={ 95, 95, 95, 96, 96, 96, 97, 97, 97, 97, 97, 98, 98, 98, 98, 98,
+  57:spo2_algorithm.c ****               99, 99, 99, 99, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+  58:spo2_algorithm.c ****               100, 100, 100, 100, 99, 99, 99, 99, 99, 99, 99, 99, 98, 98, 98, 98, 98, 98, 97, 97, 
+  59:spo2_algorithm.c ****               97, 97, 96, 96, 96, 96, 95, 95, 95, 94, 94, 94, 93, 93, 93, 92, 92, 92, 91, 91, 
+  60:spo2_algorithm.c ****               90, 90, 89, 89, 89, 88, 88, 87, 87, 86, 86, 85, 85, 84, 84, 83, 82, 82, 81, 81, 
+  61:spo2_algorithm.c ****               80, 80, 79, 78, 78, 77, 76, 76, 75, 74, 74, 73, 72, 72, 71, 70, 69, 69, 68, 67, 
+  62:spo2_algorithm.c ****               66, 66, 65, 64, 63, 62, 62, 61, 60, 59, 58, 57, 56, 56, 55, 54, 53, 52, 51, 50, 
+  63:spo2_algorithm.c ****               49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 31, 30, 29, 
+  64:spo2_algorithm.c ****               28, 27, 26, 25, 23, 22, 21, 20, 19, 17, 16, 15, 14, 12, 11, 10, 9, 7, 6, 5, 
+  65:spo2_algorithm.c ****               3, 2, 1 } ;
+  66:spo2_algorithm.c **** 
+  67:spo2_algorithm.c **** /*=================================================================================================
+  68:spo2_algorithm.c ****  *                                      GLOBAL VARIABLES
+  69:spo2_algorithm.c ****  *  ==============================================================================================*
+  70:spo2_algorithm.c **** 
+  71:spo2_algorithm.c **** /*=================================================================================================
+  72:spo2_algorithm.c ****  *                                   LOCAL FUNCTION PROTOTYPES
+  73:spo2_algorithm.c ****  *  ==============================================================================================*
+  74:spo2_algorithm.c **** 
+  75:spo2_algorithm.c **** /*=================================================================================================
+  76:spo2_algorithm.c ****  *                                   GLOBAL FUNCTION PROTOTYPES
+  77:spo2_algorithm.c ****  *  ==============================================================================================*
+  78:spo2_algorithm.c **** 
+  79:spo2_algorithm.c **** /*=================================================================================================
+  80:spo2_algorithm.c ****  *                                       LOCAL FUNCTIONS
+  81:spo2_algorithm.c ****  *  ==============================================================================================*
+  82:spo2_algorithm.c **** 
+  83:spo2_algorithm.c **** 
+  84:spo2_algorithm.c **** /*=================================================================================================
+  85:spo2_algorithm.c ****  *                                       GLOBAL FUNCTIONS
+  86:spo2_algorithm.c ****  *  ==============================================================================================*
+  87:spo2_algorithm.c **** 
+  88:spo2_algorithm.c **** /**************************************************************************************************
+  89:spo2_algorithm.c ****  * Function: maxim_heart_rate_and_oxygen_saturation    
+  90:spo2_algorithm.c ****  *
+  91:spo2_algorithm.c ****  * Description:  Calculate the heart rate and SpO2 level
+  92:spo2_algorithm.c ****  *
+  93:spo2_algorithm.c ****  * NOTE:
+  94:spo2_algorithm.c **** *      1. By detecting  peaks of PPG cycle and corresponding AC/DC of red/infra-red signal, 
+  95:spo2_algorithm.c **** *         the an_ratio for the SPO2 is computed.
+  96:spo2_algorithm.c **** *      2. Since this algorithm is aiming for Arm M0/M3. formaula for SPO2 did not achieve 
+  97:spo2_algorithm.c **** *         the accuracy due to register overflow.
+  98:spo2_algorithm.c **** *      3. Thus, accurate SPO2 is precalculated and save longo uch_spo2_table[] per each an_ratio.
+  99:spo2_algorithm.c **** *      
+ 100:spo2_algorithm.c **** *
+ 101:spo2_algorithm.c **** * \param[in]    *pun_ir_buffer           - IR sensor data buffer
+ 102:spo2_algorithm.c **** * \param[in]    n_ir_buffer_length      - IR sensor data buffer length
+ 103:spo2_algorithm.c **** * \param[in]    *pun_red_buffer          - Red sensor data buffer
+ 104:spo2_algorithm.c **** * \param[out]    *pn_spo2                - Calculated SpO2 value
+ 105:spo2_algorithm.c **** * \param[out]    *pch_spo2_valid         - 1 if the calculated SpO2 value is valid
+ 106:spo2_algorithm.c **** * \param[out]    *pn_heart_rate          - Calculated heart rate value
+ 107:spo2_algorithm.c **** * \param[out]    *pch_hr_valid           - 1 if the calculated heart rate value is valid
+ 108:spo2_algorithm.c **** ***************************************************************************************************
+ 109:spo2_algorithm.c **** void maxim_heart_rate_and_oxygen_saturation(uint32_t *pun_ir_buffer, int32_t n_ir_buffer_length, 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 7
+
+
+ 110:spo2_algorithm.c ****                                             uint32_t *pun_red_buffer, int32_t *pn_spo2, 
+ 111:spo2_algorithm.c ****                                             int8_t *pch_spo2_valid, int32_t *pn_heart_rate, 
+ 112:spo2_algorithm.c ****                                             int8_t *pch_hr_valid, uint32_t freq, 
+ 113:spo2_algorithm.c ****                                             int32_t peak_distance)
+ 114:spo2_algorithm.c **** {
+ 226              		.loc 1 114 0
+ 227              		.cfi_startproc
+ 228              		@ args = 20, pretend = 0, frame = 176
+ 229              		@ frame_needed = 1, uses_anonymous_args = 0
+ 230 0000 80B5     		push	{r7, lr}
+ 231              		.cfi_def_cfa_offset 8
+ 232              		.cfi_offset 7, -8
+ 233              		.cfi_offset 14, -4
+ 234 0002 B0B0     		sub	sp, sp, #192
+ 235              		.cfi_def_cfa_offset 200
+ 236 0004 04AF     		add	r7, sp, #16
+ 237              		.cfi_def_cfa 7, 184
+ 238 0006 F860     		str	r0, [r7, #12]
+ 239 0008 B960     		str	r1, [r7, #8]
+ 240 000a 7A60     		str	r2, [r7, #4]
+ 241 000c 3B60     		str	r3, [r7]
+ 115:spo2_algorithm.c ****   uint32_t un_ir_mean;
+ 116:spo2_algorithm.c ****   int32_t k, n_i_ratio_count;
+ 117:spo2_algorithm.c ****   int32_t i, n_exact_ir_valley_locs_count, n_middle_idx;
+ 118:spo2_algorithm.c ****   int32_t n_th1, n_npks;   
+ 119:spo2_algorithm.c ****   int32_t an_ir_valley_locs[15] ;
+ 120:spo2_algorithm.c ****   int32_t n_peak_interval_sum;
+ 121:spo2_algorithm.c ****   
+ 122:spo2_algorithm.c ****   int32_t n_y_ac, n_x_ac;
+ 123:spo2_algorithm.c ****   int32_t n_spo2_calc; 
+ 124:spo2_algorithm.c ****   int32_t n_y_dc_max, n_x_dc_max; 
+ 125:spo2_algorithm.c ****   int32_t n_y_dc_max_idx = 0;
+ 242              		.loc 1 125 0
+ 243 000e 0023     		movs	r3, #0
+ 244 0010 C7F88C30 		str	r3, [r7, #140]
+ 126:spo2_algorithm.c ****   int32_t n_x_dc_max_idx = 0; 
+ 245              		.loc 1 126 0
+ 246 0014 0023     		movs	r3, #0
+ 247 0016 C7F88830 		str	r3, [r7, #136]
+ 127:spo2_algorithm.c ****   int32_t an_ratio[5], n_ratio_average; 
+ 128:spo2_algorithm.c ****   int32_t n_nume, n_denom ;
+ 129:spo2_algorithm.c ****   int32_t buffer_size;
+ 130:spo2_algorithm.c **** 
+ 131:spo2_algorithm.c ****   buffer_size = n_ir_buffer_length;
+ 248              		.loc 1 131 0
+ 249 001a BB68     		ldr	r3, [r7, #8]
+ 250 001c C7F88030 		str	r3, [r7, #128]
+ 132:spo2_algorithm.c ****   // calculates DC mean and subtract DC from ir
+ 133:spo2_algorithm.c ****   un_ir_mean =0; 
+ 251              		.loc 1 133 0
+ 252 0020 0023     		movs	r3, #0
+ 253 0022 C7F8AC30 		str	r3, [r7, #172]
+ 134:spo2_algorithm.c ****   for (k=0 ; k<n_ir_buffer_length ; k++ ) un_ir_mean += pun_ir_buffer[k] ;
+ 254              		.loc 1 134 0
+ 255 0026 0023     		movs	r3, #0
+ 256 0028 C7F8A830 		str	r3, [r7, #168]
+ 257 002c 0FE0     		b	.L2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 8
+
+
+ 258              	.L3:
+ 259              		.loc 1 134 0 is_stmt 0 discriminator 3
+ 260 002e D7F8A830 		ldr	r3, [r7, #168]
+ 261 0032 9B00     		lsls	r3, r3, #2
+ 262 0034 FA68     		ldr	r2, [r7, #12]
+ 263 0036 1344     		add	r3, r3, r2
+ 264 0038 1B68     		ldr	r3, [r3]
+ 265 003a D7F8AC20 		ldr	r2, [r7, #172]
+ 266 003e 1344     		add	r3, r3, r2
+ 267 0040 C7F8AC30 		str	r3, [r7, #172]
+ 268 0044 D7F8A830 		ldr	r3, [r7, #168]
+ 269 0048 0133     		adds	r3, r3, #1
+ 270 004a C7F8A830 		str	r3, [r7, #168]
+ 271              	.L2:
+ 272              		.loc 1 134 0 discriminator 1
+ 273 004e D7F8A820 		ldr	r2, [r7, #168]
+ 274 0052 BB68     		ldr	r3, [r7, #8]
+ 275 0054 9A42     		cmp	r2, r3
+ 276 0056 EADB     		blt	.L3
+ 135:spo2_algorithm.c ****   un_ir_mean =un_ir_mean/n_ir_buffer_length ;
+ 277              		.loc 1 135 0 is_stmt 1
+ 278 0058 BB68     		ldr	r3, [r7, #8]
+ 279 005a D7F8AC20 		ldr	r2, [r7, #172]
+ 280 005e B2FBF3F3 		udiv	r3, r2, r3
+ 281 0062 C7F8AC30 		str	r3, [r7, #172]
+ 136:spo2_algorithm.c ****     
+ 137:spo2_algorithm.c ****   // remove DC and invert signal so that we can use peak detector as valley detector
+ 138:spo2_algorithm.c ****   for (k=0 ; k<n_ir_buffer_length ; k++ )  
+ 282              		.loc 1 138 0
+ 283 0066 0023     		movs	r3, #0
+ 284 0068 C7F8A830 		str	r3, [r7, #168]
+ 285 006c 13E0     		b	.L4
+ 286              	.L5:
+ 139:spo2_algorithm.c ****     an_x[k] = -1*(pun_ir_buffer[k] - un_ir_mean) ; 
+ 287              		.loc 1 139 0 discriminator 3
+ 288 006e D7F8A830 		ldr	r3, [r7, #168]
+ 289 0072 9B00     		lsls	r3, r3, #2
+ 290 0074 FA68     		ldr	r2, [r7, #12]
+ 291 0076 1344     		add	r3, r3, r2
+ 292 0078 1B68     		ldr	r3, [r3]
+ 293 007a D7F8AC20 		ldr	r2, [r7, #172]
+ 294 007e D31A     		subs	r3, r2, r3
+ 295 0080 1946     		mov	r1, r3
+ 296 0082 BE4A     		ldr	r2, .L38
+ 297 0084 D7F8A830 		ldr	r3, [r7, #168]
+ 298 0088 42F82310 		str	r1, [r2, r3, lsl #2]
+ 138:spo2_algorithm.c ****     an_x[k] = -1*(pun_ir_buffer[k] - un_ir_mean) ; 
+ 299              		.loc 1 138 0 discriminator 3
+ 300 008c D7F8A830 		ldr	r3, [r7, #168]
+ 301 0090 0133     		adds	r3, r3, #1
+ 302 0092 C7F8A830 		str	r3, [r7, #168]
+ 303              	.L4:
+ 138:spo2_algorithm.c ****     an_x[k] = -1*(pun_ir_buffer[k] - un_ir_mean) ; 
+ 304              		.loc 1 138 0 is_stmt 0 discriminator 1
+ 305 0096 D7F8A820 		ldr	r2, [r7, #168]
+ 306 009a BB68     		ldr	r3, [r7, #8]
+ 307 009c 9A42     		cmp	r2, r3
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 9
+
+
+ 308 009e E6DB     		blt	.L5
+ 140:spo2_algorithm.c ****     
+ 141:spo2_algorithm.c ****   // 4 pt Moving Average
+ 142:spo2_algorithm.c ****   for(k=0; k< buffer_size-MA4_SIZE; k++){
+ 309              		.loc 1 142 0 is_stmt 1
+ 310 00a0 0023     		movs	r3, #0
+ 311 00a2 C7F8A830 		str	r3, [r7, #168]
+ 312 00a6 28E0     		b	.L6
+ 313              	.L8:
+ 143:spo2_algorithm.c ****     an_x[k]=( an_x[k]+an_x[k+1]+ an_x[k+2]+ an_x[k+3])/(int)4;        
+ 314              		.loc 1 143 0 discriminator 3
+ 315 00a8 B44A     		ldr	r2, .L38
+ 316 00aa D7F8A830 		ldr	r3, [r7, #168]
+ 317 00ae 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 318 00b2 D7F8A830 		ldr	r3, [r7, #168]
+ 319 00b6 0133     		adds	r3, r3, #1
+ 320 00b8 B049     		ldr	r1, .L38
+ 321 00ba 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 322 00be 1A44     		add	r2, r2, r3
+ 323 00c0 D7F8A830 		ldr	r3, [r7, #168]
+ 324 00c4 0233     		adds	r3, r3, #2
+ 325 00c6 AD49     		ldr	r1, .L38
+ 326 00c8 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 327 00cc 1A44     		add	r2, r2, r3
+ 328 00ce D7F8A830 		ldr	r3, [r7, #168]
+ 329 00d2 0333     		adds	r3, r3, #3
+ 330 00d4 A949     		ldr	r1, .L38
+ 331 00d6 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 332 00da 1344     		add	r3, r3, r2
+ 333 00dc 002B     		cmp	r3, #0
+ 334 00de 00DA     		bge	.L7
+ 335 00e0 0333     		adds	r3, r3, #3
+ 336              	.L7:
+ 337 00e2 9B10     		asrs	r3, r3, #2
+ 338 00e4 1946     		mov	r1, r3
+ 339 00e6 A54A     		ldr	r2, .L38
+ 340 00e8 D7F8A830 		ldr	r3, [r7, #168]
+ 341 00ec 42F82310 		str	r1, [r2, r3, lsl #2]
+ 142:spo2_algorithm.c ****     an_x[k]=( an_x[k]+an_x[k+1]+ an_x[k+2]+ an_x[k+3])/(int)4;        
+ 342              		.loc 1 142 0 discriminator 3
+ 343 00f0 D7F8A830 		ldr	r3, [r7, #168]
+ 344 00f4 0133     		adds	r3, r3, #1
+ 345 00f6 C7F8A830 		str	r3, [r7, #168]
+ 346              	.L6:
+ 142:spo2_algorithm.c ****     an_x[k]=( an_x[k]+an_x[k+1]+ an_x[k+2]+ an_x[k+3])/(int)4;        
+ 347              		.loc 1 142 0 is_stmt 0 discriminator 1
+ 348 00fa D7F88030 		ldr	r3, [r7, #128]
+ 349 00fe 1A1F     		subs	r2, r3, #4
+ 350 0100 D7F8A830 		ldr	r3, [r7, #168]
+ 351 0104 9A42     		cmp	r2, r3
+ 352 0106 CFDC     		bgt	.L8
+ 144:spo2_algorithm.c ****   }
+ 145:spo2_algorithm.c ****   // calculate threshold  
+ 146:spo2_algorithm.c ****   n_th1=0; 
+ 353              		.loc 1 146 0 is_stmt 1
+ 354 0108 0023     		movs	r3, #0
+ 355 010a C7F89C30 		str	r3, [r7, #156]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 10
+
+
+ 147:spo2_algorithm.c ****   for ( k=0 ; k<buffer_size ;k++){
+ 356              		.loc 1 147 0
+ 357 010e 0023     		movs	r3, #0
+ 358 0110 C7F8A830 		str	r3, [r7, #168]
+ 359 0114 0EE0     		b	.L9
+ 360              	.L10:
+ 148:spo2_algorithm.c ****     n_th1 +=  an_x[k];
+ 361              		.loc 1 148 0 discriminator 3
+ 362 0116 994A     		ldr	r2, .L38
+ 363 0118 D7F8A830 		ldr	r3, [r7, #168]
+ 364 011c 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 365 0120 D7F89C20 		ldr	r2, [r7, #156]
+ 366 0124 1344     		add	r3, r3, r2
+ 367 0126 C7F89C30 		str	r3, [r7, #156]
+ 147:spo2_algorithm.c ****   for ( k=0 ; k<buffer_size ;k++){
+ 368              		.loc 1 147 0 discriminator 3
+ 369 012a D7F8A830 		ldr	r3, [r7, #168]
+ 370 012e 0133     		adds	r3, r3, #1
+ 371 0130 C7F8A830 		str	r3, [r7, #168]
+ 372              	.L9:
+ 147:spo2_algorithm.c ****   for ( k=0 ; k<buffer_size ;k++){
+ 373              		.loc 1 147 0 is_stmt 0 discriminator 1
+ 374 0134 D7F8A820 		ldr	r2, [r7, #168]
+ 375 0138 D7F88030 		ldr	r3, [r7, #128]
+ 376 013c 9A42     		cmp	r2, r3
+ 377 013e EADB     		blt	.L10
+ 149:spo2_algorithm.c ****   }
+ 150:spo2_algorithm.c ****   n_th1=  n_th1/ ( buffer_size);
+ 378              		.loc 1 150 0 is_stmt 1
+ 379 0140 D7F89C20 		ldr	r2, [r7, #156]
+ 380 0144 D7F88030 		ldr	r3, [r7, #128]
+ 381 0148 92FBF3F3 		sdiv	r3, r2, r3
+ 382 014c C7F89C30 		str	r3, [r7, #156]
+ 151:spo2_algorithm.c ****   if( n_th1<30) n_th1=0; // min allowed
+ 383              		.loc 1 151 0
+ 384 0150 D7F89C30 		ldr	r3, [r7, #156]
+ 385 0154 1D2B     		cmp	r3, #29
+ 386 0156 02DC     		bgt	.L11
+ 387              		.loc 1 151 0 is_stmt 0 discriminator 1
+ 388 0158 0023     		movs	r3, #0
+ 389 015a C7F89C30 		str	r3, [r7, #156]
+ 390              	.L11:
+ 152:spo2_algorithm.c ****   if( n_th1>60) n_th1=60; // max allowed
+ 391              		.loc 1 152 0 is_stmt 1
+ 392 015e D7F89C30 		ldr	r3, [r7, #156]
+ 393 0162 3C2B     		cmp	r3, #60
+ 394 0164 02DD     		ble	.L12
+ 395              		.loc 1 152 0 is_stmt 0 discriminator 1
+ 396 0166 3C23     		movs	r3, #60
+ 397 0168 C7F89C30 		str	r3, [r7, #156]
+ 398              	.L12:
+ 153:spo2_algorithm.c **** 
+ 154:spo2_algorithm.c ****   for ( k=0 ; k<15;k++) an_ir_valley_locs[k]=0;
+ 399              		.loc 1 154 0 is_stmt 1
+ 400 016c 0023     		movs	r3, #0
+ 401 016e C7F8A830 		str	r3, [r7, #168]
+ 402 0172 0DE0     		b	.L13
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 11
+
+
+ 403              	.L14:
+ 404              		.loc 1 154 0 is_stmt 0 discriminator 3
+ 405 0174 D7F8A830 		ldr	r3, [r7, #168]
+ 406 0178 9B00     		lsls	r3, r3, #2
+ 407 017a 07F1B002 		add	r2, r7, #176
+ 408 017e 1344     		add	r3, r3, r2
+ 409 0180 0022     		movs	r2, #0
+ 410 0182 43F88C2C 		str	r2, [r3, #-140]
+ 411 0186 D7F8A830 		ldr	r3, [r7, #168]
+ 412 018a 0133     		adds	r3, r3, #1
+ 413 018c C7F8A830 		str	r3, [r7, #168]
+ 414              	.L13:
+ 415              		.loc 1 154 0 discriminator 1
+ 416 0190 D7F8A830 		ldr	r3, [r7, #168]
+ 417 0194 0E2B     		cmp	r3, #14
+ 418 0196 EDDD     		ble	.L14
+ 155:spo2_algorithm.c ****   // since we flipped signal, we use peak detector as valley detector
+ 156:spo2_algorithm.c ****   maxim_find_peaks( an_ir_valley_locs, &n_npks, an_x, buffer_size, n_th1, peak_distance, 15 );//pea
+ 419              		.loc 1 156 0 is_stmt 1
+ 420 0198 07F16001 		add	r1, r7, #96
+ 421 019c 07F12400 		add	r0, r7, #36
+ 422 01a0 0F23     		movs	r3, #15
+ 423 01a2 0293     		str	r3, [sp, #8]
+ 424 01a4 D7F8C830 		ldr	r3, [r7, #200]
+ 425 01a8 0193     		str	r3, [sp, #4]
+ 426 01aa D7F89C30 		ldr	r3, [r7, #156]
+ 427 01ae 0093     		str	r3, [sp]
+ 428 01b0 D7F88030 		ldr	r3, [r7, #128]
+ 429 01b4 714A     		ldr	r2, .L38
+ 430 01b6 FFF7FEFF 		bl	maxim_find_peaks
+ 157:spo2_algorithm.c ****   n_peak_interval_sum =0;
+ 431              		.loc 1 157 0
+ 432 01ba 0023     		movs	r3, #0
+ 433 01bc C7F89830 		str	r3, [r7, #152]
+ 158:spo2_algorithm.c ****   if (n_npks>=2){
+ 434              		.loc 1 158 0
+ 435 01c0 3B6E     		ldr	r3, [r7, #96]
+ 436 01c2 012B     		cmp	r3, #1
+ 437 01c4 40DD     		ble	.L15
+ 159:spo2_algorithm.c ****     for (k=1; k<n_npks; k++) n_peak_interval_sum += (an_ir_valley_locs[k] -an_ir_valley_locs[k -1] 
+ 438              		.loc 1 159 0
+ 439 01c6 0123     		movs	r3, #1
+ 440 01c8 C7F8A830 		str	r3, [r7, #168]
+ 441 01cc 1BE0     		b	.L16
+ 442              	.L17:
+ 443              		.loc 1 159 0 is_stmt 0 discriminator 3
+ 444 01ce D7F8A830 		ldr	r3, [r7, #168]
+ 445 01d2 9B00     		lsls	r3, r3, #2
+ 446 01d4 07F1B002 		add	r2, r7, #176
+ 447 01d8 1344     		add	r3, r3, r2
+ 448 01da 53F88C2C 		ldr	r2, [r3, #-140]
+ 449 01de D7F8A830 		ldr	r3, [r7, #168]
+ 450 01e2 013B     		subs	r3, r3, #1
+ 451 01e4 9B00     		lsls	r3, r3, #2
+ 452 01e6 07F1B001 		add	r1, r7, #176
+ 453 01ea 0B44     		add	r3, r3, r1
+ 454 01ec 53F88C3C 		ldr	r3, [r3, #-140]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 12
+
+
+ 455 01f0 D31A     		subs	r3, r2, r3
+ 456 01f2 D7F89820 		ldr	r2, [r7, #152]
+ 457 01f6 1344     		add	r3, r3, r2
+ 458 01f8 C7F89830 		str	r3, [r7, #152]
+ 459 01fc D7F8A830 		ldr	r3, [r7, #168]
+ 460 0200 0133     		adds	r3, r3, #1
+ 461 0202 C7F8A830 		str	r3, [r7, #168]
+ 462              	.L16:
+ 463              		.loc 1 159 0 discriminator 1
+ 464 0206 3B6E     		ldr	r3, [r7, #96]
+ 465 0208 D7F8A820 		ldr	r2, [r7, #168]
+ 466 020c 9A42     		cmp	r2, r3
+ 467 020e DEDB     		blt	.L17
+ 160:spo2_algorithm.c ****     n_peak_interval_sum =n_peak_interval_sum/(n_npks-1);
+ 468              		.loc 1 160 0 is_stmt 1
+ 469 0210 3B6E     		ldr	r3, [r7, #96]
+ 470 0212 013B     		subs	r3, r3, #1
+ 471 0214 D7F89820 		ldr	r2, [r7, #152]
+ 472 0218 92FBF3F3 		sdiv	r3, r2, r3
+ 473 021c C7F89830 		str	r3, [r7, #152]
+ 161:spo2_algorithm.c ****     *pn_heart_rate =(int32_t)( (freq*60)/ n_peak_interval_sum );
+ 474              		.loc 1 161 0
+ 475 0220 D7F8C420 		ldr	r2, [r7, #196]
+ 476 0224 1346     		mov	r3, r2
+ 477 0226 1B01     		lsls	r3, r3, #4
+ 478 0228 9B1A     		subs	r3, r3, r2
+ 479 022a 9B00     		lsls	r3, r3, #2
+ 480 022c 1A46     		mov	r2, r3
+ 481 022e D7F89830 		ldr	r3, [r7, #152]
+ 482 0232 B2FBF3F3 		udiv	r3, r2, r3
+ 483 0236 1A46     		mov	r2, r3
+ 484 0238 D7F8BC30 		ldr	r3, [r7, #188]
+ 485 023c 1A60     		str	r2, [r3]
+ 162:spo2_algorithm.c ****     *pch_hr_valid  = 1;
+ 486              		.loc 1 162 0
+ 487 023e D7F8C030 		ldr	r3, [r7, #192]
+ 488 0242 0122     		movs	r2, #1
+ 489 0244 1A70     		strb	r2, [r3]
+ 490 0246 07E0     		b	.L18
+ 491              	.L15:
+ 163:spo2_algorithm.c ****   }
+ 164:spo2_algorithm.c ****   else  { 
+ 165:spo2_algorithm.c ****     *pn_heart_rate = -999; // unable to calculate because # of peaks are too small
+ 492              		.loc 1 165 0
+ 493 0248 D7F8BC30 		ldr	r3, [r7, #188]
+ 494 024c 4C4A     		ldr	r2, .L38+4
+ 495 024e 1A60     		str	r2, [r3]
+ 166:spo2_algorithm.c ****     *pch_hr_valid  = 0;
+ 496              		.loc 1 166 0
+ 497 0250 D7F8C030 		ldr	r3, [r7, #192]
+ 498 0254 0022     		movs	r2, #0
+ 499 0256 1A70     		strb	r2, [r3]
+ 500              	.L18:
+ 167:spo2_algorithm.c ****   }
+ 168:spo2_algorithm.c **** 
+ 169:spo2_algorithm.c ****   //  load raw value again for SPO2 calculation : RED(=y) and IR(=X)
+ 170:spo2_algorithm.c ****   for (k=0 ; k<n_ir_buffer_length ; k++ )  {
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 13
+
+
+ 501              		.loc 1 170 0
+ 502 0258 0023     		movs	r3, #0
+ 503 025a C7F8A830 		str	r3, [r7, #168]
+ 504 025e 1CE0     		b	.L19
+ 505              	.L20:
+ 171:spo2_algorithm.c ****       an_x[k] =  pun_ir_buffer[k] ; 
+ 506              		.loc 1 171 0 discriminator 3
+ 507 0260 D7F8A830 		ldr	r3, [r7, #168]
+ 508 0264 9B00     		lsls	r3, r3, #2
+ 509 0266 FA68     		ldr	r2, [r7, #12]
+ 510 0268 1344     		add	r3, r3, r2
+ 511 026a 1B68     		ldr	r3, [r3]
+ 512 026c 1946     		mov	r1, r3
+ 513 026e 434A     		ldr	r2, .L38
+ 514 0270 D7F8A830 		ldr	r3, [r7, #168]
+ 515 0274 42F82310 		str	r1, [r2, r3, lsl #2]
+ 172:spo2_algorithm.c ****       an_y[k] =  pun_red_buffer[k] ; 
+ 516              		.loc 1 172 0 discriminator 3
+ 517 0278 D7F8A830 		ldr	r3, [r7, #168]
+ 518 027c 9B00     		lsls	r3, r3, #2
+ 519 027e 7A68     		ldr	r2, [r7, #4]
+ 520 0280 1344     		add	r3, r3, r2
+ 521 0282 1B68     		ldr	r3, [r3]
+ 522 0284 1946     		mov	r1, r3
+ 523 0286 3F4A     		ldr	r2, .L38+8
+ 524 0288 D7F8A830 		ldr	r3, [r7, #168]
+ 525 028c 42F82310 		str	r1, [r2, r3, lsl #2]
+ 170:spo2_algorithm.c ****       an_x[k] =  pun_ir_buffer[k] ; 
+ 526              		.loc 1 170 0 discriminator 3
+ 527 0290 D7F8A830 		ldr	r3, [r7, #168]
+ 528 0294 0133     		adds	r3, r3, #1
+ 529 0296 C7F8A830 		str	r3, [r7, #168]
+ 530              	.L19:
+ 170:spo2_algorithm.c ****       an_x[k] =  pun_ir_buffer[k] ; 
+ 531              		.loc 1 170 0 is_stmt 0 discriminator 1
+ 532 029a D7F8A820 		ldr	r2, [r7, #168]
+ 533 029e BB68     		ldr	r3, [r7, #8]
+ 534 02a0 9A42     		cmp	r2, r3
+ 535 02a2 DDDB     		blt	.L20
+ 173:spo2_algorithm.c ****   }
+ 174:spo2_algorithm.c **** 
+ 175:spo2_algorithm.c ****   // find precise min near an_ir_valley_locs
+ 176:spo2_algorithm.c ****   n_exact_ir_valley_locs_count =n_npks; 
+ 536              		.loc 1 176 0 is_stmt 1
+ 537 02a4 3B6E     		ldr	r3, [r7, #96]
+ 538 02a6 FB67     		str	r3, [r7, #124]
+ 177:spo2_algorithm.c ****   
+ 178:spo2_algorithm.c ****   //using exact_ir_valley_locs , find ir-red DC andir-red AC for SPO2 calibration an_ratio
+ 179:spo2_algorithm.c ****   //finding AC/DC maximum of raw
+ 180:spo2_algorithm.c **** 
+ 181:spo2_algorithm.c ****   n_ratio_average =0; 
+ 539              		.loc 1 181 0
+ 540 02a8 0023     		movs	r3, #0
+ 541 02aa C7F88430 		str	r3, [r7, #132]
+ 182:spo2_algorithm.c ****   n_i_ratio_count = 0; 
+ 542              		.loc 1 182 0
+ 543 02ae 0023     		movs	r3, #0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 14
+
+
+ 544 02b0 C7F8A430 		str	r3, [r7, #164]
+ 183:spo2_algorithm.c ****   for(k=0; k< 5; k++) an_ratio[k]=0;
+ 545              		.loc 1 183 0
+ 546 02b4 0023     		movs	r3, #0
+ 547 02b6 C7F8A830 		str	r3, [r7, #168]
+ 548 02ba 0DE0     		b	.L21
+ 549              	.L22:
+ 550              		.loc 1 183 0 is_stmt 0 discriminator 3
+ 551 02bc D7F8A830 		ldr	r3, [r7, #168]
+ 552 02c0 9B00     		lsls	r3, r3, #2
+ 553 02c2 07F1B002 		add	r2, r7, #176
+ 554 02c6 1344     		add	r3, r3, r2
+ 555 02c8 0022     		movs	r2, #0
+ 556 02ca 43F8A02C 		str	r2, [r3, #-160]
+ 557 02ce D7F8A830 		ldr	r3, [r7, #168]
+ 558 02d2 0133     		adds	r3, r3, #1
+ 559 02d4 C7F8A830 		str	r3, [r7, #168]
+ 560              	.L21:
+ 561              		.loc 1 183 0 discriminator 1
+ 562 02d8 D7F8A830 		ldr	r3, [r7, #168]
+ 563 02dc 042B     		cmp	r3, #4
+ 564 02de EDDD     		ble	.L22
+ 184:spo2_algorithm.c ****   for (k=0; k< n_exact_ir_valley_locs_count; k++){
+ 565              		.loc 1 184 0 is_stmt 1
+ 566 02e0 0023     		movs	r3, #0
+ 567 02e2 C7F8A830 		str	r3, [r7, #168]
+ 568 02e6 18E0     		b	.L23
+ 569              	.L26:
+ 185:spo2_algorithm.c ****     if (an_ir_valley_locs[k] > buffer_size ){
+ 570              		.loc 1 185 0
+ 571 02e8 D7F8A830 		ldr	r3, [r7, #168]
+ 572 02ec 9B00     		lsls	r3, r3, #2
+ 573 02ee 07F1B002 		add	r2, r7, #176
+ 574 02f2 1344     		add	r3, r3, r2
+ 575 02f4 53F88C2C 		ldr	r2, [r3, #-140]
+ 576 02f8 D7F88030 		ldr	r3, [r7, #128]
+ 577 02fc 9A42     		cmp	r2, r3
+ 578 02fe 07DD     		ble	.L24
+ 186:spo2_algorithm.c ****       *pn_spo2 =  -999 ; // do not use SPO2 since valley loc is out of range
+ 579              		.loc 1 186 0
+ 580 0300 3B68     		ldr	r3, [r7]
+ 581 0302 1F4A     		ldr	r2, .L38+4
+ 582 0304 1A60     		str	r2, [r3]
+ 187:spo2_algorithm.c ****       *pch_spo2_valid  = 0; 
+ 583              		.loc 1 187 0
+ 584 0306 D7F8B830 		ldr	r3, [r7, #184]
+ 585 030a 0022     		movs	r2, #0
+ 586 030c 1A70     		strb	r2, [r3]
+ 587 030e 99E1     		b	.L1
+ 588              	.L24:
+ 184:spo2_algorithm.c ****     if (an_ir_valley_locs[k] > buffer_size ){
+ 589              		.loc 1 184 0 discriminator 2
+ 590 0310 D7F8A830 		ldr	r3, [r7, #168]
+ 591 0314 0133     		adds	r3, r3, #1
+ 592 0316 C7F8A830 		str	r3, [r7, #168]
+ 593              	.L23:
+ 184:spo2_algorithm.c ****     if (an_ir_valley_locs[k] > buffer_size ){
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 15
+
+
+ 594              		.loc 1 184 0 is_stmt 0 discriminator 1
+ 595 031a D7F8A820 		ldr	r2, [r7, #168]
+ 596 031e FB6F     		ldr	r3, [r7, #124]
+ 597 0320 9A42     		cmp	r2, r3
+ 598 0322 E1DB     		blt	.L26
+ 188:spo2_algorithm.c ****       return;
+ 189:spo2_algorithm.c ****     }
+ 190:spo2_algorithm.c ****   }
+ 191:spo2_algorithm.c ****   // find max between two valley locations 
+ 192:spo2_algorithm.c ****   // and use an_ratio betwen AC compoent of Ir & Red and DC compoent of Ir & Red for SPO2 
+ 193:spo2_algorithm.c ****   for (k=0; k< n_exact_ir_valley_locs_count-1; k++){
+ 599              		.loc 1 193 0 is_stmt 1
+ 600 0324 0023     		movs	r3, #0
+ 601 0326 C7F8A830 		str	r3, [r7, #168]
+ 602 032a 38E1     		b	.L27
+ 603              	.L33:
+ 194:spo2_algorithm.c ****     n_y_dc_max= -16777216 ; 
+ 604              		.loc 1 194 0
+ 605 032c 4FF07F43 		mov	r3, #-16777216
+ 606 0330 C7F89430 		str	r3, [r7, #148]
+ 195:spo2_algorithm.c ****     n_x_dc_max= -16777216; 
+ 607              		.loc 1 195 0
+ 608 0334 4FF07F43 		mov	r3, #-16777216
+ 609 0338 C7F89030 		str	r3, [r7, #144]
+ 196:spo2_algorithm.c ****     if (an_ir_valley_locs[k+1]-an_ir_valley_locs[k] >3){
+ 610              		.loc 1 196 0
+ 611 033c D7F8A830 		ldr	r3, [r7, #168]
+ 612 0340 0133     		adds	r3, r3, #1
+ 613 0342 9B00     		lsls	r3, r3, #2
+ 614 0344 07F1B002 		add	r2, r7, #176
+ 615 0348 1344     		add	r3, r3, r2
+ 616 034a 53F88C2C 		ldr	r2, [r3, #-140]
+ 617 034e D7F8A830 		ldr	r3, [r7, #168]
+ 618 0352 9B00     		lsls	r3, r3, #2
+ 619 0354 07F1B001 		add	r1, r7, #176
+ 620 0358 0B44     		add	r3, r3, r1
+ 621 035a 53F88C3C 		ldr	r3, [r3, #-140]
+ 622 035e D31A     		subs	r3, r2, r3
+ 623 0360 032B     		cmp	r3, #3
+ 624 0362 40F31781 		ble	.L28
+ 197:spo2_algorithm.c ****         for (i=an_ir_valley_locs[k]; i< an_ir_valley_locs[k+1]; i++){
+ 625              		.loc 1 197 0
+ 626 0366 D7F8A830 		ldr	r3, [r7, #168]
+ 627 036a 9B00     		lsls	r3, r3, #2
+ 628 036c 07F1B002 		add	r2, r7, #176
+ 629 0370 1344     		add	r3, r3, r2
+ 630 0372 53F88C3C 		ldr	r3, [r3, #-140]
+ 631 0376 C7F8A030 		str	r3, [r7, #160]
+ 632 037a 32E0     		b	.L29
+ 633              	.L39:
+ 634              		.align	2
+ 635              	.L38:
+ 636 037c 00000000 		.word	an_x
+ 637 0380 19FCFFFF 		.word	-999
+ 638 0384 60090000 		.word	an_y
+ 639              	.L32:
+ 198:spo2_algorithm.c ****           if (an_x[i]> n_x_dc_max) {n_x_dc_max =an_x[i]; n_x_dc_max_idx=i;}
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 16
+
+
+ 640              		.loc 1 198 0
+ 641 0388 B04A     		ldr	r2, .L40
+ 642 038a D7F8A030 		ldr	r3, [r7, #160]
+ 643 038e 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 644 0392 D7F89030 		ldr	r3, [r7, #144]
+ 645 0396 9A42     		cmp	r2, r3
+ 646 0398 0ADD     		ble	.L30
+ 647              		.loc 1 198 0 is_stmt 0 discriminator 1
+ 648 039a AC4A     		ldr	r2, .L40
+ 649 039c D7F8A030 		ldr	r3, [r7, #160]
+ 650 03a0 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 651 03a4 C7F89030 		str	r3, [r7, #144]
+ 652 03a8 D7F8A030 		ldr	r3, [r7, #160]
+ 653 03ac C7F88830 		str	r3, [r7, #136]
+ 654              	.L30:
+ 199:spo2_algorithm.c ****           if (an_y[i]> n_y_dc_max) {n_y_dc_max =an_y[i]; n_y_dc_max_idx=i;}
+ 655              		.loc 1 199 0 is_stmt 1
+ 656 03b0 A74A     		ldr	r2, .L40+4
+ 657 03b2 D7F8A030 		ldr	r3, [r7, #160]
+ 658 03b6 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 659 03ba D7F89430 		ldr	r3, [r7, #148]
+ 660 03be 9A42     		cmp	r2, r3
+ 661 03c0 0ADD     		ble	.L31
+ 662              		.loc 1 199 0 is_stmt 0 discriminator 1
+ 663 03c2 A34A     		ldr	r2, .L40+4
+ 664 03c4 D7F8A030 		ldr	r3, [r7, #160]
+ 665 03c8 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 666 03cc C7F89430 		str	r3, [r7, #148]
+ 667 03d0 D7F8A030 		ldr	r3, [r7, #160]
+ 668 03d4 C7F88C30 		str	r3, [r7, #140]
+ 669              	.L31:
+ 197:spo2_algorithm.c ****         for (i=an_ir_valley_locs[k]; i< an_ir_valley_locs[k+1]; i++){
+ 670              		.loc 1 197 0 is_stmt 1 discriminator 2
+ 671 03d8 D7F8A030 		ldr	r3, [r7, #160]
+ 672 03dc 0133     		adds	r3, r3, #1
+ 673 03de C7F8A030 		str	r3, [r7, #160]
+ 674              	.L29:
+ 197:spo2_algorithm.c ****         for (i=an_ir_valley_locs[k]; i< an_ir_valley_locs[k+1]; i++){
+ 675              		.loc 1 197 0 is_stmt 0 discriminator 1
+ 676 03e2 D7F8A830 		ldr	r3, [r7, #168]
+ 677 03e6 0133     		adds	r3, r3, #1
+ 678 03e8 9B00     		lsls	r3, r3, #2
+ 679 03ea 07F1B002 		add	r2, r7, #176
+ 680 03ee 1344     		add	r3, r3, r2
+ 681 03f0 53F88C2C 		ldr	r2, [r3, #-140]
+ 682 03f4 D7F8A030 		ldr	r3, [r7, #160]
+ 683 03f8 9A42     		cmp	r2, r3
+ 684 03fa C5DC     		bgt	.L32
+ 200:spo2_algorithm.c ****       }
+ 201:spo2_algorithm.c ****       n_y_ac= (an_y[an_ir_valley_locs[k+1]] - an_y[an_ir_valley_locs[k] ] )*(n_y_dc_max_idx -an_ir_
+ 685              		.loc 1 201 0 is_stmt 1
+ 686 03fc D7F8A830 		ldr	r3, [r7, #168]
+ 687 0400 0133     		adds	r3, r3, #1
+ 688 0402 9B00     		lsls	r3, r3, #2
+ 689 0404 07F1B002 		add	r2, r7, #176
+ 690 0408 1344     		add	r3, r3, r2
+ 691 040a 53F88C3C 		ldr	r3, [r3, #-140]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 17
+
+
+ 692 040e 904A     		ldr	r2, .L40+4
+ 693 0410 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 694 0414 D7F8A830 		ldr	r3, [r7, #168]
+ 695 0418 9B00     		lsls	r3, r3, #2
+ 696 041a 07F1B001 		add	r1, r7, #176
+ 697 041e 0B44     		add	r3, r3, r1
+ 698 0420 53F88C3C 		ldr	r3, [r3, #-140]
+ 699 0424 8A49     		ldr	r1, .L40+4
+ 700 0426 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 701 042a D21A     		subs	r2, r2, r3
+ 702 042c D7F8A830 		ldr	r3, [r7, #168]
+ 703 0430 9B00     		lsls	r3, r3, #2
+ 704 0432 07F1B001 		add	r1, r7, #176
+ 705 0436 0B44     		add	r3, r3, r1
+ 706 0438 53F88C3C 		ldr	r3, [r3, #-140]
+ 707 043c D7F88C10 		ldr	r1, [r7, #140]
+ 708 0440 CB1A     		subs	r3, r1, r3
+ 709 0442 03FB02F3 		mul	r3, r3, r2
+ 710 0446 BB67     		str	r3, [r7, #120]
+ 202:spo2_algorithm.c ****       n_y_ac=  an_y[an_ir_valley_locs[k]] + n_y_ac/ (an_ir_valley_locs[k+1] - an_ir_valley_locs[k])
+ 711              		.loc 1 202 0
+ 712 0448 D7F8A830 		ldr	r3, [r7, #168]
+ 713 044c 9B00     		lsls	r3, r3, #2
+ 714 044e 07F1B002 		add	r2, r7, #176
+ 715 0452 1344     		add	r3, r3, r2
+ 716 0454 53F88C3C 		ldr	r3, [r3, #-140]
+ 717 0458 7D4A     		ldr	r2, .L40+4
+ 718 045a 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 719 045e D7F8A830 		ldr	r3, [r7, #168]
+ 720 0462 0133     		adds	r3, r3, #1
+ 721 0464 9B00     		lsls	r3, r3, #2
+ 722 0466 07F1B001 		add	r1, r7, #176
+ 723 046a 0B44     		add	r3, r3, r1
+ 724 046c 53F88C1C 		ldr	r1, [r3, #-140]
+ 725 0470 D7F8A830 		ldr	r3, [r7, #168]
+ 726 0474 9B00     		lsls	r3, r3, #2
+ 727 0476 07F1B000 		add	r0, r7, #176
+ 728 047a 0344     		add	r3, r3, r0
+ 729 047c 53F88C3C 		ldr	r3, [r3, #-140]
+ 730 0480 CB1A     		subs	r3, r1, r3
+ 731 0482 B96F     		ldr	r1, [r7, #120]
+ 732 0484 91FBF3F3 		sdiv	r3, r1, r3
+ 733 0488 1344     		add	r3, r3, r2
+ 734 048a BB67     		str	r3, [r7, #120]
+ 203:spo2_algorithm.c ****       n_y_ac=  an_y[n_y_dc_max_idx] - n_y_ac;    // subracting linear DC compoenents from raw 
+ 735              		.loc 1 203 0
+ 736 048c 704A     		ldr	r2, .L40+4
+ 737 048e D7F88C30 		ldr	r3, [r7, #140]
+ 738 0492 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 739 0496 BB6F     		ldr	r3, [r7, #120]
+ 740 0498 D31A     		subs	r3, r2, r3
+ 741 049a BB67     		str	r3, [r7, #120]
+ 204:spo2_algorithm.c ****       n_x_ac= (an_x[an_ir_valley_locs[k+1]] - an_x[an_ir_valley_locs[k] ] )*(n_x_dc_max_idx -an_ir_
+ 742              		.loc 1 204 0
+ 743 049c D7F8A830 		ldr	r3, [r7, #168]
+ 744 04a0 0133     		adds	r3, r3, #1
+ 745 04a2 9B00     		lsls	r3, r3, #2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 18
+
+
+ 746 04a4 07F1B002 		add	r2, r7, #176
+ 747 04a8 1344     		add	r3, r3, r2
+ 748 04aa 53F88C3C 		ldr	r3, [r3, #-140]
+ 749 04ae 674A     		ldr	r2, .L40
+ 750 04b0 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 751 04b4 D7F8A830 		ldr	r3, [r7, #168]
+ 752 04b8 9B00     		lsls	r3, r3, #2
+ 753 04ba 07F1B001 		add	r1, r7, #176
+ 754 04be 0B44     		add	r3, r3, r1
+ 755 04c0 53F88C3C 		ldr	r3, [r3, #-140]
+ 756 04c4 6149     		ldr	r1, .L40
+ 757 04c6 51F82330 		ldr	r3, [r1, r3, lsl #2]
+ 758 04ca D21A     		subs	r2, r2, r3
+ 759 04cc D7F8A830 		ldr	r3, [r7, #168]
+ 760 04d0 9B00     		lsls	r3, r3, #2
+ 761 04d2 07F1B001 		add	r1, r7, #176
+ 762 04d6 0B44     		add	r3, r3, r1
+ 763 04d8 53F88C3C 		ldr	r3, [r3, #-140]
+ 764 04dc D7F88810 		ldr	r1, [r7, #136]
+ 765 04e0 CB1A     		subs	r3, r1, r3
+ 766 04e2 03FB02F3 		mul	r3, r3, r2
+ 767 04e6 7B67     		str	r3, [r7, #116]
+ 205:spo2_algorithm.c ****       n_x_ac=  an_x[an_ir_valley_locs[k]] + n_x_ac/ (an_ir_valley_locs[k+1] - an_ir_valley_locs[k])
+ 768              		.loc 1 205 0
+ 769 04e8 D7F8A830 		ldr	r3, [r7, #168]
+ 770 04ec 9B00     		lsls	r3, r3, #2
+ 771 04ee 07F1B002 		add	r2, r7, #176
+ 772 04f2 1344     		add	r3, r3, r2
+ 773 04f4 53F88C3C 		ldr	r3, [r3, #-140]
+ 774 04f8 544A     		ldr	r2, .L40
+ 775 04fa 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 776 04fe D7F8A830 		ldr	r3, [r7, #168]
+ 777 0502 0133     		adds	r3, r3, #1
+ 778 0504 9B00     		lsls	r3, r3, #2
+ 779 0506 07F1B001 		add	r1, r7, #176
+ 780 050a 0B44     		add	r3, r3, r1
+ 781 050c 53F88C1C 		ldr	r1, [r3, #-140]
+ 782 0510 D7F8A830 		ldr	r3, [r7, #168]
+ 783 0514 9B00     		lsls	r3, r3, #2
+ 784 0516 07F1B000 		add	r0, r7, #176
+ 785 051a 0344     		add	r3, r3, r0
+ 786 051c 53F88C3C 		ldr	r3, [r3, #-140]
+ 787 0520 CB1A     		subs	r3, r1, r3
+ 788 0522 796F     		ldr	r1, [r7, #116]
+ 789 0524 91FBF3F3 		sdiv	r3, r1, r3
+ 790 0528 1344     		add	r3, r3, r2
+ 791 052a 7B67     		str	r3, [r7, #116]
+ 206:spo2_algorithm.c ****       n_x_ac=  an_x[n_y_dc_max_idx] - n_x_ac;      // subracting linear DC compoenents from raw 
+ 792              		.loc 1 206 0
+ 793 052c 474A     		ldr	r2, .L40
+ 794 052e D7F88C30 		ldr	r3, [r7, #140]
+ 795 0532 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 796 0536 7B6F     		ldr	r3, [r7, #116]
+ 797 0538 D31A     		subs	r3, r2, r3
+ 798 053a 7B67     		str	r3, [r7, #116]
+ 207:spo2_algorithm.c ****       n_nume=( n_y_ac *n_x_dc_max)>>7 ; //prepare X100 to preserve floating value
+ 799              		.loc 1 207 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 19
+
+
+ 800 053c BB6F     		ldr	r3, [r7, #120]
+ 801 053e D7F89020 		ldr	r2, [r7, #144]
+ 802 0542 02FB03F3 		mul	r3, r2, r3
+ 803 0546 DB11     		asrs	r3, r3, #7
+ 804 0548 3B67     		str	r3, [r7, #112]
+ 208:spo2_algorithm.c ****       n_denom= ( n_x_ac *n_y_dc_max)>>7;
+ 805              		.loc 1 208 0
+ 806 054a 7B6F     		ldr	r3, [r7, #116]
+ 807 054c D7F89420 		ldr	r2, [r7, #148]
+ 808 0550 02FB03F3 		mul	r3, r2, r3
+ 809 0554 DB11     		asrs	r3, r3, #7
+ 810 0556 FB66     		str	r3, [r7, #108]
+ 209:spo2_algorithm.c ****       if (n_denom>0  && n_i_ratio_count <5 &&  n_nume != 0)
+ 811              		.loc 1 209 0
+ 812 0558 FB6E     		ldr	r3, [r7, #108]
+ 813 055a 002B     		cmp	r3, #0
+ 814 055c 1ADD     		ble	.L28
+ 815              		.loc 1 209 0 is_stmt 0 discriminator 1
+ 816 055e D7F8A430 		ldr	r3, [r7, #164]
+ 817 0562 042B     		cmp	r3, #4
+ 818 0564 16DC     		bgt	.L28
+ 819              		.loc 1 209 0 discriminator 2
+ 820 0566 3B6F     		ldr	r3, [r7, #112]
+ 821 0568 002B     		cmp	r3, #0
+ 822 056a 13D0     		beq	.L28
+ 210:spo2_algorithm.c ****       {   
+ 211:spo2_algorithm.c ****         an_ratio[n_i_ratio_count]= (n_nume*100)/n_denom ; //formular is ( n_y_ac *n_x_dc_max) / ( n
+ 823              		.loc 1 211 0 is_stmt 1
+ 824 056c 3B6F     		ldr	r3, [r7, #112]
+ 825 056e 6422     		movs	r2, #100
+ 826 0570 02FB03F2 		mul	r2, r2, r3
+ 827 0574 FB6E     		ldr	r3, [r7, #108]
+ 828 0576 92FBF3F2 		sdiv	r2, r2, r3
+ 829 057a D7F8A430 		ldr	r3, [r7, #164]
+ 830 057e 9B00     		lsls	r3, r3, #2
+ 831 0580 07F1B001 		add	r1, r7, #176
+ 832 0584 0B44     		add	r3, r3, r1
+ 833 0586 43F8A02C 		str	r2, [r3, #-160]
+ 212:spo2_algorithm.c ****         n_i_ratio_count++;
+ 834              		.loc 1 212 0
+ 835 058a D7F8A430 		ldr	r3, [r7, #164]
+ 836 058e 0133     		adds	r3, r3, #1
+ 837 0590 C7F8A430 		str	r3, [r7, #164]
+ 838              	.L28:
+ 193:spo2_algorithm.c ****     n_y_dc_max= -16777216 ; 
+ 839              		.loc 1 193 0 discriminator 2
+ 840 0594 D7F8A830 		ldr	r3, [r7, #168]
+ 841 0598 0133     		adds	r3, r3, #1
+ 842 059a C7F8A830 		str	r3, [r7, #168]
+ 843              	.L27:
+ 193:spo2_algorithm.c ****     n_y_dc_max= -16777216 ; 
+ 844              		.loc 1 193 0 is_stmt 0 discriminator 1
+ 845 059e FB6F     		ldr	r3, [r7, #124]
+ 846 05a0 5A1E     		subs	r2, r3, #1
+ 847 05a2 D7F8A830 		ldr	r3, [r7, #168]
+ 848 05a6 9A42     		cmp	r2, r3
+ 849 05a8 3FF7C0AE 		bgt	.L33
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 20
+
+
+ 213:spo2_algorithm.c ****       }
+ 214:spo2_algorithm.c ****     }
+ 215:spo2_algorithm.c ****   }
+ 216:spo2_algorithm.c ****   // choose median value since PPG signal may varies from beat to beat
+ 217:spo2_algorithm.c ****   maxim_sort_ascend(an_ratio, n_i_ratio_count);
+ 850              		.loc 1 217 0 is_stmt 1
+ 851 05ac 07F11003 		add	r3, r7, #16
+ 852 05b0 D7F8A410 		ldr	r1, [r7, #164]
+ 853 05b4 1846     		mov	r0, r3
+ 854 05b6 FFF7FEFF 		bl	maxim_sort_ascend
+ 218:spo2_algorithm.c ****   n_middle_idx= n_i_ratio_count/2;
+ 855              		.loc 1 218 0
+ 856 05ba D7F8A430 		ldr	r3, [r7, #164]
+ 857 05be DA0F     		lsrs	r2, r3, #31
+ 858 05c0 1344     		add	r3, r3, r2
+ 859 05c2 5B10     		asrs	r3, r3, #1
+ 860 05c4 BB66     		str	r3, [r7, #104]
+ 219:spo2_algorithm.c **** 
+ 220:spo2_algorithm.c ****   if (n_middle_idx >1)
+ 861              		.loc 1 220 0
+ 862 05c6 BB6E     		ldr	r3, [r7, #104]
+ 863 05c8 012B     		cmp	r3, #1
+ 864 05ca 15DD     		ble	.L34
+ 221:spo2_algorithm.c ****     n_ratio_average =( an_ratio[n_middle_idx-1] +an_ratio[n_middle_idx])/2; // use median
+ 865              		.loc 1 221 0
+ 866 05cc BB6E     		ldr	r3, [r7, #104]
+ 867 05ce 013B     		subs	r3, r3, #1
+ 868 05d0 9B00     		lsls	r3, r3, #2
+ 869 05d2 07F1B002 		add	r2, r7, #176
+ 870 05d6 1344     		add	r3, r3, r2
+ 871 05d8 53F8A02C 		ldr	r2, [r3, #-160]
+ 872 05dc BB6E     		ldr	r3, [r7, #104]
+ 873 05de 9B00     		lsls	r3, r3, #2
+ 874 05e0 07F1B001 		add	r1, r7, #176
+ 875 05e4 0B44     		add	r3, r3, r1
+ 876 05e6 53F8A03C 		ldr	r3, [r3, #-160]
+ 877 05ea 1344     		add	r3, r3, r2
+ 878 05ec DA0F     		lsrs	r2, r3, #31
+ 879 05ee 1344     		add	r3, r3, r2
+ 880 05f0 5B10     		asrs	r3, r3, #1
+ 881 05f2 C7F88430 		str	r3, [r7, #132]
+ 882 05f6 08E0     		b	.L35
+ 883              	.L34:
+ 222:spo2_algorithm.c ****   else
+ 223:spo2_algorithm.c ****     n_ratio_average = an_ratio[n_middle_idx ];
+ 884              		.loc 1 223 0
+ 885 05f8 BB6E     		ldr	r3, [r7, #104]
+ 886 05fa 9B00     		lsls	r3, r3, #2
+ 887 05fc 07F1B002 		add	r2, r7, #176
+ 888 0600 1344     		add	r3, r3, r2
+ 889 0602 53F8A03C 		ldr	r3, [r3, #-160]
+ 890 0606 C7F88430 		str	r3, [r7, #132]
+ 891              	.L35:
+ 224:spo2_algorithm.c **** 
+ 225:spo2_algorithm.c ****   if( n_ratio_average>2 && n_ratio_average <184){
+ 892              		.loc 1 225 0
+ 893 060a D7F88430 		ldr	r3, [r7, #132]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 21
+
+
+ 894 060e 022B     		cmp	r3, #2
+ 895 0610 11DD     		ble	.L36
+ 896              		.loc 1 225 0 is_stmt 0 discriminator 1
+ 897 0612 D7F88430 		ldr	r3, [r7, #132]
+ 898 0616 B72B     		cmp	r3, #183
+ 899 0618 0DDC     		bgt	.L36
+ 226:spo2_algorithm.c ****     n_spo2_calc= uch_spo2_table[n_ratio_average] ;
+ 900              		.loc 1 226 0 is_stmt 1
+ 901 061a 0E4A     		ldr	r2, .L40+8
+ 902 061c D7F88430 		ldr	r3, [r7, #132]
+ 903 0620 1344     		add	r3, r3, r2
+ 904 0622 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 905 0624 7B66     		str	r3, [r7, #100]
+ 227:spo2_algorithm.c ****     *pn_spo2 = n_spo2_calc ;
+ 906              		.loc 1 227 0
+ 907 0626 3B68     		ldr	r3, [r7]
+ 908 0628 7A6E     		ldr	r2, [r7, #100]
+ 909 062a 1A60     		str	r2, [r3]
+ 228:spo2_algorithm.c ****     *pch_spo2_valid  = 1;//  float_SPO2 =  -45.060*n_ratio_average* n_ratio_average/10000 + 30.354 
+ 910              		.loc 1 228 0
+ 911 062c D7F8B830 		ldr	r3, [r7, #184]
+ 912 0630 0122     		movs	r2, #1
+ 913 0632 1A70     		strb	r2, [r3]
+ 914 0634 06E0     		b	.L1
+ 915              	.L36:
+ 229:spo2_algorithm.c ****   }
+ 230:spo2_algorithm.c ****   else{
+ 231:spo2_algorithm.c ****     *pn_spo2 =  -999 ; // do not use SPO2 since signal an_ratio is out of range
+ 916              		.loc 1 231 0
+ 917 0636 3B68     		ldr	r3, [r7]
+ 918 0638 074A     		ldr	r2, .L40+12
+ 919 063a 1A60     		str	r2, [r3]
+ 232:spo2_algorithm.c ****     *pch_spo2_valid  = 0; 
+ 920              		.loc 1 232 0
+ 921 063c D7F8B830 		ldr	r3, [r7, #184]
+ 922 0640 0022     		movs	r2, #0
+ 923 0642 1A70     		strb	r2, [r3]
+ 924              	.L1:
+ 233:spo2_algorithm.c ****   }
+ 234:spo2_algorithm.c **** }
+ 925              		.loc 1 234 0
+ 926 0644 B037     		adds	r7, r7, #176
+ 927              		.cfi_def_cfa_offset 8
+ 928 0646 BD46     		mov	sp, r7
+ 929              		.cfi_def_cfa_register 13
+ 930              		@ sp needed
+ 931 0648 80BD     		pop	{r7, pc}
+ 932              	.L41:
+ 933 064a 00BF     		.align	2
+ 934              	.L40:
+ 935 064c 00000000 		.word	an_x
+ 936 0650 60090000 		.word	an_y
+ 937 0654 00000000 		.word	uch_spo2_table
+ 938 0658 19FCFFFF 		.word	-999
+ 939              		.cfi_endproc
+ 940              	.LFE0:
+ 941              		.size	maxim_heart_rate_and_oxygen_saturation, .-maxim_heart_rate_and_oxygen_saturation
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 22
+
+
+ 942              		.section	.text.maxim_find_peaks,"ax",%progbits
+ 943              		.align	2
+ 944              		.global	maxim_find_peaks
+ 945              		.thumb
+ 946              		.thumb_func
+ 947              		.type	maxim_find_peaks, %function
+ 948              	maxim_find_peaks:
+ 949              	.LFB1:
+ 235:spo2_algorithm.c **** 
+ 236:spo2_algorithm.c **** /***************************************************************************
+ 237:spo2_algorithm.c ****  * Function: maxim_find_peaks    
+ 238:spo2_algorithm.c ****  *
+ 239:spo2_algorithm.c ****  * Description:  Find at most MAX_NUM peaks above MIN_HEIGHT separated by at least MIN_DISTANCE
+ 240:spo2_algorithm.c ****  **************************************************************************/
+ 241:spo2_algorithm.c **** void maxim_find_peaks( int32_t *pn_locs, int32_t *n_npks,  int32_t  *pn_x, int32_t n_size, int32_t 
+ 242:spo2_algorithm.c **** {
+ 950              		.loc 1 242 0
+ 951              		.cfi_startproc
+ 952              		@ args = 12, pretend = 0, frame = 16
+ 953              		@ frame_needed = 1, uses_anonymous_args = 0
+ 954 0000 80B5     		push	{r7, lr}
+ 955              		.cfi_def_cfa_offset 8
+ 956              		.cfi_offset 7, -8
+ 957              		.cfi_offset 14, -4
+ 958 0002 86B0     		sub	sp, sp, #24
+ 959              		.cfi_def_cfa_offset 32
+ 960 0004 02AF     		add	r7, sp, #8
+ 961              		.cfi_def_cfa 7, 24
+ 962 0006 F860     		str	r0, [r7, #12]
+ 963 0008 B960     		str	r1, [r7, #8]
+ 964 000a 7A60     		str	r2, [r7, #4]
+ 965 000c 3B60     		str	r3, [r7]
+ 243:spo2_algorithm.c ****   maxim_peaks_above_min_height( pn_locs, n_npks, pn_x, n_size, n_min_height );
+ 966              		.loc 1 243 0
+ 967 000e BB69     		ldr	r3, [r7, #24]
+ 968 0010 0093     		str	r3, [sp]
+ 969 0012 3B68     		ldr	r3, [r7]
+ 970 0014 7A68     		ldr	r2, [r7, #4]
+ 971 0016 B968     		ldr	r1, [r7, #8]
+ 972 0018 F868     		ldr	r0, [r7, #12]
+ 973 001a FFF7FEFF 		bl	maxim_peaks_above_min_height
+ 244:spo2_algorithm.c ****   maxim_remove_close_peaks( pn_locs, n_npks, pn_x, n_min_distance );
+ 974              		.loc 1 244 0
+ 975 001e FB69     		ldr	r3, [r7, #28]
+ 976 0020 7A68     		ldr	r2, [r7, #4]
+ 977 0022 B968     		ldr	r1, [r7, #8]
+ 978 0024 F868     		ldr	r0, [r7, #12]
+ 979 0026 FFF7FEFF 		bl	maxim_remove_close_peaks
+ 245:spo2_algorithm.c ****   *n_npks = MIN( *n_npks, n_max_num );
+ 980              		.loc 1 245 0
+ 981 002a BB68     		ldr	r3, [r7, #8]
+ 982 002c 1A68     		ldr	r2, [r3]
+ 983 002e 3B6A     		ldr	r3, [r7, #32]
+ 984 0030 9A42     		cmp	r2, r3
+ 985 0032 A8BF     		it	ge
+ 986 0034 1A46     		movge	r2, r3
+ 987 0036 BB68     		ldr	r3, [r7, #8]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 23
+
+
+ 988 0038 1A60     		str	r2, [r3]
+ 246:spo2_algorithm.c **** }
+ 989              		.loc 1 246 0
+ 990 003a 00BF     		nop
+ 991 003c 1037     		adds	r7, r7, #16
+ 992              		.cfi_def_cfa_offset 8
+ 993 003e BD46     		mov	sp, r7
+ 994              		.cfi_def_cfa_register 13
+ 995              		@ sp needed
+ 996 0040 80BD     		pop	{r7, pc}
+ 997              		.cfi_endproc
+ 998              	.LFE1:
+ 999              		.size	maxim_find_peaks, .-maxim_find_peaks
+ 1000 0042 00BF     		.section	.text.maxim_peaks_above_min_height,"ax",%progbits
+ 1001              		.align	2
+ 1002              		.global	maxim_peaks_above_min_height
+ 1003              		.thumb
+ 1004              		.thumb_func
+ 1005              		.type	maxim_peaks_above_min_height, %function
+ 1006              	maxim_peaks_above_min_height:
+ 1007              	.LFB2:
+ 247:spo2_algorithm.c **** 
+ 248:spo2_algorithm.c **** /***************************************************************************
+ 249:spo2_algorithm.c ****  * Function: maxim_peaks_above_min_height    
+ 250:spo2_algorithm.c ****  *
+ 251:spo2_algorithm.c ****  * Description:  Find all peaks above MIN_HEIGHT
+ 252:spo2_algorithm.c ****  **************************************************************************/
+ 253:spo2_algorithm.c **** void maxim_peaks_above_min_height( int32_t *pn_locs, int32_t *n_npks,  int32_t  *pn_x, int32_t n_si
+ 254:spo2_algorithm.c **** {
+ 1008              		.loc 1 254 0
+ 1009              		.cfi_startproc
+ 1010              		@ args = 4, pretend = 0, frame = 24
+ 1011              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1012              		@ link register save eliminated.
+ 1013 0000 80B4     		push	{r7}
+ 1014              		.cfi_def_cfa_offset 4
+ 1015              		.cfi_offset 7, -4
+ 1016 0002 87B0     		sub	sp, sp, #28
+ 1017              		.cfi_def_cfa_offset 32
+ 1018 0004 00AF     		add	r7, sp, #0
+ 1019              		.cfi_def_cfa_register 7
+ 1020 0006 F860     		str	r0, [r7, #12]
+ 1021 0008 B960     		str	r1, [r7, #8]
+ 1022 000a 7A60     		str	r2, [r7, #4]
+ 1023 000c 3B60     		str	r3, [r7]
+ 255:spo2_algorithm.c ****   int32_t i = 1, n_width;
+ 1024              		.loc 1 255 0
+ 1025 000e 0123     		movs	r3, #1
+ 1026 0010 7B61     		str	r3, [r7, #20]
+ 256:spo2_algorithm.c ****   *n_npks = 0;
+ 1027              		.loc 1 256 0
+ 1028 0012 BB68     		ldr	r3, [r7, #8]
+ 1029 0014 0022     		movs	r2, #0
+ 1030 0016 1A60     		str	r2, [r3]
+ 257:spo2_algorithm.c ****   
+ 258:spo2_algorithm.c ****   while (i < n_size-1){
+ 1031              		.loc 1 258 0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 24
+
+
+ 1032 0018 5AE0     		b	.L44
+ 1033              	.L51:
+ 259:spo2_algorithm.c ****     if (pn_x[i] > n_min_height && pn_x[i] > pn_x[i-1]){      // find left edge of potential peaks
+ 1034              		.loc 1 259 0
+ 1035 001a 7B69     		ldr	r3, [r7, #20]
+ 1036 001c 9B00     		lsls	r3, r3, #2
+ 1037 001e 7A68     		ldr	r2, [r7, #4]
+ 1038 0020 1344     		add	r3, r3, r2
+ 1039 0022 1A68     		ldr	r2, [r3]
+ 1040 0024 3B6A     		ldr	r3, [r7, #32]
+ 1041 0026 9A42     		cmp	r2, r3
+ 1042 0028 4FDD     		ble	.L45
+ 1043              		.loc 1 259 0 is_stmt 0 discriminator 1
+ 1044 002a 7B69     		ldr	r3, [r7, #20]
+ 1045 002c 9B00     		lsls	r3, r3, #2
+ 1046 002e 7A68     		ldr	r2, [r7, #4]
+ 1047 0030 1344     		add	r3, r3, r2
+ 1048 0032 1A68     		ldr	r2, [r3]
+ 1049 0034 7B69     		ldr	r3, [r7, #20]
+ 1050 0036 03F18043 		add	r3, r3, #1073741824
+ 1051 003a 013B     		subs	r3, r3, #1
+ 1052 003c 9B00     		lsls	r3, r3, #2
+ 1053 003e 7968     		ldr	r1, [r7, #4]
+ 1054 0040 0B44     		add	r3, r3, r1
+ 1055 0042 1B68     		ldr	r3, [r3]
+ 1056 0044 9A42     		cmp	r2, r3
+ 1057 0046 40DD     		ble	.L45
+ 260:spo2_algorithm.c ****       n_width = 1;
+ 1058              		.loc 1 260 0 is_stmt 1
+ 1059 0048 0123     		movs	r3, #1
+ 1060 004a 3B61     		str	r3, [r7, #16]
+ 261:spo2_algorithm.c ****       while (i+n_width < n_size && pn_x[i] == pn_x[i+n_width])  // find flat peaks
+ 1061              		.loc 1 261 0
+ 1062 004c 02E0     		b	.L46
+ 1063              	.L48:
+ 262:spo2_algorithm.c ****         n_width++;
+ 1064              		.loc 1 262 0
+ 1065 004e 3B69     		ldr	r3, [r7, #16]
+ 1066 0050 0133     		adds	r3, r3, #1
+ 1067 0052 3B61     		str	r3, [r7, #16]
+ 1068              	.L46:
+ 261:spo2_algorithm.c ****       while (i+n_width < n_size && pn_x[i] == pn_x[i+n_width])  // find flat peaks
+ 1069              		.loc 1 261 0
+ 1070 0054 7A69     		ldr	r2, [r7, #20]
+ 1071 0056 3B69     		ldr	r3, [r7, #16]
+ 1072 0058 1A44     		add	r2, r2, r3
+ 1073 005a 3B68     		ldr	r3, [r7]
+ 1074 005c 9A42     		cmp	r2, r3
+ 1075 005e 0DDA     		bge	.L47
+ 261:spo2_algorithm.c ****       while (i+n_width < n_size && pn_x[i] == pn_x[i+n_width])  // find flat peaks
+ 1076              		.loc 1 261 0 is_stmt 0 discriminator 1
+ 1077 0060 7B69     		ldr	r3, [r7, #20]
+ 1078 0062 9B00     		lsls	r3, r3, #2
+ 1079 0064 7A68     		ldr	r2, [r7, #4]
+ 1080 0066 1344     		add	r3, r3, r2
+ 1081 0068 1A68     		ldr	r2, [r3]
+ 1082 006a 7969     		ldr	r1, [r7, #20]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 25
+
+
+ 1083 006c 3B69     		ldr	r3, [r7, #16]
+ 1084 006e 0B44     		add	r3, r3, r1
+ 1085 0070 9B00     		lsls	r3, r3, #2
+ 1086 0072 7968     		ldr	r1, [r7, #4]
+ 1087 0074 0B44     		add	r3, r3, r1
+ 1088 0076 1B68     		ldr	r3, [r3]
+ 1089 0078 9A42     		cmp	r2, r3
+ 1090 007a E8D0     		beq	.L48
+ 1091              	.L47:
+ 263:spo2_algorithm.c ****       if (pn_x[i] > pn_x[i+n_width] && (*n_npks) < 15 ){      // find right edge of peaks
+ 1092              		.loc 1 263 0 is_stmt 1
+ 1093 007c 7B69     		ldr	r3, [r7, #20]
+ 1094 007e 9B00     		lsls	r3, r3, #2
+ 1095 0080 7A68     		ldr	r2, [r7, #4]
+ 1096 0082 1344     		add	r3, r3, r2
+ 1097 0084 1A68     		ldr	r2, [r3]
+ 1098 0086 7969     		ldr	r1, [r7, #20]
+ 1099 0088 3B69     		ldr	r3, [r7, #16]
+ 1100 008a 0B44     		add	r3, r3, r1
+ 1101 008c 9B00     		lsls	r3, r3, #2
+ 1102 008e 7968     		ldr	r1, [r7, #4]
+ 1103 0090 0B44     		add	r3, r3, r1
+ 1104 0092 1B68     		ldr	r3, [r3]
+ 1105 0094 9A42     		cmp	r2, r3
+ 1106 0096 13DD     		ble	.L49
+ 1107              		.loc 1 263 0 is_stmt 0 discriminator 1
+ 1108 0098 BB68     		ldr	r3, [r7, #8]
+ 1109 009a 1B68     		ldr	r3, [r3]
+ 1110 009c 0E2B     		cmp	r3, #14
+ 1111 009e 0FDC     		bgt	.L49
+ 264:spo2_algorithm.c ****         pn_locs[(*n_npks)++] = i;    
+ 1112              		.loc 1 264 0 is_stmt 1
+ 1113 00a0 BB68     		ldr	r3, [r7, #8]
+ 1114 00a2 1B68     		ldr	r3, [r3]
+ 1115 00a4 591C     		adds	r1, r3, #1
+ 1116 00a6 BA68     		ldr	r2, [r7, #8]
+ 1117 00a8 1160     		str	r1, [r2]
+ 1118 00aa 9B00     		lsls	r3, r3, #2
+ 1119 00ac FA68     		ldr	r2, [r7, #12]
+ 1120 00ae 1344     		add	r3, r3, r2
+ 1121 00b0 7A69     		ldr	r2, [r7, #20]
+ 1122 00b2 1A60     		str	r2, [r3]
+ 265:spo2_algorithm.c ****         // for flat peaks, peak location is left edge
+ 266:spo2_algorithm.c ****         i += n_width+1;
+ 1123              		.loc 1 266 0
+ 1124 00b4 3B69     		ldr	r3, [r7, #16]
+ 1125 00b6 0133     		adds	r3, r3, #1
+ 1126 00b8 7A69     		ldr	r2, [r7, #20]
+ 1127 00ba 1344     		add	r3, r3, r2
+ 1128 00bc 7B61     		str	r3, [r7, #20]
+ 1129 00be 03E0     		b	.L50
+ 1130              	.L49:
+ 267:spo2_algorithm.c ****       }
+ 268:spo2_algorithm.c ****       else
+ 269:spo2_algorithm.c ****         i += n_width;
+ 1131              		.loc 1 269 0
+ 1132 00c0 7A69     		ldr	r2, [r7, #20]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 26
+
+
+ 1133 00c2 3B69     		ldr	r3, [r7, #16]
+ 1134 00c4 1344     		add	r3, r3, r2
+ 1135 00c6 7B61     		str	r3, [r7, #20]
+ 1136              	.L50:
+ 263:spo2_algorithm.c ****         pn_locs[(*n_npks)++] = i;    
+ 1137              		.loc 1 263 0
+ 1138 00c8 02E0     		b	.L44
+ 1139              	.L45:
+ 270:spo2_algorithm.c ****     }
+ 271:spo2_algorithm.c ****     else
+ 272:spo2_algorithm.c ****       i++;
+ 1140              		.loc 1 272 0
+ 1141 00ca 7B69     		ldr	r3, [r7, #20]
+ 1142 00cc 0133     		adds	r3, r3, #1
+ 1143 00ce 7B61     		str	r3, [r7, #20]
+ 1144              	.L44:
+ 258:spo2_algorithm.c ****     if (pn_x[i] > n_min_height && pn_x[i] > pn_x[i-1]){      // find left edge of potential peaks
+ 1145              		.loc 1 258 0
+ 1146 00d0 3B68     		ldr	r3, [r7]
+ 1147 00d2 5A1E     		subs	r2, r3, #1
+ 1148 00d4 7B69     		ldr	r3, [r7, #20]
+ 1149 00d6 9A42     		cmp	r2, r3
+ 1150 00d8 9FDC     		bgt	.L51
+ 273:spo2_algorithm.c ****   }
+ 274:spo2_algorithm.c **** }
+ 1151              		.loc 1 274 0
+ 1152 00da 00BF     		nop
+ 1153 00dc 1C37     		adds	r7, r7, #28
+ 1154              		.cfi_def_cfa_offset 4
+ 1155 00de BD46     		mov	sp, r7
+ 1156              		.cfi_def_cfa_register 13
+ 1157              		@ sp needed
+ 1158 00e0 5DF8047B 		ldr	r7, [sp], #4
+ 1159              		.cfi_restore 7
+ 1160              		.cfi_def_cfa_offset 0
+ 1161 00e4 7047     		bx	lr
+ 1162              		.cfi_endproc
+ 1163              	.LFE2:
+ 1164              		.size	maxim_peaks_above_min_height, .-maxim_peaks_above_min_height
+ 1165 00e6 00BF     		.section	.text.maxim_remove_close_peaks,"ax",%progbits
+ 1166              		.align	2
+ 1167              		.global	maxim_remove_close_peaks
+ 1168              		.thumb
+ 1169              		.thumb_func
+ 1170              		.type	maxim_remove_close_peaks, %function
+ 1171              	maxim_remove_close_peaks:
+ 1172              	.LFB3:
+ 275:spo2_algorithm.c **** 
+ 276:spo2_algorithm.c **** /***************************************************************************
+ 277:spo2_algorithm.c ****  * Function: maxim_remove_close_peaks    
+ 278:spo2_algorithm.c ****  *
+ 279:spo2_algorithm.c ****  * Description:   Remove peaks separated by less than MIN_DISTANCE
+ 280:spo2_algorithm.c ****  **************************************************************************/
+ 281:spo2_algorithm.c **** void maxim_remove_close_peaks(int32_t *pn_locs, int32_t *pn_npks, int32_t *pn_x, int32_t n_min_dist
+ 282:spo2_algorithm.c **** {
+ 1173              		.loc 1 282 0
+ 1174              		.cfi_startproc
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 27
+
+
+ 1175              		@ args = 0, pretend = 0, frame = 32
+ 1176              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1177 0000 80B5     		push	{r7, lr}
+ 1178              		.cfi_def_cfa_offset 8
+ 1179              		.cfi_offset 7, -8
+ 1180              		.cfi_offset 14, -4
+ 1181 0002 88B0     		sub	sp, sp, #32
+ 1182              		.cfi_def_cfa_offset 40
+ 1183 0004 00AF     		add	r7, sp, #0
+ 1184              		.cfi_def_cfa_register 7
+ 1185 0006 F860     		str	r0, [r7, #12]
+ 1186 0008 B960     		str	r1, [r7, #8]
+ 1187 000a 7A60     		str	r2, [r7, #4]
+ 1188 000c 3B60     		str	r3, [r7]
+ 283:spo2_algorithm.c ****     
+ 284:spo2_algorithm.c ****   int32_t i, j, n_old_npks, n_dist;
+ 285:spo2_algorithm.c ****     
+ 286:spo2_algorithm.c ****   /* Order peaks from large to small */
+ 287:spo2_algorithm.c ****   maxim_sort_indices_descend( pn_x, pn_locs, *pn_npks );
+ 1189              		.loc 1 287 0
+ 1190 000e BB68     		ldr	r3, [r7, #8]
+ 1191 0010 1B68     		ldr	r3, [r3]
+ 1192 0012 1A46     		mov	r2, r3
+ 1193 0014 F968     		ldr	r1, [r7, #12]
+ 1194 0016 7868     		ldr	r0, [r7, #4]
+ 1195 0018 FFF7FEFF 		bl	maxim_sort_indices_descend
+ 288:spo2_algorithm.c **** 
+ 289:spo2_algorithm.c ****   for ( i = -1; i < *pn_npks; i++ ){
+ 1196              		.loc 1 289 0
+ 1197 001c 4FF0FF33 		mov	r3, #-1
+ 1198 0020 FB61     		str	r3, [r7, #28]
+ 1199 0022 3EE0     		b	.L53
+ 1200              	.L60:
+ 290:spo2_algorithm.c ****     n_old_npks = *pn_npks;
+ 1201              		.loc 1 290 0
+ 1202 0024 BB68     		ldr	r3, [r7, #8]
+ 1203 0026 1B68     		ldr	r3, [r3]
+ 1204 0028 7B61     		str	r3, [r7, #20]
+ 291:spo2_algorithm.c ****     *pn_npks = i+1;
+ 1205              		.loc 1 291 0
+ 1206 002a FB69     		ldr	r3, [r7, #28]
+ 1207 002c 5A1C     		adds	r2, r3, #1
+ 1208 002e BB68     		ldr	r3, [r7, #8]
+ 1209 0030 1A60     		str	r2, [r3]
+ 292:spo2_algorithm.c ****     for ( j = i+1; j < n_old_npks; j++ ){
+ 1210              		.loc 1 292 0
+ 1211 0032 FB69     		ldr	r3, [r7, #28]
+ 1212 0034 0133     		adds	r3, r3, #1
+ 1213 0036 BB61     		str	r3, [r7, #24]
+ 1214 0038 2CE0     		b	.L54
+ 1215              	.L59:
+ 293:spo2_algorithm.c ****       n_dist =  pn_locs[j] - ( i == -1 ? -1 : pn_locs[i] ); // lag-zero peak of autocorr is at inde
+ 1216              		.loc 1 293 0
+ 1217 003a BB69     		ldr	r3, [r7, #24]
+ 1218 003c 9B00     		lsls	r3, r3, #2
+ 1219 003e FA68     		ldr	r2, [r7, #12]
+ 1220 0040 1344     		add	r3, r3, r2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 28
+
+
+ 1221 0042 1A68     		ldr	r2, [r3]
+ 1222 0044 FB69     		ldr	r3, [r7, #28]
+ 1223 0046 B3F1FF3F 		cmp	r3, #-1
+ 1224 004a 05D0     		beq	.L55
+ 1225              		.loc 1 293 0 is_stmt 0 discriminator 1
+ 1226 004c FB69     		ldr	r3, [r7, #28]
+ 1227 004e 9B00     		lsls	r3, r3, #2
+ 1228 0050 F968     		ldr	r1, [r7, #12]
+ 1229 0052 0B44     		add	r3, r3, r1
+ 1230 0054 1B68     		ldr	r3, [r3]
+ 1231 0056 01E0     		b	.L56
+ 1232              	.L55:
+ 1233              		.loc 1 293 0 discriminator 2
+ 1234 0058 4FF0FF33 		mov	r3, #-1
+ 1235              	.L56:
+ 1236              		.loc 1 293 0 discriminator 4
+ 1237 005c D31A     		subs	r3, r2, r3
+ 1238 005e 3B61     		str	r3, [r7, #16]
+ 294:spo2_algorithm.c ****       if ( n_dist > n_min_distance || n_dist < -n_min_distance )
+ 1239              		.loc 1 294 0 is_stmt 1 discriminator 4
+ 1240 0060 3A69     		ldr	r2, [r7, #16]
+ 1241 0062 3B68     		ldr	r3, [r7]
+ 1242 0064 9A42     		cmp	r2, r3
+ 1243 0066 04DC     		bgt	.L57
+ 1244              		.loc 1 294 0 is_stmt 0 discriminator 1
+ 1245 0068 3B68     		ldr	r3, [r7]
+ 1246 006a 5A42     		negs	r2, r3
+ 1247 006c 3B69     		ldr	r3, [r7, #16]
+ 1248 006e 9A42     		cmp	r2, r3
+ 1249 0070 0DDD     		ble	.L58
+ 1250              	.L57:
+ 295:spo2_algorithm.c ****         pn_locs[(*pn_npks)++] = pn_locs[j];
+ 1251              		.loc 1 295 0 is_stmt 1
+ 1252 0072 BB68     		ldr	r3, [r7, #8]
+ 1253 0074 1B68     		ldr	r3, [r3]
+ 1254 0076 591C     		adds	r1, r3, #1
+ 1255 0078 BA68     		ldr	r2, [r7, #8]
+ 1256 007a 1160     		str	r1, [r2]
+ 1257 007c 9B00     		lsls	r3, r3, #2
+ 1258 007e FA68     		ldr	r2, [r7, #12]
+ 1259 0080 1344     		add	r3, r3, r2
+ 1260 0082 BA69     		ldr	r2, [r7, #24]
+ 1261 0084 9200     		lsls	r2, r2, #2
+ 1262 0086 F968     		ldr	r1, [r7, #12]
+ 1263 0088 0A44     		add	r2, r2, r1
+ 1264 008a 1268     		ldr	r2, [r2]
+ 1265 008c 1A60     		str	r2, [r3]
+ 1266              	.L58:
+ 292:spo2_algorithm.c ****       n_dist =  pn_locs[j] - ( i == -1 ? -1 : pn_locs[i] ); // lag-zero peak of autocorr is at inde
+ 1267              		.loc 1 292 0 discriminator 2
+ 1268 008e BB69     		ldr	r3, [r7, #24]
+ 1269 0090 0133     		adds	r3, r3, #1
+ 1270 0092 BB61     		str	r3, [r7, #24]
+ 1271              	.L54:
+ 292:spo2_algorithm.c ****       n_dist =  pn_locs[j] - ( i == -1 ? -1 : pn_locs[i] ); // lag-zero peak of autocorr is at inde
+ 1272              		.loc 1 292 0 is_stmt 0 discriminator 1
+ 1273 0094 BA69     		ldr	r2, [r7, #24]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 29
+
+
+ 1274 0096 7B69     		ldr	r3, [r7, #20]
+ 1275 0098 9A42     		cmp	r2, r3
+ 1276 009a CEDB     		blt	.L59
+ 289:spo2_algorithm.c ****     n_old_npks = *pn_npks;
+ 1277              		.loc 1 289 0 is_stmt 1 discriminator 2
+ 1278 009c FB69     		ldr	r3, [r7, #28]
+ 1279 009e 0133     		adds	r3, r3, #1
+ 1280 00a0 FB61     		str	r3, [r7, #28]
+ 1281              	.L53:
+ 289:spo2_algorithm.c ****     n_old_npks = *pn_npks;
+ 1282              		.loc 1 289 0 is_stmt 0 discriminator 1
+ 1283 00a2 BB68     		ldr	r3, [r7, #8]
+ 1284 00a4 1A68     		ldr	r2, [r3]
+ 1285 00a6 FB69     		ldr	r3, [r7, #28]
+ 1286 00a8 9A42     		cmp	r2, r3
+ 1287 00aa BBDC     		bgt	.L60
+ 296:spo2_algorithm.c ****     }
+ 297:spo2_algorithm.c ****   }
+ 298:spo2_algorithm.c **** 
+ 299:spo2_algorithm.c ****   // Resort indices int32_to ascending order
+ 300:spo2_algorithm.c ****   maxim_sort_ascend( pn_locs, *pn_npks );
+ 1288              		.loc 1 300 0 is_stmt 1
+ 1289 00ac BB68     		ldr	r3, [r7, #8]
+ 1290 00ae 1B68     		ldr	r3, [r3]
+ 1291 00b0 1946     		mov	r1, r3
+ 1292 00b2 F868     		ldr	r0, [r7, #12]
+ 1293 00b4 FFF7FEFF 		bl	maxim_sort_ascend
+ 301:spo2_algorithm.c **** }
+ 1294              		.loc 1 301 0
+ 1295 00b8 00BF     		nop
+ 1296 00ba 2037     		adds	r7, r7, #32
+ 1297              		.cfi_def_cfa_offset 8
+ 1298 00bc BD46     		mov	sp, r7
+ 1299              		.cfi_def_cfa_register 13
+ 1300              		@ sp needed
+ 1301 00be 80BD     		pop	{r7, pc}
+ 1302              		.cfi_endproc
+ 1303              	.LFE3:
+ 1304              		.size	maxim_remove_close_peaks, .-maxim_remove_close_peaks
+ 1305              		.section	.text.maxim_sort_ascend,"ax",%progbits
+ 1306              		.align	2
+ 1307              		.global	maxim_sort_ascend
+ 1308              		.thumb
+ 1309              		.thumb_func
+ 1310              		.type	maxim_sort_ascend, %function
+ 1311              	maxim_sort_ascend:
+ 1312              	.LFB4:
+ 302:spo2_algorithm.c **** 
+ 303:spo2_algorithm.c **** /***************************************************************************
+ 304:spo2_algorithm.c ****  * Function: maxim_sort_ascend    
+ 305:spo2_algorithm.c ****  *
+ 306:spo2_algorithm.c ****  * Description:   Sort array in ascending order (insertion sort algorithm)
+ 307:spo2_algorithm.c ****  **************************************************************************/
+ 308:spo2_algorithm.c **** void maxim_sort_ascend(int32_t  *pn_x, int32_t n_size) 
+ 309:spo2_algorithm.c **** {
+ 1313              		.loc 1 309 0
+ 1314              		.cfi_startproc
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 30
+
+
+ 1315              		@ args = 0, pretend = 0, frame = 24
+ 1316              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1317              		@ link register save eliminated.
+ 1318 0000 80B4     		push	{r7}
+ 1319              		.cfi_def_cfa_offset 4
+ 1320              		.cfi_offset 7, -4
+ 1321 0002 87B0     		sub	sp, sp, #28
+ 1322              		.cfi_def_cfa_offset 32
+ 1323 0004 00AF     		add	r7, sp, #0
+ 1324              		.cfi_def_cfa_register 7
+ 1325 0006 7860     		str	r0, [r7, #4]
+ 1326 0008 3960     		str	r1, [r7]
+ 310:spo2_algorithm.c ****   int32_t i, j, n_temp;
+ 311:spo2_algorithm.c ****   for (i = 1; i < n_size; i++) {
+ 1327              		.loc 1 311 0
+ 1328 000a 0123     		movs	r3, #1
+ 1329 000c 7B61     		str	r3, [r7, #20]
+ 1330 000e 2FE0     		b	.L62
+ 1331              	.L66:
+ 312:spo2_algorithm.c ****     n_temp = pn_x[i];
+ 1332              		.loc 1 312 0
+ 1333 0010 7B69     		ldr	r3, [r7, #20]
+ 1334 0012 9B00     		lsls	r3, r3, #2
+ 1335 0014 7A68     		ldr	r2, [r7, #4]
+ 1336 0016 1344     		add	r3, r3, r2
+ 1337 0018 1B68     		ldr	r3, [r3]
+ 1338 001a FB60     		str	r3, [r7, #12]
+ 313:spo2_algorithm.c ****     for (j = i; j > 0 && n_temp < pn_x[j-1]; j--)
+ 1339              		.loc 1 313 0
+ 1340 001c 7B69     		ldr	r3, [r7, #20]
+ 1341 001e 3B61     		str	r3, [r7, #16]
+ 1342 0020 0FE0     		b	.L63
+ 1343              	.L65:
+ 314:spo2_algorithm.c ****         pn_x[j] = pn_x[j-1];
+ 1344              		.loc 1 314 0 discriminator 4
+ 1345 0022 3B69     		ldr	r3, [r7, #16]
+ 1346 0024 9B00     		lsls	r3, r3, #2
+ 1347 0026 7A68     		ldr	r2, [r7, #4]
+ 1348 0028 1A44     		add	r2, r2, r3
+ 1349 002a 3B69     		ldr	r3, [r7, #16]
+ 1350 002c 03F18043 		add	r3, r3, #1073741824
+ 1351 0030 013B     		subs	r3, r3, #1
+ 1352 0032 9B00     		lsls	r3, r3, #2
+ 1353 0034 7968     		ldr	r1, [r7, #4]
+ 1354 0036 0B44     		add	r3, r3, r1
+ 1355 0038 1B68     		ldr	r3, [r3]
+ 1356 003a 1360     		str	r3, [r2]
+ 313:spo2_algorithm.c ****     for (j = i; j > 0 && n_temp < pn_x[j-1]; j--)
+ 1357              		.loc 1 313 0 discriminator 4
+ 1358 003c 3B69     		ldr	r3, [r7, #16]
+ 1359 003e 013B     		subs	r3, r3, #1
+ 1360 0040 3B61     		str	r3, [r7, #16]
+ 1361              	.L63:
+ 313:spo2_algorithm.c ****     for (j = i; j > 0 && n_temp < pn_x[j-1]; j--)
+ 1362              		.loc 1 313 0 is_stmt 0 discriminator 1
+ 1363 0042 3B69     		ldr	r3, [r7, #16]
+ 1364 0044 002B     		cmp	r3, #0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 31
+
+
+ 1365 0046 0ADD     		ble	.L64
+ 313:spo2_algorithm.c ****     for (j = i; j > 0 && n_temp < pn_x[j-1]; j--)
+ 1366              		.loc 1 313 0 discriminator 3
+ 1367 0048 3B69     		ldr	r3, [r7, #16]
+ 1368 004a 03F18043 		add	r3, r3, #1073741824
+ 1369 004e 013B     		subs	r3, r3, #1
+ 1370 0050 9B00     		lsls	r3, r3, #2
+ 1371 0052 7A68     		ldr	r2, [r7, #4]
+ 1372 0054 1344     		add	r3, r3, r2
+ 1373 0056 1A68     		ldr	r2, [r3]
+ 1374 0058 FB68     		ldr	r3, [r7, #12]
+ 1375 005a 9A42     		cmp	r2, r3
+ 1376 005c E1DC     		bgt	.L65
+ 1377              	.L64:
+ 315:spo2_algorithm.c ****     pn_x[j] = n_temp;
+ 1378              		.loc 1 315 0 is_stmt 1 discriminator 2
+ 1379 005e 3B69     		ldr	r3, [r7, #16]
+ 1380 0060 9B00     		lsls	r3, r3, #2
+ 1381 0062 7A68     		ldr	r2, [r7, #4]
+ 1382 0064 1344     		add	r3, r3, r2
+ 1383 0066 FA68     		ldr	r2, [r7, #12]
+ 1384 0068 1A60     		str	r2, [r3]
+ 311:spo2_algorithm.c ****     n_temp = pn_x[i];
+ 1385              		.loc 1 311 0 discriminator 2
+ 1386 006a 7B69     		ldr	r3, [r7, #20]
+ 1387 006c 0133     		adds	r3, r3, #1
+ 1388 006e 7B61     		str	r3, [r7, #20]
+ 1389              	.L62:
+ 311:spo2_algorithm.c ****     n_temp = pn_x[i];
+ 1390              		.loc 1 311 0 is_stmt 0 discriminator 1
+ 1391 0070 7A69     		ldr	r2, [r7, #20]
+ 1392 0072 3B68     		ldr	r3, [r7]
+ 1393 0074 9A42     		cmp	r2, r3
+ 1394 0076 CBDB     		blt	.L66
+ 316:spo2_algorithm.c ****   }
+ 317:spo2_algorithm.c **** }
+ 1395              		.loc 1 317 0 is_stmt 1
+ 1396 0078 00BF     		nop
+ 1397 007a 1C37     		adds	r7, r7, #28
+ 1398              		.cfi_def_cfa_offset 4
+ 1399 007c BD46     		mov	sp, r7
+ 1400              		.cfi_def_cfa_register 13
+ 1401              		@ sp needed
+ 1402 007e 5DF8047B 		ldr	r7, [sp], #4
+ 1403              		.cfi_restore 7
+ 1404              		.cfi_def_cfa_offset 0
+ 1405 0082 7047     		bx	lr
+ 1406              		.cfi_endproc
+ 1407              	.LFE4:
+ 1408              		.size	maxim_sort_ascend, .-maxim_sort_ascend
+ 1409              		.section	.text.maxim_sort_indices_descend,"ax",%progbits
+ 1410              		.align	2
+ 1411              		.global	maxim_sort_indices_descend
+ 1412              		.thumb
+ 1413              		.thumb_func
+ 1414              		.type	maxim_sort_indices_descend, %function
+ 1415              	maxim_sort_indices_descend:
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 32
+
+
+ 1416              	.LFB5:
+ 318:spo2_algorithm.c **** 
+ 319:spo2_algorithm.c **** /***************************************************************************
+ 320:spo2_algorithm.c ****  * Function: maxim_sort_indices_descend    
+ 321:spo2_algorithm.c ****  *
+ 322:spo2_algorithm.c ****  * Description:   Sort indices according to descending order 
+ 323:spo2_algorithm.c ****  *               (insertion sort algorithm)
+ 324:spo2_algorithm.c ****  **************************************************************************/
+ 325:spo2_algorithm.c **** void maxim_sort_indices_descend(  int32_t  *pn_x, int32_t *pn_indx, int32_t n_size)
+ 326:spo2_algorithm.c **** {
+ 1417              		.loc 1 326 0
+ 1418              		.cfi_startproc
+ 1419              		@ args = 0, pretend = 0, frame = 32
+ 1420              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1421              		@ link register save eliminated.
+ 1422 0000 80B4     		push	{r7}
+ 1423              		.cfi_def_cfa_offset 4
+ 1424              		.cfi_offset 7, -4
+ 1425 0002 89B0     		sub	sp, sp, #36
+ 1426              		.cfi_def_cfa_offset 40
+ 1427 0004 00AF     		add	r7, sp, #0
+ 1428              		.cfi_def_cfa_register 7
+ 1429 0006 F860     		str	r0, [r7, #12]
+ 1430 0008 B960     		str	r1, [r7, #8]
+ 1431 000a 7A60     		str	r2, [r7, #4]
+ 327:spo2_algorithm.c ****   int32_t i, j, n_temp;
+ 328:spo2_algorithm.c ****   for (i = 1; i < n_size; i++) {
+ 1432              		.loc 1 328 0
+ 1433 000c 0123     		movs	r3, #1
+ 1434 000e FB61     		str	r3, [r7, #28]
+ 1435 0010 37E0     		b	.L68
+ 1436              	.L72:
+ 329:spo2_algorithm.c ****     n_temp = pn_indx[i];
+ 1437              		.loc 1 329 0
+ 1438 0012 FB69     		ldr	r3, [r7, #28]
+ 1439 0014 9B00     		lsls	r3, r3, #2
+ 1440 0016 BA68     		ldr	r2, [r7, #8]
+ 1441 0018 1344     		add	r3, r3, r2
+ 1442 001a 1B68     		ldr	r3, [r3]
+ 1443 001c 7B61     		str	r3, [r7, #20]
+ 330:spo2_algorithm.c ****     for (j = i; j > 0 && pn_x[n_temp] > pn_x[pn_indx[j-1]]; j--)
+ 1444              		.loc 1 330 0
+ 1445 001e FB69     		ldr	r3, [r7, #28]
+ 1446 0020 BB61     		str	r3, [r7, #24]
+ 1447 0022 0FE0     		b	.L69
+ 1448              	.L71:
+ 331:spo2_algorithm.c ****       pn_indx[j] = pn_indx[j-1];
+ 1449              		.loc 1 331 0 discriminator 4
+ 1450 0024 BB69     		ldr	r3, [r7, #24]
+ 1451 0026 9B00     		lsls	r3, r3, #2
+ 1452 0028 BA68     		ldr	r2, [r7, #8]
+ 1453 002a 1A44     		add	r2, r2, r3
+ 1454 002c BB69     		ldr	r3, [r7, #24]
+ 1455 002e 03F18043 		add	r3, r3, #1073741824
+ 1456 0032 013B     		subs	r3, r3, #1
+ 1457 0034 9B00     		lsls	r3, r3, #2
+ 1458 0036 B968     		ldr	r1, [r7, #8]
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 33
+
+
+ 1459 0038 0B44     		add	r3, r3, r1
+ 1460 003a 1B68     		ldr	r3, [r3]
+ 1461 003c 1360     		str	r3, [r2]
+ 330:spo2_algorithm.c ****     for (j = i; j > 0 && pn_x[n_temp] > pn_x[pn_indx[j-1]]; j--)
+ 1462              		.loc 1 330 0 discriminator 4
+ 1463 003e BB69     		ldr	r3, [r7, #24]
+ 1464 0040 013B     		subs	r3, r3, #1
+ 1465 0042 BB61     		str	r3, [r7, #24]
+ 1466              	.L69:
+ 330:spo2_algorithm.c ****     for (j = i; j > 0 && pn_x[n_temp] > pn_x[pn_indx[j-1]]; j--)
+ 1467              		.loc 1 330 0 is_stmt 0 discriminator 1
+ 1468 0044 BB69     		ldr	r3, [r7, #24]
+ 1469 0046 002B     		cmp	r3, #0
+ 1470 0048 12DD     		ble	.L70
+ 330:spo2_algorithm.c ****     for (j = i; j > 0 && pn_x[n_temp] > pn_x[pn_indx[j-1]]; j--)
+ 1471              		.loc 1 330 0 discriminator 3
+ 1472 004a 7B69     		ldr	r3, [r7, #20]
+ 1473 004c 9B00     		lsls	r3, r3, #2
+ 1474 004e FA68     		ldr	r2, [r7, #12]
+ 1475 0050 1344     		add	r3, r3, r2
+ 1476 0052 1A68     		ldr	r2, [r3]
+ 1477 0054 BB69     		ldr	r3, [r7, #24]
+ 1478 0056 03F18043 		add	r3, r3, #1073741824
+ 1479 005a 013B     		subs	r3, r3, #1
+ 1480 005c 9B00     		lsls	r3, r3, #2
+ 1481 005e B968     		ldr	r1, [r7, #8]
+ 1482 0060 0B44     		add	r3, r3, r1
+ 1483 0062 1B68     		ldr	r3, [r3]
+ 1484 0064 9B00     		lsls	r3, r3, #2
+ 1485 0066 F968     		ldr	r1, [r7, #12]
+ 1486 0068 0B44     		add	r3, r3, r1
+ 1487 006a 1B68     		ldr	r3, [r3]
+ 1488 006c 9A42     		cmp	r2, r3
+ 1489 006e D9DC     		bgt	.L71
+ 1490              	.L70:
+ 332:spo2_algorithm.c ****     pn_indx[j] = n_temp;
+ 1491              		.loc 1 332 0 is_stmt 1 discriminator 2
+ 1492 0070 BB69     		ldr	r3, [r7, #24]
+ 1493 0072 9B00     		lsls	r3, r3, #2
+ 1494 0074 BA68     		ldr	r2, [r7, #8]
+ 1495 0076 1344     		add	r3, r3, r2
+ 1496 0078 7A69     		ldr	r2, [r7, #20]
+ 1497 007a 1A60     		str	r2, [r3]
+ 328:spo2_algorithm.c ****     n_temp = pn_indx[i];
+ 1498              		.loc 1 328 0 discriminator 2
+ 1499 007c FB69     		ldr	r3, [r7, #28]
+ 1500 007e 0133     		adds	r3, r3, #1
+ 1501 0080 FB61     		str	r3, [r7, #28]
+ 1502              	.L68:
+ 328:spo2_algorithm.c ****     n_temp = pn_indx[i];
+ 1503              		.loc 1 328 0 is_stmt 0 discriminator 1
+ 1504 0082 FA69     		ldr	r2, [r7, #28]
+ 1505 0084 7B68     		ldr	r3, [r7, #4]
+ 1506 0086 9A42     		cmp	r2, r3
+ 1507 0088 C3DB     		blt	.L72
+ 333:spo2_algorithm.c ****   }
+ 334:spo2_algorithm.c **** }
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 34
+
+
+ 1508              		.loc 1 334 0 is_stmt 1
+ 1509 008a 00BF     		nop
+ 1510 008c 2437     		adds	r7, r7, #36
+ 1511              		.cfi_def_cfa_offset 4
+ 1512 008e BD46     		mov	sp, r7
+ 1513              		.cfi_def_cfa_register 13
+ 1514              		@ sp needed
+ 1515 0090 5DF8047B 		ldr	r7, [sp], #4
+ 1516              		.cfi_restore 7
+ 1517              		.cfi_def_cfa_offset 0
+ 1518 0094 7047     		bx	lr
+ 1519              		.cfi_endproc
+ 1520              	.LFE5:
+ 1521              		.size	maxim_sort_indices_descend, .-maxim_sort_indices_descend
+ 1522 0096 00BF     		.text
+ 1523              	.Letext0:
+ 1524              		.file 2 "d:\\psoc_jingyi\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-none-eabi\
+ 1525              		.file 3 "d:\\psoc_jingyi\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.1\\arm-none-eabi\
+ 1526              		.section	.debug_info,"",%progbits
+ 1527              	.Ldebug_info0:
+ 1528 0000 87050000 		.4byte	0x587
+ 1529 0004 0400     		.2byte	0x4
+ 1530 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1531 000a 04       		.byte	0x4
+ 1532 000b 01       		.uleb128 0x1
+ 1533 000c AC030000 		.4byte	.LASF71
+ 1534 0010 0C       		.byte	0xc
+ 1535 0011 7C030000 		.4byte	.LASF72
+ 1536 0015 00000000 		.4byte	.LASF73
+ 1537 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1538 001d 00000000 		.4byte	0
+ 1539 0021 00000000 		.4byte	.Ldebug_line0
+ 1540 0025 02       		.uleb128 0x2
+ 1541 0026 BA000000 		.4byte	.LASF0
+ 1542 002a 02       		.byte	0x2
+ 1543 002b 1B       		.byte	0x1b
+ 1544 002c 30000000 		.4byte	0x30
+ 1545 0030 03       		.uleb128 0x3
+ 1546 0031 01       		.byte	0x1
+ 1547 0032 06       		.byte	0x6
+ 1548 0033 DC000000 		.4byte	.LASF2
+ 1549 0037 02       		.uleb128 0x2
+ 1550 0038 5C000000 		.4byte	.LASF1
+ 1551 003c 02       		.byte	0x2
+ 1552 003d 1D       		.byte	0x1d
+ 1553 003e 42000000 		.4byte	0x42
+ 1554 0042 03       		.uleb128 0x3
+ 1555 0043 01       		.byte	0x1
+ 1556 0044 08       		.byte	0x8
+ 1557 0045 85020000 		.4byte	.LASF3
+ 1558 0049 03       		.uleb128 0x3
+ 1559 004a 02       		.byte	0x2
+ 1560 004b 05       		.byte	0x5
+ 1561 004c A6020000 		.4byte	.LASF4
+ 1562 0050 03       		.uleb128 0x3
+ 1563 0051 02       		.byte	0x2
+ 1564 0052 07       		.byte	0x7
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 35
+
+
+ 1565 0053 E7010000 		.4byte	.LASF5
+ 1566 0057 02       		.uleb128 0x2
+ 1567 0058 DA020000 		.4byte	.LASF6
+ 1568 005c 02       		.byte	0x2
+ 1569 005d 3F       		.byte	0x3f
+ 1570 005e 62000000 		.4byte	0x62
+ 1571 0062 03       		.uleb128 0x3
+ 1572 0063 04       		.byte	0x4
+ 1573 0064 05       		.byte	0x5
+ 1574 0065 23010000 		.4byte	.LASF7
+ 1575 0069 02       		.uleb128 0x2
+ 1576 006a 68010000 		.4byte	.LASF8
+ 1577 006e 02       		.byte	0x2
+ 1578 006f 41       		.byte	0x41
+ 1579 0070 74000000 		.4byte	0x74
+ 1580 0074 03       		.uleb128 0x3
+ 1581 0075 04       		.byte	0x4
+ 1582 0076 07       		.byte	0x7
+ 1583 0077 C3010000 		.4byte	.LASF9
+ 1584 007b 03       		.uleb128 0x3
+ 1585 007c 08       		.byte	0x8
+ 1586 007d 05       		.byte	0x5
+ 1587 007e CE000000 		.4byte	.LASF10
+ 1588 0082 03       		.uleb128 0x3
+ 1589 0083 08       		.byte	0x8
+ 1590 0084 07       		.byte	0x7
+ 1591 0085 9C000000 		.4byte	.LASF11
+ 1592 0089 04       		.uleb128 0x4
+ 1593 008a 04       		.byte	0x4
+ 1594 008b 05       		.byte	0x5
+ 1595 008c 696E7400 		.ascii	"int\000"
+ 1596 0090 03       		.uleb128 0x3
+ 1597 0091 04       		.byte	0x4
+ 1598 0092 07       		.byte	0x7
+ 1599 0093 AB010000 		.4byte	.LASF12
+ 1600 0097 02       		.uleb128 0x2
+ 1601 0098 EC020000 		.4byte	.LASF13
+ 1602 009c 03       		.byte	0x3
+ 1603 009d 14       		.byte	0x14
+ 1604 009e 25000000 		.4byte	0x25
+ 1605 00a2 02       		.uleb128 0x2
+ 1606 00a3 4C030000 		.4byte	.LASF14
+ 1607 00a7 03       		.byte	0x3
+ 1608 00a8 18       		.byte	0x18
+ 1609 00a9 37000000 		.4byte	0x37
+ 1610 00ad 02       		.uleb128 0x2
+ 1611 00ae 7D020000 		.4byte	.LASF15
+ 1612 00b2 03       		.byte	0x3
+ 1613 00b3 2C       		.byte	0x2c
+ 1614 00b4 57000000 		.4byte	0x57
+ 1615 00b8 02       		.uleb128 0x2
+ 1616 00b9 BD020000 		.4byte	.LASF16
+ 1617 00bd 03       		.byte	0x3
+ 1618 00be 30       		.byte	0x30
+ 1619 00bf 69000000 		.4byte	0x69
+ 1620 00c3 03       		.uleb128 0x3
+ 1621 00c4 08       		.byte	0x8
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 36
+
+
+ 1622 00c5 04       		.byte	0x4
+ 1623 00c6 51020000 		.4byte	.LASF17
+ 1624 00ca 03       		.uleb128 0x3
+ 1625 00cb 04       		.byte	0x4
+ 1626 00cc 07       		.byte	0x7
+ 1627 00cd 3A020000 		.4byte	.LASF18
+ 1628 00d1 03       		.uleb128 0x3
+ 1629 00d2 01       		.byte	0x1
+ 1630 00d3 08       		.byte	0x8
+ 1631 00d4 C6020000 		.4byte	.LASF19
+ 1632 00d8 03       		.uleb128 0x3
+ 1633 00d9 08       		.byte	0x8
+ 1634 00da 04       		.byte	0x4
+ 1635 00db 4A010000 		.4byte	.LASF20
+ 1636 00df 03       		.uleb128 0x3
+ 1637 00e0 04       		.byte	0x4
+ 1638 00e1 04       		.byte	0x4
+ 1639 00e2 65020000 		.4byte	.LASF21
+ 1640 00e6 05       		.uleb128 0x5
+ 1641 00e7 ED000000 		.4byte	.LASF51
+ 1642 00eb 01       		.byte	0x1
+ 1643 00ec 6D       		.byte	0x6d
+ 1644 00ed 00000000 		.4byte	.LFB0
+ 1645 00f1 5C060000 		.4byte	.LFE0-.LFB0
+ 1646 00f5 01       		.uleb128 0x1
+ 1647 00f6 9C       		.byte	0x9c
+ 1648 00f7 B6020000 		.4byte	0x2b6
+ 1649 00fb 06       		.uleb128 0x6
+ 1650 00fc 3C010000 		.4byte	.LASF22
+ 1651 0100 01       		.byte	0x1
+ 1652 0101 6D       		.byte	0x6d
+ 1653 0102 B6020000 		.4byte	0x2b6
+ 1654 0106 03       		.uleb128 0x3
+ 1655 0107 91       		.byte	0x91
+ 1656 0108 D47E     		.sleb128 -172
+ 1657 010a 06       		.uleb128 0x6
+ 1658 010b 27020000 		.4byte	.LASF23
+ 1659 010f 01       		.byte	0x1
+ 1660 0110 6D       		.byte	0x6d
+ 1661 0111 AD000000 		.4byte	0xad
+ 1662 0115 03       		.uleb128 0x3
+ 1663 0116 91       		.byte	0x91
+ 1664 0117 D07E     		.sleb128 -176
+ 1665 0119 06       		.uleb128 0x6
+ 1666 011a F3020000 		.4byte	.LASF24
+ 1667 011e 01       		.byte	0x1
+ 1668 011f 6E       		.byte	0x6e
+ 1669 0120 B6020000 		.4byte	0x2b6
+ 1670 0124 03       		.uleb128 0x3
+ 1671 0125 91       		.byte	0x91
+ 1672 0126 CC7E     		.sleb128 -180
+ 1673 0128 06       		.uleb128 0x6
+ 1674 0129 D2020000 		.4byte	.LASF25
+ 1675 012d 01       		.byte	0x1
+ 1676 012e 6E       		.byte	0x6e
+ 1677 012f BC020000 		.4byte	0x2bc
+ 1678 0133 03       		.uleb128 0x3
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 37
+
+
+ 1679 0134 91       		.byte	0x91
+ 1680 0135 C87E     		.sleb128 -184
+ 1681 0137 06       		.uleb128 0x6
+ 1682 0138 14010000 		.4byte	.LASF26
+ 1683 013c 01       		.byte	0x1
+ 1684 013d 6F       		.byte	0x6f
+ 1685 013e C2020000 		.4byte	0x2c2
+ 1686 0142 02       		.uleb128 0x2
+ 1687 0143 91       		.byte	0x91
+ 1688 0144 00       		.sleb128 0
+ 1689 0145 06       		.uleb128 0x6
+ 1690 0146 43020000 		.4byte	.LASF27
+ 1691 014a 01       		.byte	0x1
+ 1692 014b 6F       		.byte	0x6f
+ 1693 014c BC020000 		.4byte	0x2bc
+ 1694 0150 02       		.uleb128 0x2
+ 1695 0151 91       		.byte	0x91
+ 1696 0152 04       		.sleb128 4
+ 1697 0153 06       		.uleb128 0x6
+ 1698 0154 8F000000 		.4byte	.LASF28
+ 1699 0158 01       		.byte	0x1
+ 1700 0159 70       		.byte	0x70
+ 1701 015a C2020000 		.4byte	0x2c2
+ 1702 015e 02       		.uleb128 0x2
+ 1703 015f 91       		.byte	0x91
+ 1704 0160 08       		.sleb128 8
+ 1705 0161 06       		.uleb128 0x6
+ 1706 0162 E8000000 		.4byte	.LASF29
+ 1707 0166 01       		.byte	0x1
+ 1708 0167 70       		.byte	0x70
+ 1709 0168 B8000000 		.4byte	0xb8
+ 1710 016c 02       		.uleb128 0x2
+ 1711 016d 91       		.byte	0x91
+ 1712 016e 0C       		.sleb128 12
+ 1713 016f 06       		.uleb128 0x6
+ 1714 0170 98020000 		.4byte	.LASF30
+ 1715 0174 01       		.byte	0x1
+ 1716 0175 71       		.byte	0x71
+ 1717 0176 AD000000 		.4byte	0xad
+ 1718 017a 02       		.uleb128 0x2
+ 1719 017b 91       		.byte	0x91
+ 1720 017c 10       		.sleb128 16
+ 1721 017d 07       		.uleb128 0x7
+ 1722 017e 73010000 		.4byte	.LASF31
+ 1723 0182 01       		.byte	0x1
+ 1724 0183 73       		.byte	0x73
+ 1725 0184 B8000000 		.4byte	0xb8
+ 1726 0188 02       		.uleb128 0x2
+ 1727 0189 91       		.byte	0x91
+ 1728 018a 74       		.sleb128 -12
+ 1729 018b 08       		.uleb128 0x8
+ 1730 018c 6B00     		.ascii	"k\000"
+ 1731 018e 01       		.byte	0x1
+ 1732 018f 74       		.byte	0x74
+ 1733 0190 AD000000 		.4byte	0xad
+ 1734 0194 02       		.uleb128 0x2
+ 1735 0195 91       		.byte	0x91
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 38
+
+
+ 1736 0196 70       		.sleb128 -16
+ 1737 0197 07       		.uleb128 0x7
+ 1738 0198 0E020000 		.4byte	.LASF32
+ 1739 019c 01       		.byte	0x1
+ 1740 019d 74       		.byte	0x74
+ 1741 019e AD000000 		.4byte	0xad
+ 1742 01a2 02       		.uleb128 0x2
+ 1743 01a3 91       		.byte	0x91
+ 1744 01a4 6C       		.sleb128 -20
+ 1745 01a5 08       		.uleb128 0x8
+ 1746 01a6 6900     		.ascii	"i\000"
+ 1747 01a8 01       		.byte	0x1
+ 1748 01a9 75       		.byte	0x75
+ 1749 01aa AD000000 		.4byte	0xad
+ 1750 01ae 02       		.uleb128 0x2
+ 1751 01af 91       		.byte	0x91
+ 1752 01b0 68       		.sleb128 -24
+ 1753 01b1 07       		.uleb128 0x7
+ 1754 01b2 5F040000 		.4byte	.LASF33
+ 1755 01b6 01       		.byte	0x1
+ 1756 01b7 75       		.byte	0x75
+ 1757 01b8 AD000000 		.4byte	0xad
+ 1758 01bc 02       		.uleb128 0x2
+ 1759 01bd 91       		.byte	0x91
+ 1760 01be 44       		.sleb128 -60
+ 1761 01bf 07       		.uleb128 0x7
+ 1762 01c0 B0020000 		.4byte	.LASF34
+ 1763 01c4 01       		.byte	0x1
+ 1764 01c5 75       		.byte	0x75
+ 1765 01c6 AD000000 		.4byte	0xad
+ 1766 01ca 03       		.uleb128 0x3
+ 1767 01cb 91       		.byte	0x91
+ 1768 01cc B07F     		.sleb128 -80
+ 1769 01ce 07       		.uleb128 0x7
+ 1770 01cf 8D030000 		.4byte	.LASF35
+ 1771 01d3 01       		.byte	0x1
+ 1772 01d4 76       		.byte	0x76
+ 1773 01d5 AD000000 		.4byte	0xad
+ 1774 01d9 02       		.uleb128 0x2
+ 1775 01da 91       		.byte	0x91
+ 1776 01db 64       		.sleb128 -28
+ 1777 01dc 07       		.uleb128 0x7
+ 1778 01dd 07020000 		.4byte	.LASF36
+ 1779 01e1 01       		.byte	0x1
+ 1780 01e2 76       		.byte	0x76
+ 1781 01e3 AD000000 		.4byte	0xad
+ 1782 01e7 03       		.uleb128 0x3
+ 1783 01e8 91       		.byte	0x91
+ 1784 01e9 A87F     		.sleb128 -88
+ 1785 01eb 07       		.uleb128 0x7
+ 1786 01ec 99010000 		.4byte	.LASF37
+ 1787 01f0 01       		.byte	0x1
+ 1788 01f1 77       		.byte	0x77
+ 1789 01f2 C8020000 		.4byte	0x2c8
+ 1790 01f6 03       		.uleb128 0x3
+ 1791 01f7 91       		.byte	0x91
+ 1792 01f8 EC7E     		.sleb128 -148
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 39
+
+
+ 1793 01fa 07       		.uleb128 0x7
+ 1794 01fb 38030000 		.4byte	.LASF38
+ 1795 01ff 01       		.byte	0x1
+ 1796 0200 78       		.byte	0x78
+ 1797 0201 AD000000 		.4byte	0xad
+ 1798 0205 02       		.uleb128 0x2
+ 1799 0206 91       		.byte	0x91
+ 1800 0207 60       		.sleb128 -32
+ 1801 0208 07       		.uleb128 0x7
+ 1802 0209 6B020000 		.4byte	.LASF39
+ 1803 020d 01       		.byte	0x1
+ 1804 020e 7A       		.byte	0x7a
+ 1805 020f AD000000 		.4byte	0xad
+ 1806 0213 02       		.uleb128 0x2
+ 1807 0214 91       		.byte	0x91
+ 1808 0215 40       		.sleb128 -64
+ 1809 0216 07       		.uleb128 0x7
+ 1810 0217 83000000 		.4byte	.LASF40
+ 1811 021b 01       		.byte	0x1
+ 1812 021c 7A       		.byte	0x7a
+ 1813 021d AD000000 		.4byte	0xad
+ 1814 0221 03       		.uleb128 0x3
+ 1815 0222 91       		.byte	0x91
+ 1816 0223 BC7F     		.sleb128 -68
+ 1817 0225 07       		.uleb128 0x7
+ 1818 0226 09030000 		.4byte	.LASF41
+ 1819 022a 01       		.byte	0x1
+ 1820 022b 7B       		.byte	0x7b
+ 1821 022c AD000000 		.4byte	0xad
+ 1822 0230 03       		.uleb128 0x3
+ 1823 0231 91       		.byte	0x91
+ 1824 0232 AC7F     		.sleb128 -84
+ 1825 0234 07       		.uleb128 0x7
+ 1826 0235 B8010000 		.4byte	.LASF42
+ 1827 0239 01       		.byte	0x1
+ 1828 023a 7C       		.byte	0x7c
+ 1829 023b AD000000 		.4byte	0xad
+ 1830 023f 02       		.uleb128 0x2
+ 1831 0240 91       		.byte	0x91
+ 1832 0241 5C       		.sleb128 -36
+ 1833 0242 07       		.uleb128 0x7
+ 1834 0243 72020000 		.4byte	.LASF43
+ 1835 0247 01       		.byte	0x1
+ 1836 0248 7C       		.byte	0x7c
+ 1837 0249 AD000000 		.4byte	0xad
+ 1838 024d 02       		.uleb128 0x2
+ 1839 024e 91       		.byte	0x91
+ 1840 024f 58       		.sleb128 -40
+ 1841 0250 07       		.uleb128 0x7
+ 1842 0251 51010000 		.4byte	.LASF44
+ 1843 0255 01       		.byte	0x1
+ 1844 0256 7D       		.byte	0x7d
+ 1845 0257 AD000000 		.4byte	0xad
+ 1846 025b 02       		.uleb128 0x2
+ 1847 025c 91       		.byte	0x91
+ 1848 025d 54       		.sleb128 -44
+ 1849 025e 07       		.uleb128 0x7
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 40
+
+
+ 1850 025f 1D030000 		.4byte	.LASF45
+ 1851 0263 01       		.byte	0x1
+ 1852 0264 7E       		.byte	0x7e
+ 1853 0265 AD000000 		.4byte	0xad
+ 1854 0269 02       		.uleb128 0x2
+ 1855 026a 91       		.byte	0x91
+ 1856 026b 50       		.sleb128 -48
+ 1857 026c 07       		.uleb128 0x7
+ 1858 026d 1E020000 		.4byte	.LASF46
+ 1859 0271 01       		.byte	0x1
+ 1860 0272 7F       		.byte	0x7f
+ 1861 0273 D8020000 		.4byte	0x2d8
+ 1862 0277 03       		.uleb128 0x3
+ 1863 0278 91       		.byte	0x91
+ 1864 0279 D87E     		.sleb128 -168
+ 1865 027b 07       		.uleb128 0x7
+ 1866 027c 2C010000 		.4byte	.LASF47
+ 1867 0280 01       		.byte	0x1
+ 1868 0281 7F       		.byte	0x7f
+ 1869 0282 AD000000 		.4byte	0xad
+ 1870 0286 02       		.uleb128 0x2
+ 1871 0287 91       		.byte	0x91
+ 1872 0288 4C       		.sleb128 -52
+ 1873 0289 07       		.uleb128 0x7
+ 1874 028a CB020000 		.4byte	.LASF48
+ 1875 028e 01       		.byte	0x1
+ 1876 028f 80       		.byte	0x80
+ 1877 0290 AD000000 		.4byte	0xad
+ 1878 0294 03       		.uleb128 0x3
+ 1879 0295 91       		.byte	0x91
+ 1880 0296 B87F     		.sleb128 -72
+ 1881 0298 07       		.uleb128 0x7
+ 1882 0299 15030000 		.4byte	.LASF49
+ 1883 029d 01       		.byte	0x1
+ 1884 029e 80       		.byte	0x80
+ 1885 029f AD000000 		.4byte	0xad
+ 1886 02a3 03       		.uleb128 0x3
+ 1887 02a4 91       		.byte	0x91
+ 1888 02a5 B47F     		.sleb128 -76
+ 1889 02a7 07       		.uleb128 0x7
+ 1890 02a8 2C030000 		.4byte	.LASF50
+ 1891 02ac 01       		.byte	0x1
+ 1892 02ad 81       		.byte	0x81
+ 1893 02ae AD000000 		.4byte	0xad
+ 1894 02b2 02       		.uleb128 0x2
+ 1895 02b3 91       		.byte	0x91
+ 1896 02b4 48       		.sleb128 -56
+ 1897 02b5 00       		.byte	0
+ 1898 02b6 09       		.uleb128 0x9
+ 1899 02b7 04       		.byte	0x4
+ 1900 02b8 B8000000 		.4byte	0xb8
+ 1901 02bc 09       		.uleb128 0x9
+ 1902 02bd 04       		.byte	0x4
+ 1903 02be AD000000 		.4byte	0xad
+ 1904 02c2 09       		.uleb128 0x9
+ 1905 02c3 04       		.byte	0x4
+ 1906 02c4 97000000 		.4byte	0x97
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 41
+
+
+ 1907 02c8 0A       		.uleb128 0xa
+ 1908 02c9 AD000000 		.4byte	0xad
+ 1909 02cd D8020000 		.4byte	0x2d8
+ 1910 02d1 0B       		.uleb128 0xb
+ 1911 02d2 CA000000 		.4byte	0xca
+ 1912 02d6 0E       		.byte	0xe
+ 1913 02d7 00       		.byte	0
+ 1914 02d8 0A       		.uleb128 0xa
+ 1915 02d9 AD000000 		.4byte	0xad
+ 1916 02dd E8020000 		.4byte	0x2e8
+ 1917 02e1 0B       		.uleb128 0xb
+ 1918 02e2 CA000000 		.4byte	0xca
+ 1919 02e6 04       		.byte	0x4
+ 1920 02e7 00       		.byte	0
+ 1921 02e8 05       		.uleb128 0x5
+ 1922 02e9 54030000 		.4byte	.LASF52
+ 1923 02ed 01       		.byte	0x1
+ 1924 02ee F1       		.byte	0xf1
+ 1925 02ef 00000000 		.4byte	.LFB1
+ 1926 02f3 42000000 		.4byte	.LFE1-.LFB1
+ 1927 02f7 01       		.uleb128 0x1
+ 1928 02f8 9C       		.byte	0x9c
+ 1929 02f9 60030000 		.4byte	0x360
+ 1930 02fd 06       		.uleb128 0x6
+ 1931 02fe 60010000 		.4byte	.LASF53
+ 1932 0302 01       		.byte	0x1
+ 1933 0303 F1       		.byte	0xf1
+ 1934 0304 BC020000 		.4byte	0x2bc
+ 1935 0308 02       		.uleb128 0x2
+ 1936 0309 91       		.byte	0x91
+ 1937 030a 74       		.sleb128 -12
+ 1938 030b 06       		.uleb128 0x6
+ 1939 030c 07020000 		.4byte	.LASF36
+ 1940 0310 01       		.byte	0x1
+ 1941 0311 F1       		.byte	0xf1
+ 1942 0312 BC020000 		.4byte	0x2bc
+ 1943 0316 02       		.uleb128 0x2
+ 1944 0317 91       		.byte	0x91
+ 1945 0318 70       		.sleb128 -16
+ 1946 0319 06       		.uleb128 0x6
+ 1947 031a 7C040000 		.4byte	.LASF54
+ 1948 031e 01       		.byte	0x1
+ 1949 031f F1       		.byte	0xf1
+ 1950 0320 BC020000 		.4byte	0x2bc
+ 1951 0324 02       		.uleb128 0x2
+ 1952 0325 91       		.byte	0x91
+ 1953 0326 6C       		.sleb128 -20
+ 1954 0327 06       		.uleb128 0x6
+ 1955 0328 B3000000 		.4byte	.LASF55
+ 1956 032c 01       		.byte	0x1
+ 1957 032d F1       		.byte	0xf1
+ 1958 032e AD000000 		.4byte	0xad
+ 1959 0332 02       		.uleb128 0x2
+ 1960 0333 91       		.byte	0x91
+ 1961 0334 68       		.sleb128 -24
+ 1962 0335 06       		.uleb128 0x6
+ 1963 0336 FA010000 		.4byte	.LASF56
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 42
+
+
+ 1964 033a 01       		.byte	0x1
+ 1965 033b F1       		.byte	0xf1
+ 1966 033c AD000000 		.4byte	0xad
+ 1967 0340 02       		.uleb128 0x2
+ 1968 0341 91       		.byte	0x91
+ 1969 0342 00       		.sleb128 0
+ 1970 0343 06       		.uleb128 0x6
+ 1971 0344 65030000 		.4byte	.LASF57
+ 1972 0348 01       		.byte	0x1
+ 1973 0349 F1       		.byte	0xf1
+ 1974 034a AD000000 		.4byte	0xad
+ 1975 034e 02       		.uleb128 0x2
+ 1976 034f 91       		.byte	0x91
+ 1977 0350 04       		.sleb128 4
+ 1978 0351 06       		.uleb128 0x6
+ 1979 0352 3C000000 		.4byte	.LASF58
+ 1980 0356 01       		.byte	0x1
+ 1981 0357 F1       		.byte	0xf1
+ 1982 0358 AD000000 		.4byte	0xad
+ 1983 035c 02       		.uleb128 0x2
+ 1984 035d 91       		.byte	0x91
+ 1985 035e 08       		.sleb128 8
+ 1986 035f 00       		.byte	0
+ 1987 0360 0C       		.uleb128 0xc
+ 1988 0361 66000000 		.4byte	.LASF59
+ 1989 0365 01       		.byte	0x1
+ 1990 0366 FD       		.byte	0xfd
+ 1991 0367 00000000 		.4byte	.LFB2
+ 1992 036b E6000000 		.4byte	.LFE2-.LFB2
+ 1993 036f 01       		.uleb128 0x1
+ 1994 0370 9C       		.byte	0x9c
+ 1995 0371 D6030000 		.4byte	0x3d6
+ 1996 0375 06       		.uleb128 0x6
+ 1997 0376 60010000 		.4byte	.LASF53
+ 1998 037a 01       		.byte	0x1
+ 1999 037b FD       		.byte	0xfd
+ 2000 037c BC020000 		.4byte	0x2bc
+ 2001 0380 02       		.uleb128 0x2
+ 2002 0381 91       		.byte	0x91
+ 2003 0382 6C       		.sleb128 -20
+ 2004 0383 06       		.uleb128 0x6
+ 2005 0384 07020000 		.4byte	.LASF36
+ 2006 0388 01       		.byte	0x1
+ 2007 0389 FD       		.byte	0xfd
+ 2008 038a BC020000 		.4byte	0x2bc
+ 2009 038e 02       		.uleb128 0x2
+ 2010 038f 91       		.byte	0x91
+ 2011 0390 68       		.sleb128 -24
+ 2012 0391 06       		.uleb128 0x6
+ 2013 0392 7C040000 		.4byte	.LASF54
+ 2014 0396 01       		.byte	0x1
+ 2015 0397 FD       		.byte	0xfd
+ 2016 0398 BC020000 		.4byte	0x2bc
+ 2017 039c 02       		.uleb128 0x2
+ 2018 039d 91       		.byte	0x91
+ 2019 039e 64       		.sleb128 -28
+ 2020 039f 06       		.uleb128 0x6
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 43
+
+
+ 2021 03a0 B3000000 		.4byte	.LASF55
+ 2022 03a4 01       		.byte	0x1
+ 2023 03a5 FD       		.byte	0xfd
+ 2024 03a6 AD000000 		.4byte	0xad
+ 2025 03aa 02       		.uleb128 0x2
+ 2026 03ab 91       		.byte	0x91
+ 2027 03ac 60       		.sleb128 -32
+ 2028 03ad 06       		.uleb128 0x6
+ 2029 03ae FA010000 		.4byte	.LASF56
+ 2030 03b2 01       		.byte	0x1
+ 2031 03b3 FD       		.byte	0xfd
+ 2032 03b4 AD000000 		.4byte	0xad
+ 2033 03b8 02       		.uleb128 0x2
+ 2034 03b9 91       		.byte	0x91
+ 2035 03ba 00       		.sleb128 0
+ 2036 03bb 08       		.uleb128 0x8
+ 2037 03bc 6900     		.ascii	"i\000"
+ 2038 03be 01       		.byte	0x1
+ 2039 03bf FF       		.byte	0xff
+ 2040 03c0 AD000000 		.4byte	0xad
+ 2041 03c4 02       		.uleb128 0x2
+ 2042 03c5 91       		.byte	0x91
+ 2043 03c6 74       		.sleb128 -12
+ 2044 03c7 07       		.uleb128 0x7
+ 2045 03c8 E4020000 		.4byte	.LASF60
+ 2046 03cc 01       		.byte	0x1
+ 2047 03cd FF       		.byte	0xff
+ 2048 03ce AD000000 		.4byte	0xad
+ 2049 03d2 02       		.uleb128 0x2
+ 2050 03d3 91       		.byte	0x91
+ 2051 03d4 70       		.sleb128 -16
+ 2052 03d5 00       		.byte	0
+ 2053 03d6 0D       		.uleb128 0xd
+ 2054 03d7 93030000 		.4byte	.LASF61
+ 2055 03db 01       		.byte	0x1
+ 2056 03dc 1901     		.2byte	0x119
+ 2057 03de 00000000 		.4byte	.LFB3
+ 2058 03e2 C0000000 		.4byte	.LFE3-.LFB3
+ 2059 03e6 01       		.uleb128 0x1
+ 2060 03e7 9C       		.byte	0x9c
+ 2061 03e8 61040000 		.4byte	0x461
+ 2062 03ec 0E       		.uleb128 0xe
+ 2063 03ed 60010000 		.4byte	.LASF53
+ 2064 03f1 01       		.byte	0x1
+ 2065 03f2 1901     		.2byte	0x119
+ 2066 03f4 BC020000 		.4byte	0x2bc
+ 2067 03f8 02       		.uleb128 0x2
+ 2068 03f9 91       		.byte	0x91
+ 2069 03fa 64       		.sleb128 -28
+ 2070 03fb 0E       		.uleb128 0xe
+ 2071 03fc 74030000 		.4byte	.LASF62
+ 2072 0400 01       		.byte	0x1
+ 2073 0401 1901     		.2byte	0x119
+ 2074 0403 BC020000 		.4byte	0x2bc
+ 2075 0407 02       		.uleb128 0x2
+ 2076 0408 91       		.byte	0x91
+ 2077 0409 60       		.sleb128 -32
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 44
+
+
+ 2078 040a 0E       		.uleb128 0xe
+ 2079 040b 7C040000 		.4byte	.LASF54
+ 2080 040f 01       		.byte	0x1
+ 2081 0410 1901     		.2byte	0x119
+ 2082 0412 BC020000 		.4byte	0x2bc
+ 2083 0416 02       		.uleb128 0x2
+ 2084 0417 91       		.byte	0x91
+ 2085 0418 5C       		.sleb128 -36
+ 2086 0419 0E       		.uleb128 0xe
+ 2087 041a 65030000 		.4byte	.LASF57
+ 2088 041e 01       		.byte	0x1
+ 2089 041f 1901     		.2byte	0x119
+ 2090 0421 AD000000 		.4byte	0xad
+ 2091 0425 02       		.uleb128 0x2
+ 2092 0426 91       		.byte	0x91
+ 2093 0427 58       		.sleb128 -40
+ 2094 0428 0F       		.uleb128 0xf
+ 2095 0429 6900     		.ascii	"i\000"
+ 2096 042b 01       		.byte	0x1
+ 2097 042c 1C01     		.2byte	0x11c
+ 2098 042e AD000000 		.4byte	0xad
+ 2099 0432 02       		.uleb128 0x2
+ 2100 0433 91       		.byte	0x91
+ 2101 0434 74       		.sleb128 -12
+ 2102 0435 0F       		.uleb128 0xf
+ 2103 0436 6A00     		.ascii	"j\000"
+ 2104 0438 01       		.byte	0x1
+ 2105 0439 1C01     		.2byte	0x11c
+ 2106 043b AD000000 		.4byte	0xad
+ 2107 043f 02       		.uleb128 0x2
+ 2108 0440 91       		.byte	0x91
+ 2109 0441 70       		.sleb128 -16
+ 2110 0442 10       		.uleb128 0x10
+ 2111 0443 C3000000 		.4byte	.LASF63
+ 2112 0447 01       		.byte	0x1
+ 2113 0448 1C01     		.2byte	0x11c
+ 2114 044a AD000000 		.4byte	0xad
+ 2115 044e 02       		.uleb128 0x2
+ 2116 044f 91       		.byte	0x91
+ 2117 0450 6C       		.sleb128 -20
+ 2118 0451 10       		.uleb128 0x10
+ 2119 0452 02030000 		.4byte	.LASF64
+ 2120 0456 01       		.byte	0x1
+ 2121 0457 1C01     		.2byte	0x11c
+ 2122 0459 AD000000 		.4byte	0xad
+ 2123 045d 02       		.uleb128 0x2
+ 2124 045e 91       		.byte	0x91
+ 2125 045f 68       		.sleb128 -24
+ 2126 0460 00       		.byte	0
+ 2127 0461 11       		.uleb128 0x11
+ 2128 0462 D5010000 		.4byte	.LASF65
+ 2129 0466 01       		.byte	0x1
+ 2130 0467 3401     		.2byte	0x134
+ 2131 0469 00000000 		.4byte	.LFB4
+ 2132 046d 84000000 		.4byte	.LFE4-.LFB4
+ 2133 0471 01       		.uleb128 0x1
+ 2134 0472 9C       		.byte	0x9c
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 45
+
+
+ 2135 0473 BF040000 		.4byte	0x4bf
+ 2136 0477 0E       		.uleb128 0xe
+ 2137 0478 7C040000 		.4byte	.LASF54
+ 2138 047c 01       		.byte	0x1
+ 2139 047d 3401     		.2byte	0x134
+ 2140 047f BC020000 		.4byte	0x2bc
+ 2141 0483 02       		.uleb128 0x2
+ 2142 0484 91       		.byte	0x91
+ 2143 0485 64       		.sleb128 -28
+ 2144 0486 0E       		.uleb128 0xe
+ 2145 0487 B3000000 		.4byte	.LASF55
+ 2146 048b 01       		.byte	0x1
+ 2147 048c 3401     		.2byte	0x134
+ 2148 048e AD000000 		.4byte	0xad
+ 2149 0492 02       		.uleb128 0x2
+ 2150 0493 91       		.byte	0x91
+ 2151 0494 60       		.sleb128 -32
+ 2152 0495 0F       		.uleb128 0xf
+ 2153 0496 6900     		.ascii	"i\000"
+ 2154 0498 01       		.byte	0x1
+ 2155 0499 3601     		.2byte	0x136
+ 2156 049b AD000000 		.4byte	0xad
+ 2157 049f 02       		.uleb128 0x2
+ 2158 04a0 91       		.byte	0x91
+ 2159 04a1 74       		.sleb128 -12
+ 2160 04a2 0F       		.uleb128 0xf
+ 2161 04a3 6A00     		.ascii	"j\000"
+ 2162 04a5 01       		.byte	0x1
+ 2163 04a6 3601     		.2byte	0x136
+ 2164 04a8 AD000000 		.4byte	0xad
+ 2165 04ac 02       		.uleb128 0x2
+ 2166 04ad 91       		.byte	0x91
+ 2167 04ae 70       		.sleb128 -16
+ 2168 04af 10       		.uleb128 0x10
+ 2169 04b0 46000000 		.4byte	.LASF66
+ 2170 04b4 01       		.byte	0x1
+ 2171 04b5 3601     		.2byte	0x136
+ 2172 04b7 AD000000 		.4byte	0xad
+ 2173 04bb 02       		.uleb128 0x2
+ 2174 04bc 91       		.byte	0x91
+ 2175 04bd 6C       		.sleb128 -20
+ 2176 04be 00       		.byte	0
+ 2177 04bf 11       		.uleb128 0x11
+ 2178 04c0 7E010000 		.4byte	.LASF67
+ 2179 04c4 01       		.byte	0x1
+ 2180 04c5 4501     		.2byte	0x145
+ 2181 04c7 00000000 		.4byte	.LFB5
+ 2182 04cb 96000000 		.4byte	.LFE5-.LFB5
+ 2183 04cf 01       		.uleb128 0x1
+ 2184 04d0 9C       		.byte	0x9c
+ 2185 04d1 2C050000 		.4byte	0x52c
+ 2186 04d5 0E       		.uleb128 0xe
+ 2187 04d6 7C040000 		.4byte	.LASF54
+ 2188 04da 01       		.byte	0x1
+ 2189 04db 4501     		.2byte	0x145
+ 2190 04dd BC020000 		.4byte	0x2bc
+ 2191 04e1 02       		.uleb128 0x2
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 46
+
+
+ 2192 04e2 91       		.byte	0x91
+ 2193 04e3 64       		.sleb128 -28
+ 2194 04e4 0E       		.uleb128 0xe
+ 2195 04e5 5D020000 		.4byte	.LASF68
+ 2196 04e9 01       		.byte	0x1
+ 2197 04ea 4501     		.2byte	0x145
+ 2198 04ec BC020000 		.4byte	0x2bc
+ 2199 04f0 02       		.uleb128 0x2
+ 2200 04f1 91       		.byte	0x91
+ 2201 04f2 60       		.sleb128 -32
+ 2202 04f3 0E       		.uleb128 0xe
+ 2203 04f4 B3000000 		.4byte	.LASF55
+ 2204 04f8 01       		.byte	0x1
+ 2205 04f9 4501     		.2byte	0x145
+ 2206 04fb AD000000 		.4byte	0xad
+ 2207 04ff 02       		.uleb128 0x2
+ 2208 0500 91       		.byte	0x91
+ 2209 0501 5C       		.sleb128 -36
+ 2210 0502 0F       		.uleb128 0xf
+ 2211 0503 6900     		.ascii	"i\000"
+ 2212 0505 01       		.byte	0x1
+ 2213 0506 4701     		.2byte	0x147
+ 2214 0508 AD000000 		.4byte	0xad
+ 2215 050c 02       		.uleb128 0x2
+ 2216 050d 91       		.byte	0x91
+ 2217 050e 74       		.sleb128 -12
+ 2218 050f 0F       		.uleb128 0xf
+ 2219 0510 6A00     		.ascii	"j\000"
+ 2220 0512 01       		.byte	0x1
+ 2221 0513 4701     		.2byte	0x147
+ 2222 0515 AD000000 		.4byte	0xad
+ 2223 0519 02       		.uleb128 0x2
+ 2224 051a 91       		.byte	0x91
+ 2225 051b 70       		.sleb128 -16
+ 2226 051c 10       		.uleb128 0x10
+ 2227 051d 46000000 		.4byte	.LASF66
+ 2228 0521 01       		.byte	0x1
+ 2229 0522 4701     		.2byte	0x147
+ 2230 0524 AD000000 		.4byte	0xad
+ 2231 0528 02       		.uleb128 0x2
+ 2232 0529 91       		.byte	0x91
+ 2233 052a 6C       		.sleb128 -20
+ 2234 052b 00       		.byte	0
+ 2235 052c 0A       		.uleb128 0xa
+ 2236 052d AD000000 		.4byte	0xad
+ 2237 0531 3D050000 		.4byte	0x53d
+ 2238 0535 12       		.uleb128 0x12
+ 2239 0536 CA000000 		.4byte	0xca
+ 2240 053a 5702     		.2byte	0x257
+ 2241 053c 00       		.byte	0
+ 2242 053d 07       		.uleb128 0x7
+ 2243 053e 8A000000 		.4byte	.LASF69
+ 2244 0542 01       		.byte	0x1
+ 2245 0543 31       		.byte	0x31
+ 2246 0544 2C050000 		.4byte	0x52c
+ 2247 0548 05       		.uleb128 0x5
+ 2248 0549 03       		.byte	0x3
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 47
+
+
+ 2249 054a 00000000 		.4byte	an_x
+ 2250 054e 07       		.uleb128 0x7
+ 2251 054f 93020000 		.4byte	.LASF70
+ 2252 0553 01       		.byte	0x1
+ 2253 0554 32       		.byte	0x32
+ 2254 0555 2C050000 		.4byte	0x52c
+ 2255 0559 05       		.uleb128 0x5
+ 2256 055a 03       		.byte	0x3
+ 2257 055b 60090000 		.4byte	an_y
+ 2258 055f 0A       		.uleb128 0xa
+ 2259 0560 6F050000 		.4byte	0x56f
+ 2260 0564 6F050000 		.4byte	0x56f
+ 2261 0568 0B       		.uleb128 0xb
+ 2262 0569 CA000000 		.4byte	0xca
+ 2263 056d B7       		.byte	0xb7
+ 2264 056e 00       		.byte	0
+ 2265 056f 13       		.uleb128 0x13
+ 2266 0570 A2000000 		.4byte	0xa2
+ 2267 0574 14       		.uleb128 0x14
+ 2268 0575 4D000000 		.4byte	.LASF74
+ 2269 0579 01       		.byte	0x1
+ 2270 057a 38       		.byte	0x38
+ 2271 057b 85050000 		.4byte	0x585
+ 2272 057f 05       		.uleb128 0x5
+ 2273 0580 03       		.byte	0x3
+ 2274 0581 00000000 		.4byte	uch_spo2_table
+ 2275 0585 13       		.uleb128 0x13
+ 2276 0586 5F050000 		.4byte	0x55f
+ 2277 058a 00       		.byte	0
+ 2278              		.section	.debug_abbrev,"",%progbits
+ 2279              	.Ldebug_abbrev0:
+ 2280 0000 01       		.uleb128 0x1
+ 2281 0001 11       		.uleb128 0x11
+ 2282 0002 01       		.byte	0x1
+ 2283 0003 25       		.uleb128 0x25
+ 2284 0004 0E       		.uleb128 0xe
+ 2285 0005 13       		.uleb128 0x13
+ 2286 0006 0B       		.uleb128 0xb
+ 2287 0007 03       		.uleb128 0x3
+ 2288 0008 0E       		.uleb128 0xe
+ 2289 0009 1B       		.uleb128 0x1b
+ 2290 000a 0E       		.uleb128 0xe
+ 2291 000b 55       		.uleb128 0x55
+ 2292 000c 17       		.uleb128 0x17
+ 2293 000d 11       		.uleb128 0x11
+ 2294 000e 01       		.uleb128 0x1
+ 2295 000f 10       		.uleb128 0x10
+ 2296 0010 17       		.uleb128 0x17
+ 2297 0011 00       		.byte	0
+ 2298 0012 00       		.byte	0
+ 2299 0013 02       		.uleb128 0x2
+ 2300 0014 16       		.uleb128 0x16
+ 2301 0015 00       		.byte	0
+ 2302 0016 03       		.uleb128 0x3
+ 2303 0017 0E       		.uleb128 0xe
+ 2304 0018 3A       		.uleb128 0x3a
+ 2305 0019 0B       		.uleb128 0xb
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 48
+
+
+ 2306 001a 3B       		.uleb128 0x3b
+ 2307 001b 0B       		.uleb128 0xb
+ 2308 001c 49       		.uleb128 0x49
+ 2309 001d 13       		.uleb128 0x13
+ 2310 001e 00       		.byte	0
+ 2311 001f 00       		.byte	0
+ 2312 0020 03       		.uleb128 0x3
+ 2313 0021 24       		.uleb128 0x24
+ 2314 0022 00       		.byte	0
+ 2315 0023 0B       		.uleb128 0xb
+ 2316 0024 0B       		.uleb128 0xb
+ 2317 0025 3E       		.uleb128 0x3e
+ 2318 0026 0B       		.uleb128 0xb
+ 2319 0027 03       		.uleb128 0x3
+ 2320 0028 0E       		.uleb128 0xe
+ 2321 0029 00       		.byte	0
+ 2322 002a 00       		.byte	0
+ 2323 002b 04       		.uleb128 0x4
+ 2324 002c 24       		.uleb128 0x24
+ 2325 002d 00       		.byte	0
+ 2326 002e 0B       		.uleb128 0xb
+ 2327 002f 0B       		.uleb128 0xb
+ 2328 0030 3E       		.uleb128 0x3e
+ 2329 0031 0B       		.uleb128 0xb
+ 2330 0032 03       		.uleb128 0x3
+ 2331 0033 08       		.uleb128 0x8
+ 2332 0034 00       		.byte	0
+ 2333 0035 00       		.byte	0
+ 2334 0036 05       		.uleb128 0x5
+ 2335 0037 2E       		.uleb128 0x2e
+ 2336 0038 01       		.byte	0x1
+ 2337 0039 3F       		.uleb128 0x3f
+ 2338 003a 19       		.uleb128 0x19
+ 2339 003b 03       		.uleb128 0x3
+ 2340 003c 0E       		.uleb128 0xe
+ 2341 003d 3A       		.uleb128 0x3a
+ 2342 003e 0B       		.uleb128 0xb
+ 2343 003f 3B       		.uleb128 0x3b
+ 2344 0040 0B       		.uleb128 0xb
+ 2345 0041 27       		.uleb128 0x27
+ 2346 0042 19       		.uleb128 0x19
+ 2347 0043 11       		.uleb128 0x11
+ 2348 0044 01       		.uleb128 0x1
+ 2349 0045 12       		.uleb128 0x12
+ 2350 0046 06       		.uleb128 0x6
+ 2351 0047 40       		.uleb128 0x40
+ 2352 0048 18       		.uleb128 0x18
+ 2353 0049 9642     		.uleb128 0x2116
+ 2354 004b 19       		.uleb128 0x19
+ 2355 004c 01       		.uleb128 0x1
+ 2356 004d 13       		.uleb128 0x13
+ 2357 004e 00       		.byte	0
+ 2358 004f 00       		.byte	0
+ 2359 0050 06       		.uleb128 0x6
+ 2360 0051 05       		.uleb128 0x5
+ 2361 0052 00       		.byte	0
+ 2362 0053 03       		.uleb128 0x3
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 49
+
+
+ 2363 0054 0E       		.uleb128 0xe
+ 2364 0055 3A       		.uleb128 0x3a
+ 2365 0056 0B       		.uleb128 0xb
+ 2366 0057 3B       		.uleb128 0x3b
+ 2367 0058 0B       		.uleb128 0xb
+ 2368 0059 49       		.uleb128 0x49
+ 2369 005a 13       		.uleb128 0x13
+ 2370 005b 02       		.uleb128 0x2
+ 2371 005c 18       		.uleb128 0x18
+ 2372 005d 00       		.byte	0
+ 2373 005e 00       		.byte	0
+ 2374 005f 07       		.uleb128 0x7
+ 2375 0060 34       		.uleb128 0x34
+ 2376 0061 00       		.byte	0
+ 2377 0062 03       		.uleb128 0x3
+ 2378 0063 0E       		.uleb128 0xe
+ 2379 0064 3A       		.uleb128 0x3a
+ 2380 0065 0B       		.uleb128 0xb
+ 2381 0066 3B       		.uleb128 0x3b
+ 2382 0067 0B       		.uleb128 0xb
+ 2383 0068 49       		.uleb128 0x49
+ 2384 0069 13       		.uleb128 0x13
+ 2385 006a 02       		.uleb128 0x2
+ 2386 006b 18       		.uleb128 0x18
+ 2387 006c 00       		.byte	0
+ 2388 006d 00       		.byte	0
+ 2389 006e 08       		.uleb128 0x8
+ 2390 006f 34       		.uleb128 0x34
+ 2391 0070 00       		.byte	0
+ 2392 0071 03       		.uleb128 0x3
+ 2393 0072 08       		.uleb128 0x8
+ 2394 0073 3A       		.uleb128 0x3a
+ 2395 0074 0B       		.uleb128 0xb
+ 2396 0075 3B       		.uleb128 0x3b
+ 2397 0076 0B       		.uleb128 0xb
+ 2398 0077 49       		.uleb128 0x49
+ 2399 0078 13       		.uleb128 0x13
+ 2400 0079 02       		.uleb128 0x2
+ 2401 007a 18       		.uleb128 0x18
+ 2402 007b 00       		.byte	0
+ 2403 007c 00       		.byte	0
+ 2404 007d 09       		.uleb128 0x9
+ 2405 007e 0F       		.uleb128 0xf
+ 2406 007f 00       		.byte	0
+ 2407 0080 0B       		.uleb128 0xb
+ 2408 0081 0B       		.uleb128 0xb
+ 2409 0082 49       		.uleb128 0x49
+ 2410 0083 13       		.uleb128 0x13
+ 2411 0084 00       		.byte	0
+ 2412 0085 00       		.byte	0
+ 2413 0086 0A       		.uleb128 0xa
+ 2414 0087 01       		.uleb128 0x1
+ 2415 0088 01       		.byte	0x1
+ 2416 0089 49       		.uleb128 0x49
+ 2417 008a 13       		.uleb128 0x13
+ 2418 008b 01       		.uleb128 0x1
+ 2419 008c 13       		.uleb128 0x13
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 50
+
+
+ 2420 008d 00       		.byte	0
+ 2421 008e 00       		.byte	0
+ 2422 008f 0B       		.uleb128 0xb
+ 2423 0090 21       		.uleb128 0x21
+ 2424 0091 00       		.byte	0
+ 2425 0092 49       		.uleb128 0x49
+ 2426 0093 13       		.uleb128 0x13
+ 2427 0094 2F       		.uleb128 0x2f
+ 2428 0095 0B       		.uleb128 0xb
+ 2429 0096 00       		.byte	0
+ 2430 0097 00       		.byte	0
+ 2431 0098 0C       		.uleb128 0xc
+ 2432 0099 2E       		.uleb128 0x2e
+ 2433 009a 01       		.byte	0x1
+ 2434 009b 3F       		.uleb128 0x3f
+ 2435 009c 19       		.uleb128 0x19
+ 2436 009d 03       		.uleb128 0x3
+ 2437 009e 0E       		.uleb128 0xe
+ 2438 009f 3A       		.uleb128 0x3a
+ 2439 00a0 0B       		.uleb128 0xb
+ 2440 00a1 3B       		.uleb128 0x3b
+ 2441 00a2 0B       		.uleb128 0xb
+ 2442 00a3 27       		.uleb128 0x27
+ 2443 00a4 19       		.uleb128 0x19
+ 2444 00a5 11       		.uleb128 0x11
+ 2445 00a6 01       		.uleb128 0x1
+ 2446 00a7 12       		.uleb128 0x12
+ 2447 00a8 06       		.uleb128 0x6
+ 2448 00a9 40       		.uleb128 0x40
+ 2449 00aa 18       		.uleb128 0x18
+ 2450 00ab 9742     		.uleb128 0x2117
+ 2451 00ad 19       		.uleb128 0x19
+ 2452 00ae 01       		.uleb128 0x1
+ 2453 00af 13       		.uleb128 0x13
+ 2454 00b0 00       		.byte	0
+ 2455 00b1 00       		.byte	0
+ 2456 00b2 0D       		.uleb128 0xd
+ 2457 00b3 2E       		.uleb128 0x2e
+ 2458 00b4 01       		.byte	0x1
+ 2459 00b5 3F       		.uleb128 0x3f
+ 2460 00b6 19       		.uleb128 0x19
+ 2461 00b7 03       		.uleb128 0x3
+ 2462 00b8 0E       		.uleb128 0xe
+ 2463 00b9 3A       		.uleb128 0x3a
+ 2464 00ba 0B       		.uleb128 0xb
+ 2465 00bb 3B       		.uleb128 0x3b
+ 2466 00bc 05       		.uleb128 0x5
+ 2467 00bd 27       		.uleb128 0x27
+ 2468 00be 19       		.uleb128 0x19
+ 2469 00bf 11       		.uleb128 0x11
+ 2470 00c0 01       		.uleb128 0x1
+ 2471 00c1 12       		.uleb128 0x12
+ 2472 00c2 06       		.uleb128 0x6
+ 2473 00c3 40       		.uleb128 0x40
+ 2474 00c4 18       		.uleb128 0x18
+ 2475 00c5 9642     		.uleb128 0x2116
+ 2476 00c7 19       		.uleb128 0x19
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 51
+
+
+ 2477 00c8 01       		.uleb128 0x1
+ 2478 00c9 13       		.uleb128 0x13
+ 2479 00ca 00       		.byte	0
+ 2480 00cb 00       		.byte	0
+ 2481 00cc 0E       		.uleb128 0xe
+ 2482 00cd 05       		.uleb128 0x5
+ 2483 00ce 00       		.byte	0
+ 2484 00cf 03       		.uleb128 0x3
+ 2485 00d0 0E       		.uleb128 0xe
+ 2486 00d1 3A       		.uleb128 0x3a
+ 2487 00d2 0B       		.uleb128 0xb
+ 2488 00d3 3B       		.uleb128 0x3b
+ 2489 00d4 05       		.uleb128 0x5
+ 2490 00d5 49       		.uleb128 0x49
+ 2491 00d6 13       		.uleb128 0x13
+ 2492 00d7 02       		.uleb128 0x2
+ 2493 00d8 18       		.uleb128 0x18
+ 2494 00d9 00       		.byte	0
+ 2495 00da 00       		.byte	0
+ 2496 00db 0F       		.uleb128 0xf
+ 2497 00dc 34       		.uleb128 0x34
+ 2498 00dd 00       		.byte	0
+ 2499 00de 03       		.uleb128 0x3
+ 2500 00df 08       		.uleb128 0x8
+ 2501 00e0 3A       		.uleb128 0x3a
+ 2502 00e1 0B       		.uleb128 0xb
+ 2503 00e2 3B       		.uleb128 0x3b
+ 2504 00e3 05       		.uleb128 0x5
+ 2505 00e4 49       		.uleb128 0x49
+ 2506 00e5 13       		.uleb128 0x13
+ 2507 00e6 02       		.uleb128 0x2
+ 2508 00e7 18       		.uleb128 0x18
+ 2509 00e8 00       		.byte	0
+ 2510 00e9 00       		.byte	0
+ 2511 00ea 10       		.uleb128 0x10
+ 2512 00eb 34       		.uleb128 0x34
+ 2513 00ec 00       		.byte	0
+ 2514 00ed 03       		.uleb128 0x3
+ 2515 00ee 0E       		.uleb128 0xe
+ 2516 00ef 3A       		.uleb128 0x3a
+ 2517 00f0 0B       		.uleb128 0xb
+ 2518 00f1 3B       		.uleb128 0x3b
+ 2519 00f2 05       		.uleb128 0x5
+ 2520 00f3 49       		.uleb128 0x49
+ 2521 00f4 13       		.uleb128 0x13
+ 2522 00f5 02       		.uleb128 0x2
+ 2523 00f6 18       		.uleb128 0x18
+ 2524 00f7 00       		.byte	0
+ 2525 00f8 00       		.byte	0
+ 2526 00f9 11       		.uleb128 0x11
+ 2527 00fa 2E       		.uleb128 0x2e
+ 2528 00fb 01       		.byte	0x1
+ 2529 00fc 3F       		.uleb128 0x3f
+ 2530 00fd 19       		.uleb128 0x19
+ 2531 00fe 03       		.uleb128 0x3
+ 2532 00ff 0E       		.uleb128 0xe
+ 2533 0100 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 52
+
+
+ 2534 0101 0B       		.uleb128 0xb
+ 2535 0102 3B       		.uleb128 0x3b
+ 2536 0103 05       		.uleb128 0x5
+ 2537 0104 27       		.uleb128 0x27
+ 2538 0105 19       		.uleb128 0x19
+ 2539 0106 11       		.uleb128 0x11
+ 2540 0107 01       		.uleb128 0x1
+ 2541 0108 12       		.uleb128 0x12
+ 2542 0109 06       		.uleb128 0x6
+ 2543 010a 40       		.uleb128 0x40
+ 2544 010b 18       		.uleb128 0x18
+ 2545 010c 9742     		.uleb128 0x2117
+ 2546 010e 19       		.uleb128 0x19
+ 2547 010f 01       		.uleb128 0x1
+ 2548 0110 13       		.uleb128 0x13
+ 2549 0111 00       		.byte	0
+ 2550 0112 00       		.byte	0
+ 2551 0113 12       		.uleb128 0x12
+ 2552 0114 21       		.uleb128 0x21
+ 2553 0115 00       		.byte	0
+ 2554 0116 49       		.uleb128 0x49
+ 2555 0117 13       		.uleb128 0x13
+ 2556 0118 2F       		.uleb128 0x2f
+ 2557 0119 05       		.uleb128 0x5
+ 2558 011a 00       		.byte	0
+ 2559 011b 00       		.byte	0
+ 2560 011c 13       		.uleb128 0x13
+ 2561 011d 26       		.uleb128 0x26
+ 2562 011e 00       		.byte	0
+ 2563 011f 49       		.uleb128 0x49
+ 2564 0120 13       		.uleb128 0x13
+ 2565 0121 00       		.byte	0
+ 2566 0122 00       		.byte	0
+ 2567 0123 14       		.uleb128 0x14
+ 2568 0124 34       		.uleb128 0x34
+ 2569 0125 00       		.byte	0
+ 2570 0126 03       		.uleb128 0x3
+ 2571 0127 0E       		.uleb128 0xe
+ 2572 0128 3A       		.uleb128 0x3a
+ 2573 0129 0B       		.uleb128 0xb
+ 2574 012a 3B       		.uleb128 0x3b
+ 2575 012b 0B       		.uleb128 0xb
+ 2576 012c 49       		.uleb128 0x49
+ 2577 012d 13       		.uleb128 0x13
+ 2578 012e 3F       		.uleb128 0x3f
+ 2579 012f 19       		.uleb128 0x19
+ 2580 0130 02       		.uleb128 0x2
+ 2581 0131 18       		.uleb128 0x18
+ 2582 0132 00       		.byte	0
+ 2583 0133 00       		.byte	0
+ 2584 0134 00       		.byte	0
+ 2585              		.section	.debug_aranges,"",%progbits
+ 2586 0000 44000000 		.4byte	0x44
+ 2587 0004 0200     		.2byte	0x2
+ 2588 0006 00000000 		.4byte	.Ldebug_info0
+ 2589 000a 04       		.byte	0x4
+ 2590 000b 00       		.byte	0
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 53
+
+
+ 2591 000c 0000     		.2byte	0
+ 2592 000e 0000     		.2byte	0
+ 2593 0010 00000000 		.4byte	.LFB0
+ 2594 0014 5C060000 		.4byte	.LFE0-.LFB0
+ 2595 0018 00000000 		.4byte	.LFB1
+ 2596 001c 42000000 		.4byte	.LFE1-.LFB1
+ 2597 0020 00000000 		.4byte	.LFB2
+ 2598 0024 E6000000 		.4byte	.LFE2-.LFB2
+ 2599 0028 00000000 		.4byte	.LFB3
+ 2600 002c C0000000 		.4byte	.LFE3-.LFB3
+ 2601 0030 00000000 		.4byte	.LFB4
+ 2602 0034 84000000 		.4byte	.LFE4-.LFB4
+ 2603 0038 00000000 		.4byte	.LFB5
+ 2604 003c 96000000 		.4byte	.LFE5-.LFB5
+ 2605 0040 00000000 		.4byte	0
+ 2606 0044 00000000 		.4byte	0
+ 2607              		.section	.debug_ranges,"",%progbits
+ 2608              	.Ldebug_ranges0:
+ 2609 0000 00000000 		.4byte	.LFB0
+ 2610 0004 5C060000 		.4byte	.LFE0
+ 2611 0008 00000000 		.4byte	.LFB1
+ 2612 000c 42000000 		.4byte	.LFE1
+ 2613 0010 00000000 		.4byte	.LFB2
+ 2614 0014 E6000000 		.4byte	.LFE2
+ 2615 0018 00000000 		.4byte	.LFB3
+ 2616 001c C0000000 		.4byte	.LFE3
+ 2617 0020 00000000 		.4byte	.LFB4
+ 2618 0024 84000000 		.4byte	.LFE4
+ 2619 0028 00000000 		.4byte	.LFB5
+ 2620 002c 96000000 		.4byte	.LFE5
+ 2621 0030 00000000 		.4byte	0
+ 2622 0034 00000000 		.4byte	0
+ 2623              		.section	.debug_line,"",%progbits
+ 2624              	.Ldebug_line0:
+ 2625 0000 53030000 		.section	.debug_str,"MS",%progbits,1
+ 2625      02000401 
+ 2625      00000201 
+ 2625      FB0E0D00 
+ 2625      01010101 
+ 2626              	.LASF73:
+ 2627 0000 443A5C50 		.ascii	"D:\\PSOC_Jingyi\\HeartRateProject\\PSOC_Project\\PS"
+ 2627      534F435F 
+ 2627      4A696E67 
+ 2627      79695C48 
+ 2627      65617274 
+ 2628 002f 4F435F50 		.ascii	"OC_PPG.cydsn\000"
+ 2628      50472E63 
+ 2628      7964736E 
+ 2628      00
+ 2629              	.LASF58:
+ 2630 003c 6E5F6D61 		.ascii	"n_max_num\000"
+ 2630      785F6E75 
+ 2630      6D00
+ 2631              	.LASF66:
+ 2632 0046 6E5F7465 		.ascii	"n_temp\000"
+ 2632      6D7000
+ 2633              	.LASF74:
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 54
+
+
+ 2634 004d 7563685F 		.ascii	"uch_spo2_table\000"
+ 2634      73706F32 
+ 2634      5F746162 
+ 2634      6C6500
+ 2635              	.LASF1:
+ 2636 005c 5F5F7569 		.ascii	"__uint8_t\000"
+ 2636      6E74385F 
+ 2636      7400
+ 2637              	.LASF59:
+ 2638 0066 6D617869 		.ascii	"maxim_peaks_above_min_height\000"
+ 2638      6D5F7065 
+ 2638      616B735F 
+ 2638      61626F76 
+ 2638      655F6D69 
+ 2639              	.LASF40:
+ 2640 0083 6E5F785F 		.ascii	"n_x_ac\000"
+ 2640      616300
+ 2641              	.LASF69:
+ 2642 008a 616E5F78 		.ascii	"an_x\000"
+ 2642      00
+ 2643              	.LASF28:
+ 2644 008f 7063685F 		.ascii	"pch_hr_valid\000"
+ 2644      68725F76 
+ 2644      616C6964 
+ 2644      00
+ 2645              	.LASF11:
+ 2646 009c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2646      206C6F6E 
+ 2646      6720756E 
+ 2646      7369676E 
+ 2646      65642069 
+ 2647              	.LASF55:
+ 2648 00b3 6E5F7369 		.ascii	"n_size\000"
+ 2648      7A6500
+ 2649              	.LASF0:
+ 2650 00ba 5F5F696E 		.ascii	"__int8_t\000"
+ 2650      74385F74 
+ 2650      00
+ 2651              	.LASF63:
+ 2652 00c3 6E5F6F6C 		.ascii	"n_old_npks\000"
+ 2652      645F6E70 
+ 2652      6B7300
+ 2653              	.LASF10:
+ 2654 00ce 6C6F6E67 		.ascii	"long long int\000"
+ 2654      206C6F6E 
+ 2654      6720696E 
+ 2654      7400
+ 2655              	.LASF2:
+ 2656 00dc 7369676E 		.ascii	"signed char\000"
+ 2656      65642063 
+ 2656      68617200 
+ 2657              	.LASF29:
+ 2658 00e8 66726571 		.ascii	"freq\000"
+ 2658      00
+ 2659              	.LASF51:
+ 2660 00ed 6D617869 		.ascii	"maxim_heart_rate_and_oxygen_saturation\000"
+ 2660      6D5F6865 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 55
+
+
+ 2660      6172745F 
+ 2660      72617465 
+ 2660      5F616E64 
+ 2661              	.LASF26:
+ 2662 0114 7063685F 		.ascii	"pch_spo2_valid\000"
+ 2662      73706F32 
+ 2662      5F76616C 
+ 2662      696400
+ 2663              	.LASF7:
+ 2664 0123 6C6F6E67 		.ascii	"long int\000"
+ 2664      20696E74 
+ 2664      00
+ 2665              	.LASF47:
+ 2666 012c 6E5F7261 		.ascii	"n_ratio_average\000"
+ 2666      74696F5F 
+ 2666      61766572 
+ 2666      61676500 
+ 2667              	.LASF22:
+ 2668 013c 70756E5F 		.ascii	"pun_ir_buffer\000"
+ 2668      69725F62 
+ 2668      75666665 
+ 2668      7200
+ 2669              	.LASF20:
+ 2670 014a 646F7562 		.ascii	"double\000"
+ 2670      6C6500
+ 2671              	.LASF44:
+ 2672 0151 6E5F795F 		.ascii	"n_y_dc_max_idx\000"
+ 2672      64635F6D 
+ 2672      61785F69 
+ 2672      647800
+ 2673              	.LASF53:
+ 2674 0160 706E5F6C 		.ascii	"pn_locs\000"
+ 2674      6F637300 
+ 2675              	.LASF8:
+ 2676 0168 5F5F7569 		.ascii	"__uint32_t\000"
+ 2676      6E743332 
+ 2676      5F7400
+ 2677              	.LASF31:
+ 2678 0173 756E5F69 		.ascii	"un_ir_mean\000"
+ 2678      725F6D65 
+ 2678      616E00
+ 2679              	.LASF67:
+ 2680 017e 6D617869 		.ascii	"maxim_sort_indices_descend\000"
+ 2680      6D5F736F 
+ 2680      72745F69 
+ 2680      6E646963 
+ 2680      65735F64 
+ 2681              	.LASF37:
+ 2682 0199 616E5F69 		.ascii	"an_ir_valley_locs\000"
+ 2682      725F7661 
+ 2682      6C6C6579 
+ 2682      5F6C6F63 
+ 2682      7300
+ 2683              	.LASF12:
+ 2684 01ab 756E7369 		.ascii	"unsigned int\000"
+ 2684      676E6564 
+ 2684      20696E74 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 56
+
+
+ 2684      00
+ 2685              	.LASF42:
+ 2686 01b8 6E5F795F 		.ascii	"n_y_dc_max\000"
+ 2686      64635F6D 
+ 2686      617800
+ 2687              	.LASF9:
+ 2688 01c3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2688      20756E73 
+ 2688      69676E65 
+ 2688      6420696E 
+ 2688      7400
+ 2689              	.LASF65:
+ 2690 01d5 6D617869 		.ascii	"maxim_sort_ascend\000"
+ 2690      6D5F736F 
+ 2690      72745F61 
+ 2690      7363656E 
+ 2690      6400
+ 2691              	.LASF5:
+ 2692 01e7 73686F72 		.ascii	"short unsigned int\000"
+ 2692      7420756E 
+ 2692      7369676E 
+ 2692      65642069 
+ 2692      6E7400
+ 2693              	.LASF56:
+ 2694 01fa 6E5F6D69 		.ascii	"n_min_height\000"
+ 2694      6E5F6865 
+ 2694      69676874 
+ 2694      00
+ 2695              	.LASF36:
+ 2696 0207 6E5F6E70 		.ascii	"n_npks\000"
+ 2696      6B7300
+ 2697              	.LASF32:
+ 2698 020e 6E5F695F 		.ascii	"n_i_ratio_count\000"
+ 2698      72617469 
+ 2698      6F5F636F 
+ 2698      756E7400 
+ 2699              	.LASF46:
+ 2700 021e 616E5F72 		.ascii	"an_ratio\000"
+ 2700      6174696F 
+ 2700      00
+ 2701              	.LASF23:
+ 2702 0227 6E5F6972 		.ascii	"n_ir_buffer_length\000"
+ 2702      5F627566 
+ 2702      6665725F 
+ 2702      6C656E67 
+ 2702      746800
+ 2703              	.LASF18:
+ 2704 023a 73697A65 		.ascii	"sizetype\000"
+ 2704      74797065 
+ 2704      00
+ 2705              	.LASF27:
+ 2706 0243 706E5F68 		.ascii	"pn_heart_rate\000"
+ 2706      65617274 
+ 2706      5F726174 
+ 2706      6500
+ 2707              	.LASF17:
+ 2708 0251 6C6F6E67 		.ascii	"long double\000"
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 57
+
+
+ 2708      20646F75 
+ 2708      626C6500 
+ 2709              	.LASF68:
+ 2710 025d 706E5F69 		.ascii	"pn_indx\000"
+ 2710      6E647800 
+ 2711              	.LASF21:
+ 2712 0265 666C6F61 		.ascii	"float\000"
+ 2712      7400
+ 2713              	.LASF39:
+ 2714 026b 6E5F795F 		.ascii	"n_y_ac\000"
+ 2714      616300
+ 2715              	.LASF43:
+ 2716 0272 6E5F785F 		.ascii	"n_x_dc_max\000"
+ 2716      64635F6D 
+ 2716      617800
+ 2717              	.LASF15:
+ 2718 027d 696E7433 		.ascii	"int32_t\000"
+ 2718      325F7400 
+ 2719              	.LASF3:
+ 2720 0285 756E7369 		.ascii	"unsigned char\000"
+ 2720      676E6564 
+ 2720      20636861 
+ 2720      7200
+ 2721              	.LASF70:
+ 2722 0293 616E5F79 		.ascii	"an_y\000"
+ 2722      00
+ 2723              	.LASF30:
+ 2724 0298 7065616B 		.ascii	"peak_distance\000"
+ 2724      5F646973 
+ 2724      74616E63 
+ 2724      6500
+ 2725              	.LASF4:
+ 2726 02a6 73686F72 		.ascii	"short int\000"
+ 2726      7420696E 
+ 2726      7400
+ 2727              	.LASF34:
+ 2728 02b0 6E5F6D69 		.ascii	"n_middle_idx\000"
+ 2728      64646C65 
+ 2728      5F696478 
+ 2728      00
+ 2729              	.LASF16:
+ 2730 02bd 75696E74 		.ascii	"uint32_t\000"
+ 2730      33325F74 
+ 2730      00
+ 2731              	.LASF19:
+ 2732 02c6 63686172 		.ascii	"char\000"
+ 2732      00
+ 2733              	.LASF48:
+ 2734 02cb 6E5F6E75 		.ascii	"n_nume\000"
+ 2734      6D6500
+ 2735              	.LASF25:
+ 2736 02d2 706E5F73 		.ascii	"pn_spo2\000"
+ 2736      706F3200 
+ 2737              	.LASF6:
+ 2738 02da 5F5F696E 		.ascii	"__int32_t\000"
+ 2738      7433325F 
+ 2738      7400
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 58
+
+
+ 2739              	.LASF60:
+ 2740 02e4 6E5F7769 		.ascii	"n_width\000"
+ 2740      64746800 
+ 2741              	.LASF13:
+ 2742 02ec 696E7438 		.ascii	"int8_t\000"
+ 2742      5F7400
+ 2743              	.LASF24:
+ 2744 02f3 70756E5F 		.ascii	"pun_red_buffer\000"
+ 2744      7265645F 
+ 2744      62756666 
+ 2744      657200
+ 2745              	.LASF64:
+ 2746 0302 6E5F6469 		.ascii	"n_dist\000"
+ 2746      737400
+ 2747              	.LASF41:
+ 2748 0309 6E5F7370 		.ascii	"n_spo2_calc\000"
+ 2748      6F325F63 
+ 2748      616C6300 
+ 2749              	.LASF49:
+ 2750 0315 6E5F6465 		.ascii	"n_denom\000"
+ 2750      6E6F6D00 
+ 2751              	.LASF45:
+ 2752 031d 6E5F785F 		.ascii	"n_x_dc_max_idx\000"
+ 2752      64635F6D 
+ 2752      61785F69 
+ 2752      647800
+ 2753              	.LASF50:
+ 2754 032c 62756666 		.ascii	"buffer_size\000"
+ 2754      65725F73 
+ 2754      697A6500 
+ 2755              	.LASF38:
+ 2756 0338 6E5F7065 		.ascii	"n_peak_interval_sum\000"
+ 2756      616B5F69 
+ 2756      6E746572 
+ 2756      76616C5F 
+ 2756      73756D00 
+ 2757              	.LASF14:
+ 2758 034c 75696E74 		.ascii	"uint8_t\000"
+ 2758      385F7400 
+ 2759              	.LASF52:
+ 2760 0354 6D617869 		.ascii	"maxim_find_peaks\000"
+ 2760      6D5F6669 
+ 2760      6E645F70 
+ 2760      65616B73 
+ 2760      00
+ 2761              	.LASF57:
+ 2762 0365 6E5F6D69 		.ascii	"n_min_distance\000"
+ 2762      6E5F6469 
+ 2762      7374616E 
+ 2762      636500
+ 2763              	.LASF62:
+ 2764 0374 706E5F6E 		.ascii	"pn_npks\000"
+ 2764      706B7300 
+ 2765              	.LASF72:
+ 2766 037c 73706F32 		.ascii	"spo2_algorithm.c\000"
+ 2766      5F616C67 
+ 2766      6F726974 
+ARM GAS  C:\Users\49148\AppData\Local\Temp\ccYZK6Yo.s 			page 59
+
+
+ 2766      686D2E63 
+ 2766      00
+ 2767              	.LASF35:
+ 2768 038d 6E5F7468 		.ascii	"n_th1\000"
+ 2768      3100
+ 2769              	.LASF61:
+ 2770 0393 6D617869 		.ascii	"maxim_remove_close_peaks\000"
+ 2770      6D5F7265 
+ 2770      6D6F7665 
+ 2770      5F636C6F 
+ 2770      73655F70 
+ 2771              	.LASF71:
+ 2772 03ac 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2772      43313120 
+ 2772      352E342E 
+ 2772      31203230 
+ 2772      31363036 
+ 2773 03df 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 2773      20726576 
+ 2773      6973696F 
+ 2773      6E203233 
+ 2773      37373135 
+ 2774 0412 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -O0 -ffunction-s"
+ 2774      70202D6D 
+ 2774      6670753D 
+ 2774      66707634 
+ 2774      2D73702D 
+ 2775 0445 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 2775      6F6E7320 
+ 2775      2D666661 
+ 2775      742D6C74 
+ 2775      6F2D6F62 
+ 2776              	.LASF33:
+ 2777 045f 6E5F6578 		.ascii	"n_exact_ir_valley_locs_count\000"
+ 2777      6163745F 
+ 2777      69725F76 
+ 2777      616C6C65 
+ 2777      795F6C6F 
+ 2778              	.LASF54:
+ 2779 047c 706E5F78 		.ascii	"pn_x\000"
+ 2779      00
+ 2780              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

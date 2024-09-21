@@ -1,0 +1,1499 @@
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"list.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.section	.text.vListInitialise,"ax",%progbits
+  21              		.align	2
+  22              		.global	vListInitialise
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	vListInitialise, %function
+  26              	vListInitialise:
+  27              	.LFB136:
+  28              		.file 1 "Generated_Source\\PSoC6\\pdl\\rtos\\FreeRTOS\\10.0.1\\Source\\list.c"
+   1:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /*
+   2:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * FreeRTOS Kernel V10.0.1
+   3:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+   4:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  *
+   5:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy of
+   6:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * this software and associated documentation files (the "Software"), to deal in
+   7:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * the Software without restriction, including without limitation the rights to
+   8:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   9:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * the Software, and to permit persons to whom the Software is furnished to do so,
+  10:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * subject to the following conditions:
+  11:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  *
+  12:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * The above copyright notice and this permission notice shall be included in all
+  13:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * copies or substantial portions of the Software.
+  14:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  *
+  15:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  16:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+  17:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+  18:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+  19:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  20:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  21:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  *
+  22:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * http://www.FreeRTOS.org
+  23:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * http://aws.amazon.com/freertos
+  24:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  *
+  25:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * 1 tab == 4 spaces!
+  26:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  */
+  27:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  28:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  29:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** #include <stdlib.h>
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 2
+
+
+  30:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** #include "FreeRTOS.h"
+  31:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** #include "list.h"
+  32:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  33:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /*-----------------------------------------------------------
+  34:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  * PUBLIC LIST API documented in list.h
+  35:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c ****  *----------------------------------------------------------*/
+  36:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  37:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** void vListInitialise( List_t * const pxList )
+  38:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** {
+  29              		.loc 1 38 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34 0000 80B4     		push	{r7}
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 7, -4
+  37 0002 83B0     		sub	sp, sp, #12
+  38              		.cfi_def_cfa_offset 16
+  39 0004 00AF     		add	r7, sp, #0
+  40              		.cfi_def_cfa_register 7
+  41 0006 7860     		str	r0, [r7, #4]
+  39:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* The list structure contains a list item which is used to mark the
+  40:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	end of the list.  To initialise the list the list end is inserted
+  41:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	as the only list entry. */
+  42:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxList->pxIndex = ( ListItem_t * ) &( pxList->xListEnd );			/*lint !e826 !e740 The mini list struc
+  42              		.loc 1 42 0
+  43 0008 7B68     		ldr	r3, [r7, #4]
+  44 000a 03F10802 		add	r2, r3, #8
+  45 000e 7B68     		ldr	r3, [r7, #4]
+  46 0010 5A60     		str	r2, [r3, #4]
+  43:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  44:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* The list end value is the highest possible value in the list to
+  45:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	ensure it remains at the end of the list. */
+  46:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxList->xListEnd.xItemValue = portMAX_DELAY;
+  47              		.loc 1 46 0
+  48 0012 7B68     		ldr	r3, [r7, #4]
+  49 0014 4FF0FF32 		mov	r2, #-1
+  50 0018 9A60     		str	r2, [r3, #8]
+  47:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  48:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* The list end next and previous pointers point to itself so we know
+  49:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	when the list is empty. */
+  50:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxList->xListEnd.pxNext = ( ListItem_t * ) &( pxList->xListEnd );	/*lint !e826 !e740 The mini list
+  51              		.loc 1 50 0
+  52 001a 7B68     		ldr	r3, [r7, #4]
+  53 001c 03F10802 		add	r2, r3, #8
+  54 0020 7B68     		ldr	r3, [r7, #4]
+  55 0022 DA60     		str	r2, [r3, #12]
+  51:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxList->xListEnd.pxPrevious = ( ListItem_t * ) &( pxList->xListEnd );/*lint !e826 !e740 The mini l
+  56              		.loc 1 51 0
+  57 0024 7B68     		ldr	r3, [r7, #4]
+  58 0026 03F10802 		add	r2, r3, #8
+  59 002a 7B68     		ldr	r3, [r7, #4]
+  60 002c 1A61     		str	r2, [r3, #16]
+  52:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  53:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxList->uxNumberOfItems = ( UBaseType_t ) 0U;
+  61              		.loc 1 53 0
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 3
+
+
+  62 002e 7B68     		ldr	r3, [r7, #4]
+  63 0030 0022     		movs	r2, #0
+  64 0032 1A60     		str	r2, [r3]
+  54:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  55:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Write known values into the list if
+  56:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
+  57:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listSET_LIST_INTEGRITY_CHECK_1_VALUE( pxList );
+  58:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listSET_LIST_INTEGRITY_CHECK_2_VALUE( pxList );
+  59:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** }
+  65              		.loc 1 59 0
+  66 0034 00BF     		nop
+  67 0036 0C37     		adds	r7, r7, #12
+  68              		.cfi_def_cfa_offset 4
+  69 0038 BD46     		mov	sp, r7
+  70              		.cfi_def_cfa_register 13
+  71              		@ sp needed
+  72 003a 5DF8047B 		ldr	r7, [sp], #4
+  73              		.cfi_restore 7
+  74              		.cfi_def_cfa_offset 0
+  75 003e 7047     		bx	lr
+  76              		.cfi_endproc
+  77              	.LFE136:
+  78              		.size	vListInitialise, .-vListInitialise
+  79              		.section	.text.vListInitialiseItem,"ax",%progbits
+  80              		.align	2
+  81              		.global	vListInitialiseItem
+  82              		.thumb
+  83              		.thumb_func
+  84              		.type	vListInitialiseItem, %function
+  85              	vListInitialiseItem:
+  86              	.LFB137:
+  60:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /*-----------------------------------------------------------*/
+  61:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  62:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** void vListInitialiseItem( ListItem_t * const pxItem )
+  63:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** {
+  87              		.loc 1 63 0
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 8
+  90              		@ frame_needed = 1, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  92 0000 80B4     		push	{r7}
+  93              		.cfi_def_cfa_offset 4
+  94              		.cfi_offset 7, -4
+  95 0002 83B0     		sub	sp, sp, #12
+  96              		.cfi_def_cfa_offset 16
+  97 0004 00AF     		add	r7, sp, #0
+  98              		.cfi_def_cfa_register 7
+  99 0006 7860     		str	r0, [r7, #4]
+  64:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Make sure the list item is not recorded as being on a list. */
+  65:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxItem->pvContainer = NULL;
+ 100              		.loc 1 65 0
+ 101 0008 7B68     		ldr	r3, [r7, #4]
+ 102 000a 0022     		movs	r2, #0
+ 103 000c 1A61     		str	r2, [r3, #16]
+  66:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  67:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Write known values into the list item if
+  68:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 4
+
+
+  69:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE( pxItem );
+  70:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE( pxItem );
+  71:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** }
+ 104              		.loc 1 71 0
+ 105 000e 00BF     		nop
+ 106 0010 0C37     		adds	r7, r7, #12
+ 107              		.cfi_def_cfa_offset 4
+ 108 0012 BD46     		mov	sp, r7
+ 109              		.cfi_def_cfa_register 13
+ 110              		@ sp needed
+ 111 0014 5DF8047B 		ldr	r7, [sp], #4
+ 112              		.cfi_restore 7
+ 113              		.cfi_def_cfa_offset 0
+ 114 0018 7047     		bx	lr
+ 115              		.cfi_endproc
+ 116              	.LFE137:
+ 117              		.size	vListInitialiseItem, .-vListInitialiseItem
+ 118 001a 00BF     		.section	.text.vListInsertEnd,"ax",%progbits
+ 119              		.align	2
+ 120              		.global	vListInsertEnd
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.type	vListInsertEnd, %function
+ 124              	vListInsertEnd:
+ 125              	.LFB138:
+  72:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /*-----------------------------------------------------------*/
+  73:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  74:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** void vListInsertEnd( List_t * const pxList, ListItem_t * const pxNewListItem )
+  75:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** {
+ 126              		.loc 1 75 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 16
+ 129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131 0000 80B4     		push	{r7}
+ 132              		.cfi_def_cfa_offset 4
+ 133              		.cfi_offset 7, -4
+ 134 0002 85B0     		sub	sp, sp, #20
+ 135              		.cfi_def_cfa_offset 24
+ 136 0004 00AF     		add	r7, sp, #0
+ 137              		.cfi_def_cfa_register 7
+ 138 0006 7860     		str	r0, [r7, #4]
+ 139 0008 3960     		str	r1, [r7]
+  76:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** ListItem_t * const pxIndex = pxList->pxIndex;
+ 140              		.loc 1 76 0
+ 141 000a 7B68     		ldr	r3, [r7, #4]
+ 142 000c 5B68     		ldr	r3, [r3, #4]
+ 143 000e FB60     		str	r3, [r7, #12]
+  77:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  78:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Only effective when configASSERT() is also defined, these tests may catch
+  79:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	the list data structures being overwritten in memory.  They will not catch
+  80:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	data errors caused by incorrect configuration or use of FreeRTOS. */
+  81:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listTEST_LIST_INTEGRITY( pxList );
+  82:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listTEST_LIST_ITEM_INTEGRITY( pxNewListItem );
+  83:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  84:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Insert a new list item into pxList, but rather than sort the list,
+  85:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	makes the new list item the last item to be removed by a call to
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 5
+
+
+  86:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listGET_OWNER_OF_NEXT_ENTRY(). */
+  87:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pxNext = pxIndex;
+ 144              		.loc 1 87 0
+ 145 0010 3B68     		ldr	r3, [r7]
+ 146 0012 FA68     		ldr	r2, [r7, #12]
+ 147 0014 5A60     		str	r2, [r3, #4]
+  88:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pxPrevious = pxIndex->pxPrevious;
+ 148              		.loc 1 88 0
+ 149 0016 FB68     		ldr	r3, [r7, #12]
+ 150 0018 9A68     		ldr	r2, [r3, #8]
+ 151 001a 3B68     		ldr	r3, [r7]
+ 152 001c 9A60     		str	r2, [r3, #8]
+  89:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  90:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Only used during decision coverage testing. */
+  91:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	mtCOVERAGE_TEST_DELAY();
+  92:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  93:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxIndex->pxPrevious->pxNext = pxNewListItem;
+ 153              		.loc 1 93 0
+ 154 001e FB68     		ldr	r3, [r7, #12]
+ 155 0020 9B68     		ldr	r3, [r3, #8]
+ 156 0022 3A68     		ldr	r2, [r7]
+ 157 0024 5A60     		str	r2, [r3, #4]
+  94:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxIndex->pxPrevious = pxNewListItem;
+ 158              		.loc 1 94 0
+ 159 0026 FB68     		ldr	r3, [r7, #12]
+ 160 0028 3A68     		ldr	r2, [r7]
+ 161 002a 9A60     		str	r2, [r3, #8]
+  95:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  96:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Remember which list the item is in. */
+  97:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pvContainer = ( void * ) pxList;
+ 162              		.loc 1 97 0
+ 163 002c 3B68     		ldr	r3, [r7]
+ 164 002e 7A68     		ldr	r2, [r7, #4]
+ 165 0030 1A61     		str	r2, [r3, #16]
+  98:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+  99:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	( pxList->uxNumberOfItems )++;
+ 166              		.loc 1 99 0
+ 167 0032 7B68     		ldr	r3, [r7, #4]
+ 168 0034 1B68     		ldr	r3, [r3]
+ 169 0036 5A1C     		adds	r2, r3, #1
+ 170 0038 7B68     		ldr	r3, [r7, #4]
+ 171 003a 1A60     		str	r2, [r3]
+ 100:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** }
+ 172              		.loc 1 100 0
+ 173 003c 00BF     		nop
+ 174 003e 1437     		adds	r7, r7, #20
+ 175              		.cfi_def_cfa_offset 4
+ 176 0040 BD46     		mov	sp, r7
+ 177              		.cfi_def_cfa_register 13
+ 178              		@ sp needed
+ 179 0042 5DF8047B 		ldr	r7, [sp], #4
+ 180              		.cfi_restore 7
+ 181              		.cfi_def_cfa_offset 0
+ 182 0046 7047     		bx	lr
+ 183              		.cfi_endproc
+ 184              	.LFE138:
+ 185              		.size	vListInsertEnd, .-vListInsertEnd
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 6
+
+
+ 186              		.section	.text.vListInsert,"ax",%progbits
+ 187              		.align	2
+ 188              		.global	vListInsert
+ 189              		.thumb
+ 190              		.thumb_func
+ 191              		.type	vListInsert, %function
+ 192              	vListInsert:
+ 193              	.LFB139:
+ 101:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /*-----------------------------------------------------------*/
+ 102:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 103:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** void vListInsert( List_t * const pxList, ListItem_t * const pxNewListItem )
+ 104:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** {
+ 194              		.loc 1 104 0
+ 195              		.cfi_startproc
+ 196              		@ args = 0, pretend = 0, frame = 16
+ 197              		@ frame_needed = 1, uses_anonymous_args = 0
+ 198              		@ link register save eliminated.
+ 199 0000 80B4     		push	{r7}
+ 200              		.cfi_def_cfa_offset 4
+ 201              		.cfi_offset 7, -4
+ 202 0002 85B0     		sub	sp, sp, #20
+ 203              		.cfi_def_cfa_offset 24
+ 204 0004 00AF     		add	r7, sp, #0
+ 205              		.cfi_def_cfa_register 7
+ 206 0006 7860     		str	r0, [r7, #4]
+ 207 0008 3960     		str	r1, [r7]
+ 105:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** ListItem_t *pxIterator;
+ 106:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** const TickType_t xValueOfInsertion = pxNewListItem->xItemValue;
+ 208              		.loc 1 106 0
+ 209 000a 3B68     		ldr	r3, [r7]
+ 210 000c 1B68     		ldr	r3, [r3]
+ 211 000e BB60     		str	r3, [r7, #8]
+ 107:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 108:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Only effective when configASSERT() is also defined, these tests may catch
+ 109:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	the list data structures being overwritten in memory.  They will not catch
+ 110:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	data errors caused by incorrect configuration or use of FreeRTOS. */
+ 111:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listTEST_LIST_INTEGRITY( pxList );
+ 112:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	listTEST_LIST_ITEM_INTEGRITY( pxNewListItem );
+ 113:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 114:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Insert the new list item into the list, sorted in xItemValue order.
+ 115:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 116:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	If the list already contains a list item with the same item value then the
+ 117:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	new list item should be placed after it.  This ensures that TCB's which are
+ 118:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	stored in ready lists (all of which have the same xItemValue value) get a
+ 119:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	share of the CPU.  However, if the xItemValue is the same as the back marker
+ 120:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	the iteration loop below will not end.  Therefore the value is checked
+ 121:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	first, and the algorithm slightly modified if necessary. */
+ 122:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	if( xValueOfInsertion == portMAX_DELAY )
+ 212              		.loc 1 122 0
+ 213 0010 BB68     		ldr	r3, [r7, #8]
+ 214 0012 B3F1FF3F 		cmp	r3, #-1
+ 215 0016 03D1     		bne	.L5
+ 123:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	{
+ 124:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		pxIterator = pxList->xListEnd.pxPrevious;
+ 216              		.loc 1 124 0
+ 217 0018 7B68     		ldr	r3, [r7, #4]
+ 218 001a 1B69     		ldr	r3, [r3, #16]
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 7
+
+
+ 219 001c FB60     		str	r3, [r7, #12]
+ 220 001e 0CE0     		b	.L6
+ 221              	.L5:
+ 125:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	}
+ 126:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	else
+ 127:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	{
+ 128:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		/* *** NOTE ***********************************************************
+ 129:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		If you find your application is crashing here then likely causes are
+ 130:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		listed below.  In addition see http://www.freertos.org/FAQHelp.html for
+ 131:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		more tips, and ensure configASSERT() is defined!
+ 132:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		http://www.freertos.org/a00110.html#configASSERT
+ 133:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 134:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			1) Stack overflow -
+ 135:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   see http://www.freertos.org/Stacks-and-stack-overflow-checking.html
+ 136:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			2) Incorrect interrupt priority assignment, especially on Cortex-M
+ 137:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   parts where numerically high priority values denote low actual
+ 138:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   interrupt priorities, which can seem counter intuitive.  See
+ 139:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   http://www.freertos.org/RTOS-Cortex-M3-M4.html and the definition
+ 140:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   of configMAX_SYSCALL_INTERRUPT_PRIORITY on
+ 141:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   http://www.freertos.org/a00110.html
+ 142:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			3) Calling an API function from within a critical section or when
+ 143:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   the scheduler is suspended, or calling an API function that does
+ 144:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   not end in "FromISR" from an interrupt.
+ 145:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			4) Using a queue or semaphore before it has been initialised or
+ 146:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   before the scheduler has been started (are interrupts firing
+ 147:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			   before vTaskStartScheduler() has been called?).
+ 148:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		**********************************************************************/
+ 149:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 150:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		for( pxIterator = ( ListItem_t * ) &( pxList->xListEnd ); pxIterator->pxNext->xItemValue <= xValu
+ 222              		.loc 1 150 0
+ 223 0020 7B68     		ldr	r3, [r7, #4]
+ 224 0022 0833     		adds	r3, r3, #8
+ 225 0024 FB60     		str	r3, [r7, #12]
+ 226 0026 02E0     		b	.L7
+ 227              	.L8:
+ 228              		.loc 1 150 0 is_stmt 0 discriminator 3
+ 229 0028 FB68     		ldr	r3, [r7, #12]
+ 230 002a 5B68     		ldr	r3, [r3, #4]
+ 231 002c FB60     		str	r3, [r7, #12]
+ 232              	.L7:
+ 233              		.loc 1 150 0 discriminator 1
+ 234 002e FB68     		ldr	r3, [r7, #12]
+ 235 0030 5B68     		ldr	r3, [r3, #4]
+ 236 0032 1A68     		ldr	r2, [r3]
+ 237 0034 BB68     		ldr	r3, [r7, #8]
+ 238 0036 9A42     		cmp	r2, r3
+ 239 0038 F6D9     		bls	.L8
+ 240              	.L6:
+ 151:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		{
+ 152:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			/* There is nothing to do here, just iterating to the wanted
+ 153:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 			insertion position. */
+ 154:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		}
+ 155:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	}
+ 156:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 157:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pxNext = pxIterator->pxNext;
+ 241              		.loc 1 157 0 is_stmt 1
+ 242 003a FB68     		ldr	r3, [r7, #12]
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 8
+
+
+ 243 003c 5A68     		ldr	r2, [r3, #4]
+ 244 003e 3B68     		ldr	r3, [r7]
+ 245 0040 5A60     		str	r2, [r3, #4]
+ 158:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pxNext->pxPrevious = pxNewListItem;
+ 246              		.loc 1 158 0
+ 247 0042 3B68     		ldr	r3, [r7]
+ 248 0044 5B68     		ldr	r3, [r3, #4]
+ 249 0046 3A68     		ldr	r2, [r7]
+ 250 0048 9A60     		str	r2, [r3, #8]
+ 159:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pxPrevious = pxIterator;
+ 251              		.loc 1 159 0
+ 252 004a 3B68     		ldr	r3, [r7]
+ 253 004c FA68     		ldr	r2, [r7, #12]
+ 254 004e 9A60     		str	r2, [r3, #8]
+ 160:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxIterator->pxNext = pxNewListItem;
+ 255              		.loc 1 160 0
+ 256 0050 FB68     		ldr	r3, [r7, #12]
+ 257 0052 3A68     		ldr	r2, [r7]
+ 258 0054 5A60     		str	r2, [r3, #4]
+ 161:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 162:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Remember which list the item is in.  This allows fast removal of the
+ 163:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	item later. */
+ 164:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxNewListItem->pvContainer = ( void * ) pxList;
+ 259              		.loc 1 164 0
+ 260 0056 3B68     		ldr	r3, [r7]
+ 261 0058 7A68     		ldr	r2, [r7, #4]
+ 262 005a 1A61     		str	r2, [r3, #16]
+ 165:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 166:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	( pxList->uxNumberOfItems )++;
+ 263              		.loc 1 166 0
+ 264 005c 7B68     		ldr	r3, [r7, #4]
+ 265 005e 1B68     		ldr	r3, [r3]
+ 266 0060 5A1C     		adds	r2, r3, #1
+ 267 0062 7B68     		ldr	r3, [r7, #4]
+ 268 0064 1A60     		str	r2, [r3]
+ 167:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** }
+ 269              		.loc 1 167 0
+ 270 0066 00BF     		nop
+ 271 0068 1437     		adds	r7, r7, #20
+ 272              		.cfi_def_cfa_offset 4
+ 273 006a BD46     		mov	sp, r7
+ 274              		.cfi_def_cfa_register 13
+ 275              		@ sp needed
+ 276 006c 5DF8047B 		ldr	r7, [sp], #4
+ 277              		.cfi_restore 7
+ 278              		.cfi_def_cfa_offset 0
+ 279 0070 7047     		bx	lr
+ 280              		.cfi_endproc
+ 281              	.LFE139:
+ 282              		.size	vListInsert, .-vListInsert
+ 283 0072 00BF     		.section	.text.uxListRemove,"ax",%progbits
+ 284              		.align	2
+ 285              		.global	uxListRemove
+ 286              		.thumb
+ 287              		.thumb_func
+ 288              		.type	uxListRemove, %function
+ 289              	uxListRemove:
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 9
+
+
+ 290              	.LFB140:
+ 168:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /*-----------------------------------------------------------*/
+ 169:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 170:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** UBaseType_t uxListRemove( ListItem_t * const pxItemToRemove )
+ 171:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** {
+ 291              		.loc 1 171 0
+ 292              		.cfi_startproc
+ 293              		@ args = 0, pretend = 0, frame = 16
+ 294              		@ frame_needed = 1, uses_anonymous_args = 0
+ 295              		@ link register save eliminated.
+ 296 0000 80B4     		push	{r7}
+ 297              		.cfi_def_cfa_offset 4
+ 298              		.cfi_offset 7, -4
+ 299 0002 85B0     		sub	sp, sp, #20
+ 300              		.cfi_def_cfa_offset 24
+ 301 0004 00AF     		add	r7, sp, #0
+ 302              		.cfi_def_cfa_register 7
+ 303 0006 7860     		str	r0, [r7, #4]
+ 172:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** /* The list item knows which list it is in.  Obtain the list from the list
+ 173:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** item. */
+ 174:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** List_t * const pxList = ( List_t * ) pxItemToRemove->pvContainer;
+ 304              		.loc 1 174 0
+ 305 0008 7B68     		ldr	r3, [r7, #4]
+ 306 000a 1B69     		ldr	r3, [r3, #16]
+ 307 000c FB60     		str	r3, [r7, #12]
+ 175:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 176:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxItemToRemove->pxNext->pxPrevious = pxItemToRemove->pxPrevious;
+ 308              		.loc 1 176 0
+ 309 000e 7B68     		ldr	r3, [r7, #4]
+ 310 0010 5B68     		ldr	r3, [r3, #4]
+ 311 0012 7A68     		ldr	r2, [r7, #4]
+ 312 0014 9268     		ldr	r2, [r2, #8]
+ 313 0016 9A60     		str	r2, [r3, #8]
+ 177:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxItemToRemove->pxPrevious->pxNext = pxItemToRemove->pxNext;
+ 314              		.loc 1 177 0
+ 315 0018 7B68     		ldr	r3, [r7, #4]
+ 316 001a 9B68     		ldr	r3, [r3, #8]
+ 317 001c 7A68     		ldr	r2, [r7, #4]
+ 318 001e 5268     		ldr	r2, [r2, #4]
+ 319 0020 5A60     		str	r2, [r3, #4]
+ 178:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 179:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Only used during decision coverage testing. */
+ 180:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	mtCOVERAGE_TEST_DELAY();
+ 181:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 182:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	/* Make sure the index is left pointing to a valid item. */
+ 183:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	if( pxList->pxIndex == pxItemToRemove )
+ 320              		.loc 1 183 0
+ 321 0022 FB68     		ldr	r3, [r7, #12]
+ 322 0024 5A68     		ldr	r2, [r3, #4]
+ 323 0026 7B68     		ldr	r3, [r7, #4]
+ 324 0028 9A42     		cmp	r2, r3
+ 325 002a 03D1     		bne	.L10
+ 184:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	{
+ 185:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		pxList->pxIndex = pxItemToRemove->pxPrevious;
+ 326              		.loc 1 185 0
+ 327 002c 7B68     		ldr	r3, [r7, #4]
+ 328 002e 9A68     		ldr	r2, [r3, #8]
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 10
+
+
+ 329 0030 FB68     		ldr	r3, [r7, #12]
+ 330 0032 5A60     		str	r2, [r3, #4]
+ 331              	.L10:
+ 186:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	}
+ 187:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	else
+ 188:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	{
+ 189:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 		mtCOVERAGE_TEST_MARKER();
+ 190:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	}
+ 191:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 192:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	pxItemToRemove->pvContainer = NULL;
+ 332              		.loc 1 192 0
+ 333 0034 7B68     		ldr	r3, [r7, #4]
+ 334 0036 0022     		movs	r2, #0
+ 335 0038 1A61     		str	r2, [r3, #16]
+ 193:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	( pxList->uxNumberOfItems )--;
+ 336              		.loc 1 193 0
+ 337 003a FB68     		ldr	r3, [r7, #12]
+ 338 003c 1B68     		ldr	r3, [r3]
+ 339 003e 5A1E     		subs	r2, r3, #1
+ 340 0040 FB68     		ldr	r3, [r7, #12]
+ 341 0042 1A60     		str	r2, [r3]
+ 194:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 
+ 195:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** 	return pxList->uxNumberOfItems;
+ 342              		.loc 1 195 0
+ 343 0044 FB68     		ldr	r3, [r7, #12]
+ 344 0046 1B68     		ldr	r3, [r3]
+ 196:Generated_Source\PSoC6\pdl\rtos\FreeRTOS\10.0.1\Source/list.c **** }
+ 345              		.loc 1 196 0
+ 346 0048 1846     		mov	r0, r3
+ 347 004a 1437     		adds	r7, r7, #20
+ 348              		.cfi_def_cfa_offset 4
+ 349 004c BD46     		mov	sp, r7
+ 350              		.cfi_def_cfa_register 13
+ 351              		@ sp needed
+ 352 004e 5DF8047B 		ldr	r7, [sp], #4
+ 353              		.cfi_restore 7
+ 354              		.cfi_def_cfa_offset 0
+ 355 0052 7047     		bx	lr
+ 356              		.cfi_endproc
+ 357              	.LFE140:
+ 358              		.size	uxListRemove, .-uxListRemove
+ 359              		.text
+ 360              	.Letext0:
+ 361              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 362              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 363              		.file 4 "Generated_Source\\PSoC6\\pdl\\rtos/FreeRTOS/10.0.1/Source/portable/GCC/CM4F/portmacro.h"
+ 364              		.file 5 "Generated_Source\\PSoC6\\pdl\\rtos/FreeRTOS/10.0.1/Source/include/list.h"
+ 365              		.file 6 "Generated_Source\\PSoC6\\pdl\\cmsis/include/core_cm4.h"
+ 366              		.section	.debug_info,"",%progbits
+ 367              	.Ldebug_info0:
+ 368 0000 DE020000 		.4byte	0x2de
+ 369 0004 0400     		.2byte	0x4
+ 370 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 371 000a 04       		.byte	0x4
+ 372 000b 01       		.uleb128 0x1
+ 373 000c BE000000 		.4byte	.LASF44
+ 374 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 11
+
+
+ 375 0011 00020000 		.4byte	.LASF45
+ 376 0015 8B020000 		.4byte	.LASF46
+ 377 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 378 001d 00000000 		.4byte	0
+ 379 0021 00000000 		.4byte	.Ldebug_line0
+ 380 0025 02       		.uleb128 0x2
+ 381 0026 04       		.byte	0x4
+ 382 0027 07       		.byte	0x7
+ 383 0028 CA010000 		.4byte	.LASF0
+ 384 002c 03       		.uleb128 0x3
+ 385 002d 04       		.byte	0x4
+ 386 002e 05       		.byte	0x5
+ 387 002f 696E7400 		.ascii	"int\000"
+ 388 0033 02       		.uleb128 0x2
+ 389 0034 08       		.byte	0x8
+ 390 0035 05       		.byte	0x5
+ 391 0036 6D020000 		.4byte	.LASF1
+ 392 003a 02       		.uleb128 0x2
+ 393 003b 08       		.byte	0x8
+ 394 003c 04       		.byte	0x4
+ 395 003d E3020000 		.4byte	.LASF2
+ 396 0041 02       		.uleb128 0x2
+ 397 0042 01       		.byte	0x1
+ 398 0043 06       		.byte	0x6
+ 399 0044 FF020000 		.4byte	.LASF3
+ 400 0048 02       		.uleb128 0x2
+ 401 0049 01       		.byte	0x1
+ 402 004a 08       		.byte	0x8
+ 403 004b 7C000000 		.4byte	.LASF4
+ 404 004f 02       		.uleb128 0x2
+ 405 0050 02       		.byte	0x2
+ 406 0051 05       		.byte	0x5
+ 407 0052 BC020000 		.4byte	.LASF5
+ 408 0056 02       		.uleb128 0x2
+ 409 0057 02       		.byte	0x2
+ 410 0058 07       		.byte	0x7
+ 411 0059 AB000000 		.4byte	.LASF6
+ 412 005d 04       		.uleb128 0x4
+ 413 005e 2E000000 		.4byte	.LASF8
+ 414 0062 02       		.byte	0x2
+ 415 0063 3F       		.byte	0x3f
+ 416 0064 68000000 		.4byte	0x68
+ 417 0068 02       		.uleb128 0x2
+ 418 0069 04       		.byte	0x4
+ 419 006a 05       		.byte	0x5
+ 420 006b DA020000 		.4byte	.LASF7
+ 421 006f 04       		.uleb128 0x4
+ 422 0070 A0010000 		.4byte	.LASF9
+ 423 0074 02       		.byte	0x2
+ 424 0075 41       		.byte	0x41
+ 425 0076 7A000000 		.4byte	0x7a
+ 426 007a 02       		.uleb128 0x2
+ 427 007b 04       		.byte	0x4
+ 428 007c 07       		.byte	0x7
+ 429 007d 8A000000 		.4byte	.LASF10
+ 430 0081 02       		.uleb128 0x2
+ 431 0082 08       		.byte	0x8
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 12
+
+
+ 432 0083 07       		.byte	0x7
+ 433 0084 65000000 		.4byte	.LASF11
+ 434 0088 02       		.uleb128 0x2
+ 435 0089 04       		.byte	0x4
+ 436 008a 07       		.byte	0x7
+ 437 008b 64020000 		.4byte	.LASF12
+ 438 008f 05       		.uleb128 0x5
+ 439 0090 04       		.byte	0x4
+ 440 0091 02       		.uleb128 0x2
+ 441 0092 01       		.byte	0x1
+ 442 0093 08       		.byte	0x8
+ 443 0094 7B020000 		.4byte	.LASF13
+ 444 0098 04       		.uleb128 0x4
+ 445 0099 5C020000 		.4byte	.LASF14
+ 446 009d 03       		.byte	0x3
+ 447 009e 2C       		.byte	0x2c
+ 448 009f 5D000000 		.4byte	0x5d
+ 449 00a3 04       		.uleb128 0x4
+ 450 00a4 D1020000 		.4byte	.LASF15
+ 451 00a8 03       		.byte	0x3
+ 452 00a9 30       		.byte	0x30
+ 453 00aa 6F000000 		.4byte	0x6f
+ 454 00ae 02       		.uleb128 0x2
+ 455 00af 04       		.byte	0x4
+ 456 00b0 04       		.byte	0x4
+ 457 00b1 5F000000 		.4byte	.LASF16
+ 458 00b5 02       		.uleb128 0x2
+ 459 00b6 08       		.byte	0x8
+ 460 00b7 04       		.byte	0x4
+ 461 00b8 99010000 		.4byte	.LASF17
+ 462 00bc 04       		.uleb128 0x4
+ 463 00bd 45020000 		.4byte	.LASF18
+ 464 00c1 04       		.byte	0x4
+ 465 00c2 39       		.byte	0x39
+ 466 00c3 7A000000 		.4byte	0x7a
+ 467 00c7 04       		.uleb128 0x4
+ 468 00c8 00000000 		.4byte	.LASF19
+ 469 00cc 04       		.byte	0x4
+ 470 00cd 3F       		.byte	0x3f
+ 471 00ce A3000000 		.4byte	0xa3
+ 472 00d2 06       		.uleb128 0x6
+ 473 00d3 54000000 		.4byte	.LASF26
+ 474 00d7 14       		.byte	0x14
+ 475 00d8 05       		.byte	0x5
+ 476 00d9 8B       		.byte	0x8b
+ 477 00da 1B010000 		.4byte	0x11b
+ 478 00de 07       		.uleb128 0x7
+ 479 00df 38000000 		.4byte	.LASF20
+ 480 00e3 05       		.byte	0x5
+ 481 00e4 8E       		.byte	0x8e
+ 482 00e5 C7000000 		.4byte	0xc7
+ 483 00e9 00       		.byte	0
+ 484 00ea 07       		.uleb128 0x7
+ 485 00eb F9010000 		.4byte	.LASF21
+ 486 00ef 05       		.byte	0x5
+ 487 00f0 8F       		.byte	0x8f
+ 488 00f1 1B010000 		.4byte	0x11b
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 13
+
+
+ 489 00f5 04       		.byte	0x4
+ 490 00f6 07       		.uleb128 0x7
+ 491 00f7 C6020000 		.4byte	.LASF22
+ 492 00fb 05       		.byte	0x5
+ 493 00fc 90       		.byte	0x90
+ 494 00fd 1B010000 		.4byte	0x11b
+ 495 0101 08       		.byte	0x8
+ 496 0102 07       		.uleb128 0x7
+ 497 0103 4C000000 		.4byte	.LASF23
+ 498 0107 05       		.byte	0x5
+ 499 0108 91       		.byte	0x91
+ 500 0109 8F000000 		.4byte	0x8f
+ 501 010d 0C       		.byte	0xc
+ 502 010e 07       		.uleb128 0x7
+ 503 010f 0B000000 		.4byte	.LASF24
+ 504 0113 05       		.byte	0x5
+ 505 0114 92       		.byte	0x92
+ 506 0115 8F000000 		.4byte	0x8f
+ 507 0119 10       		.byte	0x10
+ 508 011a 00       		.byte	0
+ 509 011b 08       		.uleb128 0x8
+ 510 011c 04       		.byte	0x4
+ 511 011d D2000000 		.4byte	0xd2
+ 512 0121 04       		.uleb128 0x4
+ 513 0122 51020000 		.4byte	.LASF25
+ 514 0126 05       		.byte	0x5
+ 515 0127 95       		.byte	0x95
+ 516 0128 D2000000 		.4byte	0xd2
+ 517 012c 06       		.uleb128 0x6
+ 518 012d EF020000 		.4byte	.LASF27
+ 519 0131 0C       		.byte	0xc
+ 520 0132 05       		.byte	0x5
+ 521 0133 97       		.byte	0x97
+ 522 0134 5D010000 		.4byte	0x15d
+ 523 0138 07       		.uleb128 0x7
+ 524 0139 38000000 		.4byte	.LASF20
+ 525 013d 05       		.byte	0x5
+ 526 013e 9A       		.byte	0x9a
+ 527 013f C7000000 		.4byte	0xc7
+ 528 0143 00       		.byte	0
+ 529 0144 07       		.uleb128 0x7
+ 530 0145 F9010000 		.4byte	.LASF21
+ 531 0149 05       		.byte	0x5
+ 532 014a 9B       		.byte	0x9b
+ 533 014b 1B010000 		.4byte	0x11b
+ 534 014f 04       		.byte	0x4
+ 535 0150 07       		.uleb128 0x7
+ 536 0151 C6020000 		.4byte	.LASF22
+ 537 0155 05       		.byte	0x5
+ 538 0156 9C       		.byte	0x9c
+ 539 0157 1B010000 		.4byte	0x11b
+ 540 015b 08       		.byte	0x8
+ 541 015c 00       		.byte	0
+ 542 015d 04       		.uleb128 0x4
+ 543 015e 1F000000 		.4byte	.LASF28
+ 544 0162 05       		.byte	0x5
+ 545 0163 9E       		.byte	0x9e
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 14
+
+
+ 546 0164 2C010000 		.4byte	0x12c
+ 547 0168 06       		.uleb128 0x6
+ 548 0169 12030000 		.4byte	.LASF29
+ 549 016d 14       		.byte	0x14
+ 550 016e 05       		.byte	0x5
+ 551 016f A3       		.byte	0xa3
+ 552 0170 99010000 		.4byte	0x199
+ 553 0174 07       		.uleb128 0x7
+ 554 0175 AB010000 		.4byte	.LASF30
+ 555 0179 05       		.byte	0x5
+ 556 017a A6       		.byte	0xa6
+ 557 017b 99010000 		.4byte	0x199
+ 558 017f 00       		.byte	0
+ 559 0180 07       		.uleb128 0x7
+ 560 0181 17000000 		.4byte	.LASF31
+ 561 0185 05       		.byte	0x5
+ 562 0186 A7       		.byte	0xa7
+ 563 0187 9E010000 		.4byte	0x19e
+ 564 018b 04       		.byte	0x4
+ 565 018c 07       		.uleb128 0x7
+ 566 018d 43000000 		.4byte	.LASF32
+ 567 0191 05       		.byte	0x5
+ 568 0192 A8       		.byte	0xa8
+ 569 0193 5D010000 		.4byte	0x15d
+ 570 0197 08       		.byte	0x8
+ 571 0198 00       		.byte	0
+ 572 0199 09       		.uleb128 0x9
+ 573 019a BC000000 		.4byte	0xbc
+ 574 019e 08       		.uleb128 0x8
+ 575 019f 04       		.byte	0x4
+ 576 01a0 21010000 		.4byte	0x121
+ 577 01a4 04       		.uleb128 0x4
+ 578 01a5 92010000 		.4byte	.LASF33
+ 579 01a9 05       		.byte	0x5
+ 580 01aa AA       		.byte	0xaa
+ 581 01ab 68010000 		.4byte	0x168
+ 582 01af 0A       		.uleb128 0xa
+ 583 01b0 D7010000 		.4byte	.LASF34
+ 584 01b4 01       		.byte	0x1
+ 585 01b5 25       		.byte	0x25
+ 586 01b6 00000000 		.4byte	.LFB136
+ 587 01ba 40000000 		.4byte	.LFE136-.LFB136
+ 588 01be 01       		.uleb128 0x1
+ 589 01bf 9C       		.byte	0x9c
+ 590 01c0 D3010000 		.4byte	0x1d3
+ 591 01c4 0B       		.uleb128 0xb
+ 592 01c5 0B030000 		.4byte	.LASF36
+ 593 01c9 01       		.byte	0x1
+ 594 01ca 25       		.byte	0x25
+ 595 01cb D9010000 		.4byte	0x1d9
+ 596 01cf 02       		.uleb128 0x2
+ 597 01d0 91       		.byte	0x91
+ 598 01d1 74       		.sleb128 -12
+ 599 01d2 00       		.byte	0
+ 600 01d3 08       		.uleb128 0x8
+ 601 01d4 04       		.byte	0x4
+ 602 01d5 A4010000 		.4byte	0x1a4
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 15
+
+
+ 603 01d9 0C       		.uleb128 0xc
+ 604 01da D3010000 		.4byte	0x1d3
+ 605 01de 0A       		.uleb128 0xa
+ 606 01df 7E010000 		.4byte	.LASF35
+ 607 01e3 01       		.byte	0x1
+ 608 01e4 3E       		.byte	0x3e
+ 609 01e5 00000000 		.4byte	.LFB137
+ 610 01e9 1A000000 		.4byte	.LFE137-.LFB137
+ 611 01ed 01       		.uleb128 0x1
+ 612 01ee 9C       		.byte	0x9c
+ 613 01ef 02020000 		.4byte	0x202
+ 614 01f3 0B       		.uleb128 0xb
+ 615 01f4 3E020000 		.4byte	.LASF37
+ 616 01f8 01       		.byte	0x1
+ 617 01f9 3E       		.byte	0x3e
+ 618 01fa 02020000 		.4byte	0x202
+ 619 01fe 02       		.uleb128 0x2
+ 620 01ff 91       		.byte	0x91
+ 621 0200 74       		.sleb128 -12
+ 622 0201 00       		.byte	0
+ 623 0202 0C       		.uleb128 0xc
+ 624 0203 9E010000 		.4byte	0x19e
+ 625 0207 0A       		.uleb128 0xa
+ 626 0208 BB010000 		.4byte	.LASF38
+ 627 020c 01       		.byte	0x1
+ 628 020d 4A       		.byte	0x4a
+ 629 020e 00000000 		.4byte	.LFB138
+ 630 0212 48000000 		.4byte	.LFE138-.LFB138
+ 631 0216 01       		.uleb128 0x1
+ 632 0217 9C       		.byte	0x9c
+ 633 0218 47020000 		.4byte	0x247
+ 634 021c 0B       		.uleb128 0xb
+ 635 021d 0B030000 		.4byte	.LASF36
+ 636 0221 01       		.byte	0x1
+ 637 0222 4A       		.byte	0x4a
+ 638 0223 D9010000 		.4byte	0x1d9
+ 639 0227 02       		.uleb128 0x2
+ 640 0228 91       		.byte	0x91
+ 641 0229 6C       		.sleb128 -20
+ 642 022a 0B       		.uleb128 0xb
+ 643 022b 25030000 		.4byte	.LASF39
+ 644 022f 01       		.byte	0x1
+ 645 0230 4A       		.byte	0x4a
+ 646 0231 02020000 		.4byte	0x202
+ 647 0235 02       		.uleb128 0x2
+ 648 0236 91       		.byte	0x91
+ 649 0237 68       		.sleb128 -24
+ 650 0238 0D       		.uleb128 0xd
+ 651 0239 17000000 		.4byte	.LASF31
+ 652 023d 01       		.byte	0x1
+ 653 023e 4C       		.byte	0x4c
+ 654 023f 02020000 		.4byte	0x202
+ 655 0243 02       		.uleb128 0x2
+ 656 0244 91       		.byte	0x91
+ 657 0245 74       		.sleb128 -12
+ 658 0246 00       		.byte	0
+ 659 0247 0A       		.uleb128 0xa
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 16
+
+
+ 660 0248 33030000 		.4byte	.LASF40
+ 661 024c 01       		.byte	0x1
+ 662 024d 67       		.byte	0x67
+ 663 024e 00000000 		.4byte	.LFB139
+ 664 0252 72000000 		.4byte	.LFE139-.LFB139
+ 665 0256 01       		.uleb128 0x1
+ 666 0257 9C       		.byte	0x9c
+ 667 0258 95020000 		.4byte	0x295
+ 668 025c 0B       		.uleb128 0xb
+ 669 025d 0B030000 		.4byte	.LASF36
+ 670 0261 01       		.byte	0x1
+ 671 0262 67       		.byte	0x67
+ 672 0263 D9010000 		.4byte	0x1d9
+ 673 0267 02       		.uleb128 0x2
+ 674 0268 91       		.byte	0x91
+ 675 0269 6C       		.sleb128 -20
+ 676 026a 0B       		.uleb128 0xb
+ 677 026b 25030000 		.4byte	.LASF39
+ 678 026f 01       		.byte	0x1
+ 679 0270 67       		.byte	0x67
+ 680 0271 02020000 		.4byte	0x202
+ 681 0275 02       		.uleb128 0x2
+ 682 0276 91       		.byte	0x91
+ 683 0277 68       		.sleb128 -24
+ 684 0278 0D       		.uleb128 0xd
+ 685 0279 80020000 		.4byte	.LASF41
+ 686 027d 01       		.byte	0x1
+ 687 027e 69       		.byte	0x69
+ 688 027f 9E010000 		.4byte	0x19e
+ 689 0283 02       		.uleb128 0x2
+ 690 0284 91       		.byte	0x91
+ 691 0285 74       		.sleb128 -12
+ 692 0286 0D       		.uleb128 0xd
+ 693 0287 E7010000 		.4byte	.LASF42
+ 694 028b 01       		.byte	0x1
+ 695 028c 6A       		.byte	0x6a
+ 696 028d 95020000 		.4byte	0x295
+ 697 0291 02       		.uleb128 0x2
+ 698 0292 91       		.byte	0x91
+ 699 0293 70       		.sleb128 -16
+ 700 0294 00       		.byte	0
+ 701 0295 0C       		.uleb128 0xc
+ 702 0296 C7000000 		.4byte	0xc7
+ 703 029a 0E       		.uleb128 0xe
+ 704 029b 18030000 		.4byte	.LASF47
+ 705 029f 01       		.byte	0x1
+ 706 02a0 AA       		.byte	0xaa
+ 707 02a1 BC000000 		.4byte	0xbc
+ 708 02a5 00000000 		.4byte	.LFB140
+ 709 02a9 54000000 		.4byte	.LFE140-.LFB140
+ 710 02ad 01       		.uleb128 0x1
+ 711 02ae 9C       		.byte	0x9c
+ 712 02af D0020000 		.4byte	0x2d0
+ 713 02b3 0B       		.uleb128 0xb
+ 714 02b4 9C000000 		.4byte	.LASF43
+ 715 02b8 01       		.byte	0x1
+ 716 02b9 AA       		.byte	0xaa
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 17
+
+
+ 717 02ba 02020000 		.4byte	0x202
+ 718 02be 02       		.uleb128 0x2
+ 719 02bf 91       		.byte	0x91
+ 720 02c0 6C       		.sleb128 -20
+ 721 02c1 0D       		.uleb128 0xd
+ 722 02c2 0B030000 		.4byte	.LASF36
+ 723 02c6 01       		.byte	0x1
+ 724 02c7 AE       		.byte	0xae
+ 725 02c8 D9010000 		.4byte	0x1d9
+ 726 02cc 02       		.uleb128 0x2
+ 727 02cd 91       		.byte	0x91
+ 728 02ce 74       		.sleb128 -12
+ 729 02cf 00       		.byte	0
+ 730 02d0 0F       		.uleb128 0xf
+ 731 02d1 71010000 		.4byte	.LASF48
+ 732 02d5 06       		.byte	0x6
+ 733 02d6 F907     		.2byte	0x7f9
+ 734 02d8 DC020000 		.4byte	0x2dc
+ 735 02dc 09       		.uleb128 0x9
+ 736 02dd 98000000 		.4byte	0x98
+ 737 02e1 00       		.byte	0
+ 738              		.section	.debug_abbrev,"",%progbits
+ 739              	.Ldebug_abbrev0:
+ 740 0000 01       		.uleb128 0x1
+ 741 0001 11       		.uleb128 0x11
+ 742 0002 01       		.byte	0x1
+ 743 0003 25       		.uleb128 0x25
+ 744 0004 0E       		.uleb128 0xe
+ 745 0005 13       		.uleb128 0x13
+ 746 0006 0B       		.uleb128 0xb
+ 747 0007 03       		.uleb128 0x3
+ 748 0008 0E       		.uleb128 0xe
+ 749 0009 1B       		.uleb128 0x1b
+ 750 000a 0E       		.uleb128 0xe
+ 751 000b 55       		.uleb128 0x55
+ 752 000c 17       		.uleb128 0x17
+ 753 000d 11       		.uleb128 0x11
+ 754 000e 01       		.uleb128 0x1
+ 755 000f 10       		.uleb128 0x10
+ 756 0010 17       		.uleb128 0x17
+ 757 0011 00       		.byte	0
+ 758 0012 00       		.byte	0
+ 759 0013 02       		.uleb128 0x2
+ 760 0014 24       		.uleb128 0x24
+ 761 0015 00       		.byte	0
+ 762 0016 0B       		.uleb128 0xb
+ 763 0017 0B       		.uleb128 0xb
+ 764 0018 3E       		.uleb128 0x3e
+ 765 0019 0B       		.uleb128 0xb
+ 766 001a 03       		.uleb128 0x3
+ 767 001b 0E       		.uleb128 0xe
+ 768 001c 00       		.byte	0
+ 769 001d 00       		.byte	0
+ 770 001e 03       		.uleb128 0x3
+ 771 001f 24       		.uleb128 0x24
+ 772 0020 00       		.byte	0
+ 773 0021 0B       		.uleb128 0xb
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 18
+
+
+ 774 0022 0B       		.uleb128 0xb
+ 775 0023 3E       		.uleb128 0x3e
+ 776 0024 0B       		.uleb128 0xb
+ 777 0025 03       		.uleb128 0x3
+ 778 0026 08       		.uleb128 0x8
+ 779 0027 00       		.byte	0
+ 780 0028 00       		.byte	0
+ 781 0029 04       		.uleb128 0x4
+ 782 002a 16       		.uleb128 0x16
+ 783 002b 00       		.byte	0
+ 784 002c 03       		.uleb128 0x3
+ 785 002d 0E       		.uleb128 0xe
+ 786 002e 3A       		.uleb128 0x3a
+ 787 002f 0B       		.uleb128 0xb
+ 788 0030 3B       		.uleb128 0x3b
+ 789 0031 0B       		.uleb128 0xb
+ 790 0032 49       		.uleb128 0x49
+ 791 0033 13       		.uleb128 0x13
+ 792 0034 00       		.byte	0
+ 793 0035 00       		.byte	0
+ 794 0036 05       		.uleb128 0x5
+ 795 0037 0F       		.uleb128 0xf
+ 796 0038 00       		.byte	0
+ 797 0039 0B       		.uleb128 0xb
+ 798 003a 0B       		.uleb128 0xb
+ 799 003b 00       		.byte	0
+ 800 003c 00       		.byte	0
+ 801 003d 06       		.uleb128 0x6
+ 802 003e 13       		.uleb128 0x13
+ 803 003f 01       		.byte	0x1
+ 804 0040 03       		.uleb128 0x3
+ 805 0041 0E       		.uleb128 0xe
+ 806 0042 0B       		.uleb128 0xb
+ 807 0043 0B       		.uleb128 0xb
+ 808 0044 3A       		.uleb128 0x3a
+ 809 0045 0B       		.uleb128 0xb
+ 810 0046 3B       		.uleb128 0x3b
+ 811 0047 0B       		.uleb128 0xb
+ 812 0048 01       		.uleb128 0x1
+ 813 0049 13       		.uleb128 0x13
+ 814 004a 00       		.byte	0
+ 815 004b 00       		.byte	0
+ 816 004c 07       		.uleb128 0x7
+ 817 004d 0D       		.uleb128 0xd
+ 818 004e 00       		.byte	0
+ 819 004f 03       		.uleb128 0x3
+ 820 0050 0E       		.uleb128 0xe
+ 821 0051 3A       		.uleb128 0x3a
+ 822 0052 0B       		.uleb128 0xb
+ 823 0053 3B       		.uleb128 0x3b
+ 824 0054 0B       		.uleb128 0xb
+ 825 0055 49       		.uleb128 0x49
+ 826 0056 13       		.uleb128 0x13
+ 827 0057 38       		.uleb128 0x38
+ 828 0058 0B       		.uleb128 0xb
+ 829 0059 00       		.byte	0
+ 830 005a 00       		.byte	0
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 19
+
+
+ 831 005b 08       		.uleb128 0x8
+ 832 005c 0F       		.uleb128 0xf
+ 833 005d 00       		.byte	0
+ 834 005e 0B       		.uleb128 0xb
+ 835 005f 0B       		.uleb128 0xb
+ 836 0060 49       		.uleb128 0x49
+ 837 0061 13       		.uleb128 0x13
+ 838 0062 00       		.byte	0
+ 839 0063 00       		.byte	0
+ 840 0064 09       		.uleb128 0x9
+ 841 0065 35       		.uleb128 0x35
+ 842 0066 00       		.byte	0
+ 843 0067 49       		.uleb128 0x49
+ 844 0068 13       		.uleb128 0x13
+ 845 0069 00       		.byte	0
+ 846 006a 00       		.byte	0
+ 847 006b 0A       		.uleb128 0xa
+ 848 006c 2E       		.uleb128 0x2e
+ 849 006d 01       		.byte	0x1
+ 850 006e 3F       		.uleb128 0x3f
+ 851 006f 19       		.uleb128 0x19
+ 852 0070 03       		.uleb128 0x3
+ 853 0071 0E       		.uleb128 0xe
+ 854 0072 3A       		.uleb128 0x3a
+ 855 0073 0B       		.uleb128 0xb
+ 856 0074 3B       		.uleb128 0x3b
+ 857 0075 0B       		.uleb128 0xb
+ 858 0076 27       		.uleb128 0x27
+ 859 0077 19       		.uleb128 0x19
+ 860 0078 11       		.uleb128 0x11
+ 861 0079 01       		.uleb128 0x1
+ 862 007a 12       		.uleb128 0x12
+ 863 007b 06       		.uleb128 0x6
+ 864 007c 40       		.uleb128 0x40
+ 865 007d 18       		.uleb128 0x18
+ 866 007e 9742     		.uleb128 0x2117
+ 867 0080 19       		.uleb128 0x19
+ 868 0081 01       		.uleb128 0x1
+ 869 0082 13       		.uleb128 0x13
+ 870 0083 00       		.byte	0
+ 871 0084 00       		.byte	0
+ 872 0085 0B       		.uleb128 0xb
+ 873 0086 05       		.uleb128 0x5
+ 874 0087 00       		.byte	0
+ 875 0088 03       		.uleb128 0x3
+ 876 0089 0E       		.uleb128 0xe
+ 877 008a 3A       		.uleb128 0x3a
+ 878 008b 0B       		.uleb128 0xb
+ 879 008c 3B       		.uleb128 0x3b
+ 880 008d 0B       		.uleb128 0xb
+ 881 008e 49       		.uleb128 0x49
+ 882 008f 13       		.uleb128 0x13
+ 883 0090 02       		.uleb128 0x2
+ 884 0091 18       		.uleb128 0x18
+ 885 0092 00       		.byte	0
+ 886 0093 00       		.byte	0
+ 887 0094 0C       		.uleb128 0xc
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 20
+
+
+ 888 0095 26       		.uleb128 0x26
+ 889 0096 00       		.byte	0
+ 890 0097 49       		.uleb128 0x49
+ 891 0098 13       		.uleb128 0x13
+ 892 0099 00       		.byte	0
+ 893 009a 00       		.byte	0
+ 894 009b 0D       		.uleb128 0xd
+ 895 009c 34       		.uleb128 0x34
+ 896 009d 00       		.byte	0
+ 897 009e 03       		.uleb128 0x3
+ 898 009f 0E       		.uleb128 0xe
+ 899 00a0 3A       		.uleb128 0x3a
+ 900 00a1 0B       		.uleb128 0xb
+ 901 00a2 3B       		.uleb128 0x3b
+ 902 00a3 0B       		.uleb128 0xb
+ 903 00a4 49       		.uleb128 0x49
+ 904 00a5 13       		.uleb128 0x13
+ 905 00a6 02       		.uleb128 0x2
+ 906 00a7 18       		.uleb128 0x18
+ 907 00a8 00       		.byte	0
+ 908 00a9 00       		.byte	0
+ 909 00aa 0E       		.uleb128 0xe
+ 910 00ab 2E       		.uleb128 0x2e
+ 911 00ac 01       		.byte	0x1
+ 912 00ad 3F       		.uleb128 0x3f
+ 913 00ae 19       		.uleb128 0x19
+ 914 00af 03       		.uleb128 0x3
+ 915 00b0 0E       		.uleb128 0xe
+ 916 00b1 3A       		.uleb128 0x3a
+ 917 00b2 0B       		.uleb128 0xb
+ 918 00b3 3B       		.uleb128 0x3b
+ 919 00b4 0B       		.uleb128 0xb
+ 920 00b5 27       		.uleb128 0x27
+ 921 00b6 19       		.uleb128 0x19
+ 922 00b7 49       		.uleb128 0x49
+ 923 00b8 13       		.uleb128 0x13
+ 924 00b9 11       		.uleb128 0x11
+ 925 00ba 01       		.uleb128 0x1
+ 926 00bb 12       		.uleb128 0x12
+ 927 00bc 06       		.uleb128 0x6
+ 928 00bd 40       		.uleb128 0x40
+ 929 00be 18       		.uleb128 0x18
+ 930 00bf 9742     		.uleb128 0x2117
+ 931 00c1 19       		.uleb128 0x19
+ 932 00c2 01       		.uleb128 0x1
+ 933 00c3 13       		.uleb128 0x13
+ 934 00c4 00       		.byte	0
+ 935 00c5 00       		.byte	0
+ 936 00c6 0F       		.uleb128 0xf
+ 937 00c7 34       		.uleb128 0x34
+ 938 00c8 00       		.byte	0
+ 939 00c9 03       		.uleb128 0x3
+ 940 00ca 0E       		.uleb128 0xe
+ 941 00cb 3A       		.uleb128 0x3a
+ 942 00cc 0B       		.uleb128 0xb
+ 943 00cd 3B       		.uleb128 0x3b
+ 944 00ce 05       		.uleb128 0x5
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 21
+
+
+ 945 00cf 49       		.uleb128 0x49
+ 946 00d0 13       		.uleb128 0x13
+ 947 00d1 3F       		.uleb128 0x3f
+ 948 00d2 19       		.uleb128 0x19
+ 949 00d3 3C       		.uleb128 0x3c
+ 950 00d4 19       		.uleb128 0x19
+ 951 00d5 00       		.byte	0
+ 952 00d6 00       		.byte	0
+ 953 00d7 00       		.byte	0
+ 954              		.section	.debug_aranges,"",%progbits
+ 955 0000 3C000000 		.4byte	0x3c
+ 956 0004 0200     		.2byte	0x2
+ 957 0006 00000000 		.4byte	.Ldebug_info0
+ 958 000a 04       		.byte	0x4
+ 959 000b 00       		.byte	0
+ 960 000c 0000     		.2byte	0
+ 961 000e 0000     		.2byte	0
+ 962 0010 00000000 		.4byte	.LFB136
+ 963 0014 40000000 		.4byte	.LFE136-.LFB136
+ 964 0018 00000000 		.4byte	.LFB137
+ 965 001c 1A000000 		.4byte	.LFE137-.LFB137
+ 966 0020 00000000 		.4byte	.LFB138
+ 967 0024 48000000 		.4byte	.LFE138-.LFB138
+ 968 0028 00000000 		.4byte	.LFB139
+ 969 002c 72000000 		.4byte	.LFE139-.LFB139
+ 970 0030 00000000 		.4byte	.LFB140
+ 971 0034 54000000 		.4byte	.LFE140-.LFB140
+ 972 0038 00000000 		.4byte	0
+ 973 003c 00000000 		.4byte	0
+ 974              		.section	.debug_ranges,"",%progbits
+ 975              	.Ldebug_ranges0:
+ 976 0000 00000000 		.4byte	.LFB136
+ 977 0004 40000000 		.4byte	.LFE136
+ 978 0008 00000000 		.4byte	.LFB137
+ 979 000c 1A000000 		.4byte	.LFE137
+ 980 0010 00000000 		.4byte	.LFB138
+ 981 0014 48000000 		.4byte	.LFE138
+ 982 0018 00000000 		.4byte	.LFB139
+ 983 001c 72000000 		.4byte	.LFE139
+ 984 0020 00000000 		.4byte	.LFB140
+ 985 0024 54000000 		.4byte	.LFE140
+ 986 0028 00000000 		.4byte	0
+ 987 002c 00000000 		.4byte	0
+ 988              		.section	.debug_line,"",%progbits
+ 989              	.Ldebug_line0:
+ 990 0000 B3020000 		.section	.debug_str,"MS",%progbits,1
+ 990      02002902 
+ 990      00000201 
+ 990      FB0E0D00 
+ 990      01010101 
+ 991              	.LASF19:
+ 992 0000 5469636B 		.ascii	"TickType_t\000"
+ 992      54797065 
+ 992      5F7400
+ 993              	.LASF24:
+ 994 000b 7076436F 		.ascii	"pvContainer\000"
+ 994      6E746169 
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 22
+
+
+ 994      6E657200 
+ 995              	.LASF31:
+ 996 0017 7078496E 		.ascii	"pxIndex\000"
+ 996      64657800 
+ 997              	.LASF28:
+ 998 001f 4D696E69 		.ascii	"MiniListItem_t\000"
+ 998      4C697374 
+ 998      4974656D 
+ 998      5F7400
+ 999              	.LASF8:
+ 1000 002e 5F5F696E 		.ascii	"__int32_t\000"
+ 1000      7433325F 
+ 1000      7400
+ 1001              	.LASF20:
+ 1002 0038 78497465 		.ascii	"xItemValue\000"
+ 1002      6D56616C 
+ 1002      756500
+ 1003              	.LASF32:
+ 1004 0043 784C6973 		.ascii	"xListEnd\000"
+ 1004      74456E64 
+ 1004      00
+ 1005              	.LASF23:
+ 1006 004c 70764F77 		.ascii	"pvOwner\000"
+ 1006      6E657200 
+ 1007              	.LASF26:
+ 1008 0054 784C4953 		.ascii	"xLIST_ITEM\000"
+ 1008      545F4954 
+ 1008      454D00
+ 1009              	.LASF16:
+ 1010 005f 666C6F61 		.ascii	"float\000"
+ 1010      7400
+ 1011              	.LASF11:
+ 1012 0065 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1012      206C6F6E 
+ 1012      6720756E 
+ 1012      7369676E 
+ 1012      65642069 
+ 1013              	.LASF4:
+ 1014 007c 756E7369 		.ascii	"unsigned char\000"
+ 1014      676E6564 
+ 1014      20636861 
+ 1014      7200
+ 1015              	.LASF10:
+ 1016 008a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1016      20756E73 
+ 1016      69676E65 
+ 1016      6420696E 
+ 1016      7400
+ 1017              	.LASF43:
+ 1018 009c 70784974 		.ascii	"pxItemToRemove\000"
+ 1018      656D546F 
+ 1018      52656D6F 
+ 1018      766500
+ 1019              	.LASF6:
+ 1020 00ab 73686F72 		.ascii	"short unsigned int\000"
+ 1020      7420756E 
+ 1020      7369676E 
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 23
+
+
+ 1020      65642069 
+ 1020      6E7400
+ 1021              	.LASF44:
+ 1022 00be 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1022      43313120 
+ 1022      352E342E 
+ 1022      31203230 
+ 1022      31363036 
+ 1023 00f1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 1023      20726576 
+ 1023      6973696F 
+ 1023      6E203233 
+ 1023      37373135 
+ 1024 0124 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -O0 -ffunction-s"
+ 1024      70202D6D 
+ 1024      6670753D 
+ 1024      66707634 
+ 1024      2D73702D 
+ 1025 0157 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 1025      6F6E7320 
+ 1025      2D666661 
+ 1025      742D6C74 
+ 1025      6F2D6F62 
+ 1026              	.LASF48:
+ 1027 0171 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1027      52784275 
+ 1027      66666572 
+ 1027      00
+ 1028              	.LASF35:
+ 1029 017e 764C6973 		.ascii	"vListInitialiseItem\000"
+ 1029      74496E69 
+ 1029      7469616C 
+ 1029      69736549 
+ 1029      74656D00 
+ 1030              	.LASF33:
+ 1031 0192 4C697374 		.ascii	"List_t\000"
+ 1031      5F7400
+ 1032              	.LASF17:
+ 1033 0199 646F7562 		.ascii	"double\000"
+ 1033      6C6500
+ 1034              	.LASF9:
+ 1035 01a0 5F5F7569 		.ascii	"__uint32_t\000"
+ 1035      6E743332 
+ 1035      5F7400
+ 1036              	.LASF30:
+ 1037 01ab 75784E75 		.ascii	"uxNumberOfItems\000"
+ 1037      6D626572 
+ 1037      4F664974 
+ 1037      656D7300 
+ 1038              	.LASF38:
+ 1039 01bb 764C6973 		.ascii	"vListInsertEnd\000"
+ 1039      74496E73 
+ 1039      65727445 
+ 1039      6E6400
+ 1040              	.LASF0:
+ 1041 01ca 756E7369 		.ascii	"unsigned int\000"
+ 1041      676E6564 
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 24
+
+
+ 1041      20696E74 
+ 1041      00
+ 1042              	.LASF34:
+ 1043 01d7 764C6973 		.ascii	"vListInitialise\000"
+ 1043      74496E69 
+ 1043      7469616C 
+ 1043      69736500 
+ 1044              	.LASF42:
+ 1045 01e7 7856616C 		.ascii	"xValueOfInsertion\000"
+ 1045      75654F66 
+ 1045      496E7365 
+ 1045      7274696F 
+ 1045      6E00
+ 1046              	.LASF21:
+ 1047 01f9 70784E65 		.ascii	"pxNext\000"
+ 1047      787400
+ 1048              	.LASF45:
+ 1049 0200 47656E65 		.ascii	"Generated_Source\\PSoC6\\pdl\\rtos\\FreeRTOS\\10.0."
+ 1049      72617465 
+ 1049      645F536F 
+ 1049      75726365 
+ 1049      5C50536F 
+ 1050 022e 315C536F 		.ascii	"1\\Source\\list.c\000"
+ 1050      75726365 
+ 1050      5C6C6973 
+ 1050      742E6300 
+ 1051              	.LASF37:
+ 1052 023e 70784974 		.ascii	"pxItem\000"
+ 1052      656D00
+ 1053              	.LASF18:
+ 1054 0245 55426173 		.ascii	"UBaseType_t\000"
+ 1054      65547970 
+ 1054      655F7400 
+ 1055              	.LASF25:
+ 1056 0251 4C697374 		.ascii	"ListItem_t\000"
+ 1056      4974656D 
+ 1056      5F7400
+ 1057              	.LASF14:
+ 1058 025c 696E7433 		.ascii	"int32_t\000"
+ 1058      325F7400 
+ 1059              	.LASF12:
+ 1060 0264 73697A65 		.ascii	"sizetype\000"
+ 1060      74797065 
+ 1060      00
+ 1061              	.LASF1:
+ 1062 026d 6C6F6E67 		.ascii	"long long int\000"
+ 1062      206C6F6E 
+ 1062      6720696E 
+ 1062      7400
+ 1063              	.LASF13:
+ 1064 027b 63686172 		.ascii	"char\000"
+ 1064      00
+ 1065              	.LASF41:
+ 1066 0280 70784974 		.ascii	"pxIterator\000"
+ 1066      65726174 
+ 1066      6F7200
+ 1067              	.LASF46:
+ARM GAS  C:\Users\jingyiwu\AppData\Local\Temp\cciYsWB8.s 			page 25
+
+
+ 1068 028b 5C5C4D61 		.ascii	"\\\\Mac\\Home\\Downloads\\PSOC_Project\\PSOC_PPG.cy"
+ 1068      635C486F 
+ 1068      6D655C44 
+ 1068      6F776E6C 
+ 1068      6F616473 
+ 1069 02b8 64736E00 		.ascii	"dsn\000"
+ 1070              	.LASF5:
+ 1071 02bc 73686F72 		.ascii	"short int\000"
+ 1071      7420696E 
+ 1071      7400
+ 1072              	.LASF22:
+ 1073 02c6 70785072 		.ascii	"pxPrevious\000"
+ 1073      6576696F 
+ 1073      757300
+ 1074              	.LASF15:
+ 1075 02d1 75696E74 		.ascii	"uint32_t\000"
+ 1075      33325F74 
+ 1075      00
+ 1076              	.LASF7:
+ 1077 02da 6C6F6E67 		.ascii	"long int\000"
+ 1077      20696E74 
+ 1077      00
+ 1078              	.LASF2:
+ 1079 02e3 6C6F6E67 		.ascii	"long double\000"
+ 1079      20646F75 
+ 1079      626C6500 
+ 1080              	.LASF27:
+ 1081 02ef 784D494E 		.ascii	"xMINI_LIST_ITEM\000"
+ 1081      495F4C49 
+ 1081      53545F49 
+ 1081      54454D00 
+ 1082              	.LASF3:
+ 1083 02ff 7369676E 		.ascii	"signed char\000"
+ 1083      65642063 
+ 1083      68617200 
+ 1084              	.LASF36:
+ 1085 030b 70784C69 		.ascii	"pxList\000"
+ 1085      737400
+ 1086              	.LASF29:
+ 1087 0312 784C4953 		.ascii	"xLIST\000"
+ 1087      5400
+ 1088              	.LASF47:
+ 1089 0318 75784C69 		.ascii	"uxListRemove\000"
+ 1089      73745265 
+ 1089      6D6F7665 
+ 1089      00
+ 1090              	.LASF39:
+ 1091 0325 70784E65 		.ascii	"pxNewListItem\000"
+ 1091      774C6973 
+ 1091      74497465 
+ 1091      6D00
+ 1092              	.LASF40:
+ 1093 0333 764C6973 		.ascii	"vListInsert\000"
+ 1093      74496E73 
+ 1093      65727400 
+ 1094              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
