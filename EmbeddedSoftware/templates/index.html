@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate and SpO2 Monitor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #data {
+            margin-bottom: 20px;
+        }
+        #chart-container {
+            width: 80%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="data">
+        <h1>Heart Rate: <span id="heart-rate">--</span> BPM</h1>
+        <h1>SpO2: <span id="spo2">--</span>%</h1>
+    </div>
+    <div id="chart-container">
+        <canvas id="heartRateChart"></canvas>
+    </div>
+
+    <script>
+        const socket = io();
+
+        const heartRateSpan = document.getElementById('heart-rate');
+        const spo2Span = document.getElementById('spo2');
+
+        const ctx = document.getElementById('heartRateChart').getContext('2d');
+        const heartRateChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Heart Rate',
+                    data: [],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        display: false
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Heart Rate (BPM)'
+                        }
+                    }
+                }
+            }
+        });
+
+        let lastValidHeartRate = null;
+
+        socket.on('connect', function() {
+            console.log('Connected to server');
+        });
+
+        socket.on('update_data', function (data) {
+            console.log('Received data:', data);
+            let heartRate = data.heart_rate;
+            const spo2 = data.spo2;
+
+            if (spo2 === 0) {
+                heartRate = 0;
+            } else if (heartRate === null) {
+                heartRate = lastValidHeartRate;
+            } else {
+                lastValidHeartRate = heartRate;
+            }
+
+            heartRateSpan.textContent = heartRate !== undefined ? heartRate : '--';
+            spo2Span.textContent = spo2 !== undefined ? spo2 : '--';
+
+            if (heartRate !== null) {
+                const now = new Date();
+                heartRateChart.data.labels.push(now);
+                heartRateChart.data.datasets[0].data.push(heartRate);
+
+                if (heartRateChart.data.labels.length > 20) {
+                    heartRateChart.data.labels.shift();
+                    heartRateChart.data.datasets[0].data.shift();
+                }
+
+                heartRateChart.update();
+            }
+        });
+    </script>
+</body>
+</html>
