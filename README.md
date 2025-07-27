@@ -51,23 +51,38 @@ def moving_average(data, window_size):
 ```
 
 ### Data processing
-`heart_rate = data[1] \n spo2 = data[2] `
-This is the "unpacking" of the raw BLE data.
-Byte 0: Flag bit 
-Byte 1: Heart rate value (BPM) 
-Byte 2: SpO2 value (% oxygen)
 
+BLE Bluetooth device pushes data → 
+ callback function is triggered → 
+ data parsing → 
+ sliding average → 
+ determines validity → 
+ sent to front-end page via WebSocket
+
+
+
+`heart_rate = data[1]`
+`spo2 = data[2] `
+This is the "unpacking" of the raw BLE data.
+- Byte 0: Flag bit 
+- Byte 1: Heart rate value 
+- Byte 2: SpO2 value 
+
+Add the currently read heart_rate to the deque cache we defined earlier. The purpose of the deque is to hold the last 5 heart rate values for smoothing purposes. Call the `moving_average()` function defined earlier to calculate a smoothed value for the current heart rate using the sliding average algorithm. 
+Sensors send back heart rate = 0 when they don't detect a signal (e.g. unsteady hand, abnormal red light reflection). Filter out such invalid values here to prevent the front-end from displaying a 0 or drawing an error line.
+
+`socketio.emit()` will take this dictionary {'heart_rate': ... , 'spo2': ...} to all connected clients on the frontend
+The front-end JS listens to the `update_data` event and receives this JSON data to update the chart.
 
 ```python
 def notification_handler(sender, data):
-    # 根据您的设备数据格式进行解析
+
     heart_rate = data[1]
     spo2 = data[2]
 
     heart_rate_buffer.append(heart_rate)
     smoothed_heart_rate = moving_average(heart_rate_buffer, MOVING_AVERAGE_WINDOW_SIZE)
 
-    # 只有在心率不为0时才更新到前端
     display_heart_rate = smoothed_heart_rate if heart_rate != 0 else None
 
     print(f"Received data: Heart Rate: {heart_rate}, Smoothed Heart Rate: {smoothed_heart_rate},spo2 : {spo2}, Raw Data: {data}")
