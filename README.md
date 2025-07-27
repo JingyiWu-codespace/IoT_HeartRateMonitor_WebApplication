@@ -111,3 +111,31 @@ async def run_ble_client():
         while True:
             await asyncio.sleep(10)
 ```
+## Launch
+`asyncio.set_event_loop(loop) `
+- sets the current thread's event loop to loop
+- must be set explicitly, because asyncio's event loop is thread-independent.
+- If you don't set it, running the loop in a sub-thread will result in an error: RuntimeError: There is no current event loop in thread
+
+`loop.run_until_complete(run_ble_client()) `
+- starts the asynchronous concatenation run_ble_client() and keeps it running in this thread (until manually interrupted)
+
+```python
+def start_ble_loop(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(run_ble_client())
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+```
+## main
+- Create an `asyncio` event loop `loop`
+- Start the BLE listener task with a new thread `start_ble_loop`
+- Must use threads to run asynchronous code for BLE. Running Flask in the main thread and BLE in a sub-thread enables concurrent communication + front-end access. `host='0.0.0.0'` Receive requests from any IP (can be accessed by the same LAN)
+- Starting Web Services
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    t = threading.Thread(target=start_ble_loop, args=(loop,))
+    t.start()
+    socketio.run(app, debug=True, host='0.0.0.0', port=5002)
