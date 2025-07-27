@@ -89,3 +89,25 @@ def notification_handler(sender, data):
     socketio.emit('update_data', {'heart_rate': display_heart_rate, 'spo2': spo2}, namespace='/')
     print("Data emitted to frontend")
 ```
+## BLE device connection
+The async def defines an asynchronous function that must be used with await.
+
+An asynchronous function means that it can be hung without blocking the main thread, and is intended to run BLE's asynchronous I/O operations.
+
+**BLE is an event-driven communication (notify), unlike traditional request-response. Can't write a dead loop to poll BLE, you have to wait for an event to occur with await.**
+
+This function handles the asynchronous connection to the BLE device using BleakClient. Inside the async with block, I initiate a notification subscription to the heart rate characteristic (UUID 0x2A37) using `await start_notify(...)`.
+
+Every time new data arrives, the registered notification_handler is triggered automatically.
+
+The while True: `await asyncio.sleep(10)` loop is simply to keep the coroutine alive without blocking since BLE notifications are event-driven, we don’t actively poll, just stay connected.
+
+
+
+```python
+async def run_ble_client():
+    async with BleakClient(DEVICE_ADDRESS) as client:
+        await client.start_notify(CHARACTERISTIC_UUID, notification_handler)
+        while True:
+            await asyncio.sleep(10)
+```
