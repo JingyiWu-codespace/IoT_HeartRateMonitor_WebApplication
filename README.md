@@ -129,13 +129,15 @@ def start_ble_loop(loop):
 def index():
     return render_template('index.html')
 ```
-## main
+## Starting Web Services
 - Create an `asyncio` event loop `loop`
 - Start the BLE listener task with a new thread `start_ble_loop`
 - Must use threads to run asynchronous code for BLE. Running Flask in the main thread and BLE in a sub-thread enables concurrent communication + front-end access. `host='0.0.0.0'` Receive requests from any IP (can be accessed by the same LAN)
-- Starting Web Services
+
+``` python
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     t = threading.Thread(target=start_ble_loop, args=(loop,))
     t.start()
     socketio.run(app, debug=True, host='0.0.0.0', port=5002)
+```
