@@ -49,3 +49,28 @@ def moving_average(data, window_size):
     else:
         return sum(data) / len(data)
 ```
+
+### Data processing
+`heart_rate = data[1] \n spo2 = data[2] `
+This is the "unpacking" of the raw BLE data.
+Byte 0: Flag bit 
+Byte 1: Heart rate value (BPM) 
+Byte 2: SpO2 value (% oxygen)
+
+
+```python
+def notification_handler(sender, data):
+    # 根据您的设备数据格式进行解析
+    heart_rate = data[1]
+    spo2 = data[2]
+
+    heart_rate_buffer.append(heart_rate)
+    smoothed_heart_rate = moving_average(heart_rate_buffer, MOVING_AVERAGE_WINDOW_SIZE)
+
+    # 只有在心率不为0时才更新到前端
+    display_heart_rate = smoothed_heart_rate if heart_rate != 0 else None
+
+    print(f"Received data: Heart Rate: {heart_rate}, Smoothed Heart Rate: {smoothed_heart_rate},spo2 : {spo2}, Raw Data: {data}")
+    socketio.emit('update_data', {'heart_rate': display_heart_rate, 'spo2': spo2}, namespace='/')
+    print("Data emitted to frontend")
+```
