@@ -11,7 +11,7 @@ import threading
 from bleak import BleakClient
 ```
 
-- `collections`: Use `deque` to save the latest heart rate for moving average calculation.
+- `collections`: Use `deque` to save the latest heart rate for moving average calculation. `deque`-Fixed-length double-ended queue
 - `time`: For sleep
 - `random`: For test without hardware/sensor
 - `flask`: For building a new web app instance.
@@ -27,9 +27,25 @@ from bleak import BleakClient
 - Create a Flask application instance. Register routes through it later (e.g. / to access the index page).
 - Use Flask-SocketIO to mount the WebSocket functionality to your Flask application.
 - After that you can use socketio.emit() to send data to the frontend.
+- Define a constant: the window size of the sliding average is 5. Meaning: each time the heart rate is updated, take the 5 most recent data and do an average. This is to solve the jitter problem of the sensor signal and to improve the data smoothness.
 
 ```python
 app = Flask(__name__)
 socketio = SocketIO(app)
 MOVING_AVERAGE_WINDOW_SIZE = 5
+
+# Device MAC Address PSOC6 (Can be scanned by LightBlue) 
+DEVICE_ADDRESS = "378B4DFC-AB5F-F241-22F4-AB0C216932A1"
+
+# Heart Rate Character, also have spo2
+CHARACTERISTIC_UUID = "2A37"  
+
+
+def moving_average(data, window_size):
+    if len(data)==0:
+        return 0
+    elif len(data) < window_size:
+        return sum(data) / len(data)
+    else:
+        return sum(data) / len(data)
 ```
